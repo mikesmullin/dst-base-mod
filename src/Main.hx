@@ -4,6 +4,7 @@ import lua.Lua.*;
 import Utils.*;
 import dst.CompiledEngine.*;
 import dst.CompiledEngine.AccountManager;
+import dst.CompiledEngine.NetBool;
 
 // import dst.Main;
 
@@ -14,7 +15,12 @@ class Main
 		dst.ModContext.injectLocalToGlobalAliases();
 
 		AccountManager.AddGameKeyToAccount();
-
+		function isCoolDirty() {}
+		var b = new NetBool("abcd-efgh-ijkl-mnop", "base_mod.isCool", "isCoolDirty");
+		b.set(true);
+		b.set_local(false);
+		trace(b.value());
+		
 	  require('vscode_debuggee').easyStart();
 
 		log("main() starting up...");

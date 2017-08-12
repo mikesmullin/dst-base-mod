@@ -1,6 +1,11 @@
 package dst;
 
 import haxe.Constraints.Function;
+import haxe.io.Bytes;
+
+typedef GUID = String;
+typedef Hash = Int;
+
 @:enum
 abstract BRANCH(String)
 {
@@ -124,7 +129,7 @@ extern class CompiledEngine
 	 * @param {String} s - Input sequence.
 	 * @return Presumably unique unsigned 32-bit integer.
 	 */
-	static public function hash(s:String): Int;
+	static public function hash(s:String): Hash;
 
 	/**
 	 * Like a 32-bit CRC.
@@ -133,7 +138,7 @@ extern class CompiledEngine
 	 * @param {String} s - Input sequence.
 	 * @return Presumably unique unsigned 32-bit integer.
 	 */
-	static public function smallhash(): Dynamic;
+	static public function smallhash(): Hash;
 
 	/**
 	 * Determine whether a file exists.
@@ -189,21 +194,6 @@ extern class CompiledEngine
 	 * for microsecond resolution/accuracy.
 	 */
 	static public function walltime(): Float;
-
-	static public var net_bool: {}; // table / class
-	static public var net_byte: {}; // table / class
-	static public var net_bytearray: {}; // table / class
-	static public var net_entity: {}; // table / class
-	static public var net_float: {}; // table / class
-	static public var net_hash: {}; // table / class
-	static public var net_int: {}; // table / class
-	static public var net_shortint: {}; // table / class
-	static public var net_smallbyte: {}; // table / class
-	static public var net_smallbytearray: {}; // table / class
-	static public var net_string: {}; // table / class
-	static public var net_tinybyte: {}; // table / class
-	static public var net_uint: {}; // table / class
-	static public var net_ushortint: {}; // table / class
 
 	// part of Lua or Debuggee
 	// static public function __halt__(): Dynamic;
@@ -386,7 +376,7 @@ extern class Entity
 	static public function FlushLocalDirtyNetVars(): Dynamic;
 	static public function FrustumCheck(): Dynamic;
 	static public function GetDebugString(): Dynamic;
-	static public function GetGUID(): Dynamic;
+	static public function GetGUID(): GUID;
 	static public function GetName(): Dynamic;
 	static public function GetParent(): Dynamic;
 	static public function GetPrefabName(): Dynamic;
@@ -1433,3 +1423,92 @@ extern class JSON
 	static private function _null(): Dynamic; // prefixed for Haxe compat
 	static private function object(): Dynamic;
 }
+
+/**
+	* Collection of typed classes only used by the Network
+	* interface to transmit binary data.
+	*/
+/**
+ * All network types extend this implementation.
+ */
+private extern class BaseType<T> {
+	
+	/**
+	 * Instantiation; registers a new network type object.
+	 * Used to transmit and/or receive change events with the server.
+
+	 * @param guid - Globally Unique Identifier;
+	 *   Provided by a call to an Entity:GetGUID() instance method.
+	 * @param name - Fully qualified name of the package and variable.
+	 *   Probably used for debug toString() dumps.
+	 *   But may be tracked by a compiled state machine
+	 *   and expected to be unique.
+	 * @param dirtyEventCallback - Event fired
+	 *   when client detects a change to this variable.
+	 *   May be triggered by server-to-client or
+	 *   a local-to-client modification.
+	 */
+	public function new(guid:GUID, name:String, ?dirtyEventCallbackName:String);
+
+	/**
+	 * Local and remote setter;
+	 * transmit a change notification to server,
+	 * and emit a change event locally.
+	 */
+	public function set(value:T):Void;
+
+	/**
+	 * Local-only setter;
+	 * Do NOT notify server,
+	 * but emit a change event locally.
+	 */
+	public function set_local(value:T):Void;
+
+	/**
+	 * Local-only getter;
+	 * Return last known value.
+	 */
+	public function value():T;
+}
+
+@:native("_G.net_bool")
+extern class NetBool extends BaseType<Bool> {}
+
+@:native("_G.net_byte")
+extern class NetByte extends BaseType<Int> {}
+
+@:native("_G.net_bytearray")
+extern class NetByteArray extends BaseType<Bytes> {}
+
+@:native("_G.net_entity")
+extern class NetEntity extends BaseType<Entity> {}
+
+@:native("_G.net_float")
+extern class NetFloat extends BaseType<Float> {}
+
+@:native("_G.net_hash")
+extern class NetHash extends BaseType<Hash> {}
+
+@:native("_G.net_int")
+extern class NetInt extends BaseType<Int> {}
+
+@:native("_G.net_shortint")
+extern class NetShortInt extends BaseType<Int> {}
+
+@:native("_G.net_uint")
+extern class NetUInt extends BaseType<Int> {}
+
+@:native("_G.net_ushortint")
+extern class NetUShortInt extends BaseType<Int> {}
+
+@:native("_G.net_tinybyte")
+extern class NetTinyByte extends BaseType<Int> {}
+
+@:native("_G.net_smallbyte")
+extern class NetSmallByte extends BaseType<Int> {}
+
+@:native("_G.net_smallbytearray")
+extern class NetSmallByteArray extends BaseType<Bytes> {}
+
+@:native("_G.net_string")
+extern class NetString extends BaseType<String> {}
