@@ -1,12 +1,18 @@
 package;
 
-import dst.CompiledEngine.Entity;
 import lua.Lua.*;
 import Utils.*;
+// TODO: simplify to dst.* ?
 import dst.CompiledEngine.*;
-import dst.CompiledEngine.AccountManager;
-import dst.CompiledEngine.NetBool;
+import dst.Config.*;
+import dst.DebugPrint.*;
+import dst.ExplicitLuaClass.*;
+import dst.Main.*;
 import dst.MainFunctions.*;
+import dst.ModContext;
+import dst.Strict.*;
+import dst.Vector3;
+import dst.Vector3.Point;
 
 // import dst.Main;
 
@@ -14,16 +20,8 @@ class Main
 {
 	public static function main()
 	{
-		dst.ModContext.injectLocalToGlobalAliases();
+		ModContext.injectLocalToGlobalAliases();
 
-		var e = CreateEntity();
-				
-		function isCoolDirty() {}
-		var b = new NetBool(e.GetGUID(), "base_mod.isCool", "isCoolDirty");
-		b.set(true);
-		b.set_local(false);
-		trace(b.value());
-		
 	  require('vscode_debuggee').easyStart();
 
 		log("main() starting up...");

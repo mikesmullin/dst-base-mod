@@ -114,13 +114,6 @@ Array.prototype = _hx_a(
 
 Main.new = {}
 Main.main = function() 
-  local e = _G.CreateEntity();
-  local isCoolDirty = function() 
-  end;
-  local b = _G.net_bool.new(e:GetGUID(),"base_mod.isCool","isCoolDirty");
-  b:set(true);
-  b:set_local(false);
-  haxe.Log.trace(b:value(),_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Main.hx",lineNumber=25,className="Main",methodName="main"}));
   _G.require("vscode_debuggee"):easyStart();
   haxe.Log.trace("MikesPlugin: " .. "main() starting up...",_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Utils.hx",lineNumber=14,className="Utils",methodName="log"}));
   haxe.Log.trace("MikesPlugin: " .. "debug mode is enabled.",_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Utils.hx",lineNumber=14,className="Utils",methodName="log"}));

@@ -47,7 +47,7 @@ extern class ExplicitLuaClass
 	/**
 	 * Remove a setter method of a given field name from previously defined class.
 	 */
-	static public function removesetter(className: String, fieldName  Dynamic): Void;
+	static public function removesetter(className: String, fieldName: Dynamic): Void;
 
 	/**
 	 * Unregisters previously defined class.
@@ -61,7 +61,7 @@ extern class ExplicitLuaClass
 	 * The unit is the number of frames/ticks.
 	 * Only called from update.lua Update().
 	 */
-	static public var ClassTrackingInterval: Int; // 100 
+	static public var ClassTrackingInterval: Int; // 100
 
 	/**
 	 * Print top 10 classes by most instances first.

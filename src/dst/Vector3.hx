@@ -113,7 +113,7 @@ extern class Vector3
 }
 
 @:native("_G.Point")
-public typedef Point = Vector3;
+typedef Point = Vector3;
 
 @:multiReturn
 private extern class VectorTuple {
