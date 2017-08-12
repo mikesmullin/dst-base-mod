@@ -1,0 +1,5 @@
+-lua build/modmain.lua
+-cp src
+-main Main.hx
+-dce full
+-debug
