@@ -1,43 +1,16 @@
 package dst;
 
+import haxe.extern.Rest;
 import haxe.Constraints.Function;
 import haxe.io.Bytes;
 
-typedef GUID = String;
-typedef Hash = Int;
-
-@:enum
-abstract BRANCH(String)
-{
-	var dev = "dev";
-	var staging = "staging";
-	var release = "release";
-}
-
-@:enum
-abstract PLATFORM(String)
-{
-	var PS4 = "PS4";
-	var WIN32_STEAM = "WIN32_STEAM";
-	var OSX_STEAM = "OSX_STEAM";
-	var LINUX_STEAM = "LINUX_STEAM";
-	var ANDROID = "ANDROID";
-	var NACL = "NACL";
-}
-
-@:enum
-abstract APP_REGION(String)
-{
-	var NONE = "NONE";
-	var SCEJ = "SCEJ";
-}
-
-@:enum
-abstract CONFIGURATION(String)
-{
-	var PRODUCTION = "PRODUCTION";
-}
-
+/**
+ * bin/dontstarve_steam.exe
+ *
+ * This namespace represents hardware-acceleratd machine code
+ * interfaces Lua may access from its runtime sandbox.
+ * It provides many commonly used definitions.
+ */
 @:native("_G")
 extern class CompiledEngine
 {
@@ -165,14 +138,14 @@ extern class CompiledEngine
 	 * into an array data structure.
 	 * Non-null variant.
 	 */
-	static public function toarray(args:Dynamic): Array<Dynamic>;
+	static public function toarray(args:Rest<Dynamic>): Array<Dynamic>;
 
 	/**
 	 * Exclusively used to copy Lua variable arguments (...)
 	 * into an array data structure,
 	 * or a nil value.
 	 */
-	static public function toarrayornil(args:Dynamic): Null<Array<Dynamic>>;
+	static public function toarrayornil(args:Rest<Dynamic>): Null<Array<Dynamic>>;
 
 	/**
 	 * Like a normal Lua assert(), except
@@ -1323,6 +1296,9 @@ extern class Transform {
 	public function UpdateTransform(): Dynamic;
 }
 
+/**
+ * bin/twitchsdk_32_release.dll
+ */
 @:native("_G.TwitchOptions")
 extern class TwitchOptions {
 	public function Forget(): Dynamic;
@@ -1518,3 +1494,40 @@ extern class NetSmallByteArray extends BaseType<Bytes> {}
 
 @:native("_G.net_string")
 extern class NetString extends BaseType<String> {}
+
+
+
+typedef GUID = String;
+typedef Hash = Int;
+
+@:enum
+abstract BRANCH(String)
+{
+	var dev = "dev";
+	var staging = "staging";
+	var release = "release";
+}
+
+@:enum
+abstract PLATFORM(String)
+{
+	var PS4 = "PS4";
+	var WIN32_STEAM = "WIN32_STEAM";
+	var OSX_STEAM = "OSX_STEAM";
+	var LINUX_STEAM = "LINUX_STEAM";
+	var ANDROID = "ANDROID";
+	var NACL = "NACL";
+}
+
+@:enum
+abstract APP_REGION(String)
+{
+	var NONE = "NONE";
+	var SCEJ = "SCEJ";
+}
+
+@:enum
+abstract CONFIGURATION(String)
+{
+	var PRODUCTION = "PRODUCTION";
+}
