@@ -2,7 +2,8 @@ package;
 
 import lua.Lua.*;
 import Utils.*;
-import dst.Engine.*;
+import dst.CompiledEngine.*;
+import dst.CompiledEngine.AccountManager;
 
 // import dst.Main;
 
@@ -11,6 +12,8 @@ class Main
 	public static function main()
 	{
 		dst.ModContext.injectLocalToGlobalAliases();
+
+		AccountManager.AddGameKeyToAccount();
 
 	  require('vscode_debuggee').easyStart();
 

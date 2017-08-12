@@ -1,51 +1,195 @@
 package dst;
 
-@:native("_G")
-extern class Engine
+import haxe.Constraints.Function;
+@:enum
+abstract BRANCH(String)
 {
-	static public var APP_BUILD_DATE: String; // "2144"
-	static public var APP_BUILD_TIME: String; // "11:01:52"
-	static public var APP_REGION: String; // "NONE"
-	static public var APP_VERSION: String; // 226323
-	static public var Account: String; // "Unknown"
-	static public var BRANCH: String; // "release"
-	static public var CONFIGURATION: String; // "PRODUCTION"
-	static public var CONSOLE_ENABLED: Bool; // true
-	static public var CWD: String; // "C:\Program Files (x86)\Steam\steamapps\common\Don't Starve Together Beta\data"
-	static public var Ents: {}; // table
-	static public var MODS_ENABLED: Bool; // true
-	static public var MODS_ROOT: String; // "../mods/"
-	static public var PLATFORM: String; // "WIN32_STEAM"
-	static public var PRINT_TEXTURE_INFO: Bool; // false
-	static public var RUN_GLOBAL_INIT: Bool; // true
-	static public var TheGameService: GameService;
-	static public var TheInputProxy: InputProxy;
-	static public var TheInventory: InventoryProxy;
-	static public var TheItems: ItemServerProxy;
-	static public var TheNet: NetworkProxy;
-	static public var TheRawImgui: RawImgui;
-	static public var TheShard: ShardProxy;
-	static public var TheSim: Sim;
-	static public var TheSystemService: SystemService;
-	static public function _TRACEBACK(): Dynamic;
-	static public function VisitURL(): Dynamic;
+	var dev = "dev";
+	var staging = "staging";
+	var release = "release";
+}
 
-	static public function anglediff(): Dynamic;
+@:enum
+abstract PLATFORM(String)
+{
+	var PS4 = "PS4";
+	var WIN32_STEAM = "WIN32_STEAM";
+	var OSX_STEAM = "OSX_STEAM";
+	var LINUX_STEAM = "LINUX_STEAM";
+	var ANDROID = "ANDROID";
+	var NACL = "NACL";
+}
+
+@:enum
+abstract APP_REGION(String)
+{
+	var NONE = "NONE";
+	var SCEJ = "SCEJ";
+}
+
+@:enum
+abstract CONFIGURATION(String)
+{
+	var PRODUCTION = "PRODUCTION";
+}
+
+@:native("_G")
+extern class CompiledEngine
+{
+	/**
+	 * Build information.
+	 */
+	static public var APP_BUILD_DATE(default,never): String; // "2144"
+	static public var APP_BUILD_TIME(default,never): String; // "11:01:52"
+	static public var APP_REGION(default,never): APP_REGION; // "NONE"
+	static public var APP_VERSION(default,never): String; // "226323"
+	static public var BRANCH(default,never): BRANCH; // "release"
+	static public var CONFIGURATION(default,never): CONFIGURATION; // "PRODUCTION"
+	static public var PLATFORM(default,never): PLATFORM; // "WIN32_STEAM"
+
+	/**
+	 * Klei account username.
+	 */
+	static public var Account(default,never): String; // "UNKNOWN"
+
+	/**
+	 * Whether player may use the developer console.
+	 */
+	static public var CONSOLE_ENABLED: Bool; // true
+
+	/**
+	 * Runtime current working directory.
+	 */
+	static public var CWD(default,never): String; // "C:\Program Files (x86)\Steam\steamapps\common\Don't Starve Together Beta\data"
+
+	/**
+	 * May disable loading of all mods.
+	 */
+	static public var MODS_ENABLED: Bool; // true
+	
+	/**
+	 * Path to mod directory.
+	 * Used like MODS_ROOT + modname + "/modinfo.lua".
+	 */
+	static public var MODS_ROOT(default,never): String; // "../mods/"
+
+	/**
+	 * Only used in two places by gamelogic.lua which cooperates
+	 * by printing relevant debug information pertaining to
+	 * on-screen/in-memory runtime texture data.
+	 */
+	static public var PRINT_TEXTURE_INFO: Bool; // false
+
+	/**
+	 * One-time preload of global assets (ie. fonts, sounds).
+	 */
+	static public var RUN_GLOBAL_INIT: Bool; // true
+
+	/**
+	 * Global service singleton instances.
+	 */
+	static public var TheGameService(default,never): GameService;
+	static public var TheInputProxy(default,never): InputProxy;
+	static public var TheInventory(default,never): InventoryProxy;
+	static public var TheItems(default,never): ItemServerProxy;
+	static public var TheNet(default,never): NetworkProxy;
+	static public var TheRawImgui(default,never): RawImgui;
+	static public var TheShard(default,never): ShardProxy;
+	static public var TheSim(default,never): Sim;
+	static public var TheSystemService(default,never): SystemService;
+
+	/**
+	 * Alias for StackTrace(err)
+	 */
+	static public function _TRACEBACK(err:Dynamic): Dynamic;
+
+	/**
+	 * Launch browser.
+	 */
+	static public function VisitURL(url:String, ?notrack:Bool): Void;
+
+	/**
+	 * ∠a - ∠b normalized within 360°.
+	 */
+	static public function anglediff(a:Float, b:Float): Float;
+
+	/**
+	 * Never used.
+	 */
+	@:deprecated
 	static public function createTable(): Dynamic;
-	static public function hash(): Dynamic;
-	static public function kleifileexists(): Dynamic;
-	static public function kleiloadlua(): Dynamic;
-	static public function perlin(): Dynamic;
+
+	/**
+	 * Like a 32-bit CRC.
+	 * @param {String} s - Input sequence.
+	 * @return Presumably unique unsigned 32-bit integer.
+	 */
+	static public function hash(s:String): Int;
+
+	/**
+	 * Like a 32-bit CRC.
+	 * Name indicates it is more effective for input values
+	 * which are smaller in byte size.
+	 * @param {String} s - Input sequence.
+	 * @return Presumably unique unsigned 32-bit integer.
+	 */
 	static public function smallhash(): Dynamic;
-	static public function toarray(): Dynamic;
-	static public function toarrayornil(): Dynamic;
-	static public function tracked_asert(): Dynamic;
+
+	/**
+	 * Determine whether a file exists.
+	 * Perhaps for security cases when
+	 * io.open() and similar methods are sandboxed.
+	 */
+	static public function kleifileexists(filename:String): Bool;
+
+	/**
+	 * Load a lua module.
+	 * Again perhaps for security cases when
+	 * require() and similar methods are sandboxed.
+	 */
+	static public function kleiloadlua(filename:String): Function;
+
+	/**
+	 * 3D Perlin noise generator.
+	 */
+	static public function perlin(x:Float, y:Float, z:Float): Float;
+
+	/**
+	 * Exclusively used to copy Lua variable arguments (...)
+	 * into an array data structure.
+	 * Non-null variant.
+	 */
+	static public function toarray(args:Dynamic): Array<Dynamic>;
+
+	/**
+	 * Exclusively used to copy Lua variable arguments (...)
+	 * into an array data structure,
+	 * or a nil value.
+	 */
+	static public function toarrayornil(args:Dynamic): Null<Array<Dynamic>>;
+
+	/**
+	 * Like a normal Lua assert(), except
+	 * @returns a function pointer instead of a string.
+	 */
+	static public function tracked_assert(v:Bool, ?message:String): Dynamic;
+
+	/**
+	 * UTF-8 string utility functions.
+	 */
 	static public function utf8strlen(): Dynamic;
 	static public function utf8strtolower(): Dynamic;
 	static public function utf8strtoupper(): Dynamic;
 	static public function utf8substr(): Dynamic;
-	static public function walltime(): Dynamic;
-	
+
+	/**
+	 * Real-world elapsed time since program start in seconds
+	 * with decimal.
+	 * Only used by profiler;
+	 * for microsecond resolution/accuracy.
+	 */
+	static public function walltime(): Float;
+
 	static public var net_bool: {}; // table / class
 	static public var net_byte: {}; // table / class
 	static public var net_bytearray: {}; // table / class
@@ -79,6 +223,7 @@ extern class Engine
 	// static public function unpack(): Dynamic;
 }
 
+@:native("_G.AccountManager")
 extern class AccountManager
 {
 	static public function AddGameKeyToAccount(): Dynamic;
@@ -102,6 +247,7 @@ extern class AccountManager
 	static public function ValidateToken(): Dynamic;
 }
 
+@:native("_G.AnimState")
 extern class AnimState
 {
 	static public function AddOverrideBuild(): Dynamic;
@@ -162,10 +308,12 @@ extern class AnimState
 	static public function ShowSymbol(): Dynamic;
 }
 
+@:native("_G.ClientSleepable")
 extern class ClientSleepable
 {
 }
 
+@:native("_G.DebugRender")
 extern class DebugRender
 {
 	static public function Box(): Dynamic;
@@ -179,12 +327,14 @@ extern class DebugRender
 	static public function Triangle(): Dynamic;
 }
 
+@:native("_G.DynamicShadow")
 extern class DynamicShadow
 {
 	static public function Enable(): Dynamic;
 	static public function SetSize(): Dynamic;
 }
 
+@:native("_G.Entity")
 extern class Entity
 {
 	static public function AddAccountManager(): Dynamic;
@@ -263,13 +413,14 @@ extern class Entity
 	static public function SetSelected(): Dynamic;
 	static public function Show(): Dynamic;
 	static public function WorldToLocalSpace(): Dynamic;
-	static public var (metatable): {}; // table
 }
 
+@:native("_G.Ents")
 extern class Ents
 {
 }
 
+@:native("_G.EnvelopeManager")
 extern class EnvelopeManager
 {
 	static public function AddColourEnvelope(): Dynamic;
@@ -277,23 +428,27 @@ extern class EnvelopeManager
 	static public function AddVector2Envelope(): Dynamic;
 }
 
+@:native("_G.Follower")
 extern class Follower
 {
 	static public function FollowSymbol(): Dynamic;
 	static public function SetOffset(): Dynamic;
 }
 
+@:native("_G.FontManager")
 extern class FontManager
 {
 	static public function RegisterFont(): Dynamic;
 }
 
+@:native("_G.GameService")
 extern class GameService
 {
 	static public function AwardAchievement(): Dynamic;
 	static public function RegisterAchievement(): Dynamic;
 }
 
+@:native("_G.GraphicsOptions")
 extern class GraphicsOptions
 {
 	static public function DisableLightMapComponent(): Dynamic;
@@ -322,6 +477,7 @@ extern class GraphicsOptions
 	static public function ToggleFullScreen(): Dynamic;
 }
 
+@:native("_G.GroundCreep")
 extern class GroundCreep
 {
 	static public function AddRenderLayer(): Dynamic;
@@ -335,11 +491,13 @@ extern class GroundCreep
 	static public function TriggerCreepSpawners(): Dynamic;
 }
 
+@:native("_G.GroundCreepEntity")
 extern class GroundCreepEntity
 {
 	static public function SetRadius(): Dynamic;
 }
 
+@:native("_G.Image")
 extern class Image
 {
 	static public function Enable(): Dynamic;
@@ -355,6 +513,7 @@ extern class Image
 	static public function SetWorldOffset(): Dynamic;
 }
 
+@:native("_G.ImageWidget")
 extern class ImageWidget
 {
 	static public function EnableEffectParams(): Dynamic;
@@ -372,6 +531,7 @@ extern class ImageWidget
 	static public function SetVAnchor(): Dynamic;
 }
 
+@:native("_G.InputProxy")
 extern class InputProxy
 {
 	static public function AddVibration(): Dynamic;
@@ -406,6 +566,7 @@ extern class InputProxy
 	static public function UnMapControl(): Dynamic;
 }
 
+@:native("_G.InventoryProxy")
 extern class InventoryProxy
 {
 	static public function CheckClientOwnership(): Dynamic;
@@ -420,6 +581,7 @@ extern class InventoryProxy
 	static public function SetItemOpened(): Dynamic;
 }
 
+@:native("_G.ItemServerProxy")
 extern class ItemServerProxy
 {
 	static public function GetRecipes(): Dynamic;
@@ -427,6 +589,7 @@ extern class ItemServerProxy
 	static public function SwapItems(): Dynamic;
 }
 
+@:native("_G.Label")
 extern class Label
 {
 	static public function Enable(): Dynamic;
@@ -438,6 +601,7 @@ extern class Label
 	static public function SetWorldOffset(): Dynamic;
 }
 
+@:native("_G.Light")
 extern class Light
 {
 	static public function Enable(): Dynamic;
@@ -456,6 +620,7 @@ extern class Light
 	static public function SetRadius(): Dynamic;
 }
 
+@:native("_G.LightWatcher")
 extern class LightWatcher
 {
 	static public function GetLightAngle(): Dynamic;
@@ -467,6 +632,7 @@ extern class LightWatcher
 	static public function SetLightThresh(): Dynamic;
 }
 
+@:native("_G.Map")
 extern class Map
 {
 	static public function AddRenderLayer(): Dynamic;
@@ -505,6 +671,7 @@ extern class Map
 	static public function VisitTile(): Dynamic;
 }
 
+@:native("_G.MapExplorer")
 extern class MapExplorer
 {
 	static public function ActivateLocalMiniMap(): Dynamic;
@@ -514,6 +681,7 @@ extern class MapExplorer
 	static public function RevealArea(): Dynamic;
 }
 
+@:native("_G.MapGenSim")
 extern class MapGenSim
 {
 	static public function CreateBox(): Dynamic;
@@ -526,12 +694,14 @@ extern class MapGenSim
 	static public function UpdateSim(): Dynamic;
 }
 
+@:native("_G.MapLayerManager")
 extern class MapLayerManager
 {
 	static public function CreateRenderLayer(): Dynamic;
 	static public function ReleaseRenderLayer(): Dynamic;
 }
 
+@:native("_G.MiniMap")
 extern class MiniMap
 {
 	static public function AddAtlas(): Dynamic;
@@ -554,6 +724,7 @@ extern class MiniMap
 	static public function Zoom(): Dynamic;
 }
 
+@:native("_G.MiniMapEntity")
 extern class MiniMapEntity
 {
 	static public function CopyIcon(): Dynamic;
@@ -567,6 +738,7 @@ extern class MiniMapEntity
 	static public function SetRestriction(): Dynamic;
 }
 
+@:native("_G.Network")
 extern class Network
 {
 	static public function AddUserFlag(): Dynamic;
@@ -577,12 +749,13 @@ extern class Network
 	static public function GetUserID(): Dynamic;
 	static public function IsServerAdmin(): Dynamic;
 	static public function RemoveUserFlag(): Dynamic;
-	static public function Setextern ClassifiedTarget(): Dynamic;
+	static public function SetClassifiedTarget(): Dynamic;
 	static public function SetPlayerAge(): Dynamic;
 	static public function SetPlayerEquip(): Dynamic;
 	static public function SetPlayerSkin(): Dynamic;
 }
 
+@:native("_G.NetworkProxy")
 extern class NetworkProxy
 {
 	static public function AddToWhiteList(): Dynamic;
@@ -755,6 +928,7 @@ extern class NetworkProxy
 	static public function Vote(): Dynamic;
 }
 
+@:native("_G.ParticleEmitter")
 extern class ParticleEmitter
 {
 	static public function AddParticle(): Dynamic;
@@ -782,6 +956,7 @@ extern class ParticleEmitter
 	static public function SetUVFrameSize(): Dynamic;
 }
 
+@:native("_G.PathFinder")
 extern class PathFinder
 {
 	static public function AddWall(): Dynamic;
@@ -795,6 +970,7 @@ extern class PathFinder
 	static public function SubmitSearch(): Dynamic;
 }
 
+@:native("_G.Physics")
 extern class Physics
 {
 	static public function CheckGridOffset(): Dynamic;
@@ -832,6 +1008,7 @@ extern class Physics
 	static public function Teleport(): Dynamic;
 }
 
+@:native("_G.PostProcessor")
 extern class PostProcessor
 {
 	static public function SetColourCubeData(): Dynamic;
@@ -842,11 +1019,13 @@ extern class PostProcessor
 	static public function SetEffectTime(): Dynamic;
 }
 
+@:native("_G.RawImgui")
 extern class RawImgui
 {
 	static public function IsImguiEnabled(): Dynamic;
 }
 
+@:native("_G.RoadManager")
 extern class RoadManager {
 	static public function AddControlPoint(): Dynamic;
 	static public function AddSmoothedControlPoint(): Dynamic;
@@ -860,19 +1039,23 @@ extern class RoadManager {
 	static public function SetStripWrapMode(): Dynamic;
 }
 
+@:native("_G.ShadowManager")
 extern class ShadowManager {
 	static public function GenerateStaticShadows(): Dynamic;
 	static public function SetTexture(): Dynamic;
 }
 
+@:native("_G.ShardClient")
 extern class ShardClient {
 
 }
 
+@:native("_G.ShardNetwork")
 extern class ShardNetwork {
 
 }
 
+@:native("_G.ShardProxy")
 extern class ShardProxy {
 	static public function GetDefaultShardEnabled(): Dynamic;
 	static public function GetShardId(): Dynamic;
@@ -885,6 +1068,7 @@ extern class ShardProxy {
 	static public function StartMigration(): Dynamic;
 }
 
+@:native("_G.Sim")
 extern class Sim {
 	static public function AdjustFontAdvance(): Dynamic;
 	static public function CanWriteConfigurationDirectory(): Dynamic;
@@ -1050,6 +1234,7 @@ extern class Sim {
 	static public function WorldPointInPoly(): Dynamic;
 }
 
+@:native("_G.SoundEmitter")
 extern class SoundEmitter {
 	static public function GetEntity(): Dynamic;
 	static public function KillAllSounds(): Dynamic;
@@ -1063,10 +1248,12 @@ extern class SoundEmitter {
 	static public function SetVolume(): Dynamic;
 }
 
+@:native("_G.StaticShadow")
 extern class StaticShadow {
 	static public function SetSize(): Dynamic;
 }
 
+@:native("_G.SystemService")
 extern class SystemService {
 	static public function AdjustDisplaySafeArea(): Dynamic;
 	static public function ClearLastOperation(): Dynamic;
@@ -1091,6 +1278,7 @@ extern class SystemService {
 	static public function StopDedicatedServers(): Dynamic;
 }
 
+@:native("_G.TextEditWidget")
 extern class TextEditWidget {
 	static public function EnableScrollEditWindow(): Dynamic;
 	static public function GetString(): Dynamic;
@@ -1102,6 +1290,7 @@ extern class TextEditWidget {
 	static public function SetString(): Dynamic;
 }
 
+@:native("_G.TextWidget")
 extern class TextWidget {
 	static public function EnableWhitespaceWrap(): Dynamic;
 	static public function EnableWordWrap(): Dynamic;
@@ -1120,6 +1309,7 @@ extern class TextWidget {
 	static public function ShowEditCursor(): Dynamic;
 }
 
+@:native("_G.Transform")
 extern class Transform {
 	static public function GetFacing(): Dynamic;
 	static public function GetLocalPosition(): Dynamic;
@@ -1139,6 +1329,7 @@ extern class Transform {
 	static public function UpdateTransform(): Dynamic;
 }
 
+@:native("_G.TwitchOptions")
 extern class TwitchOptions {
 	static public function Forget(): Dynamic;
 	static public function GetBroadcastingEnabled(): Dynamic;
@@ -1161,6 +1352,7 @@ extern class TwitchOptions {
 	static public function ToggleStreaming(): Dynamic;
 }
 
+@:native("_G.UITransform")
 extern class UITransform {
 	static public function GetLocalPosition(): Dynamic;
 	static public function GetRotation(): Dynamic;
@@ -1176,6 +1368,7 @@ extern class UITransform {
 	static public function UpdateTransform(): Dynamic;
 }
 
+@:native("_G.VFXEffect")
 extern class VFXEffect {
 	static public function AddParticle(): Dynamic;
 	static public function AddParticleUV(): Dynamic;
@@ -1205,6 +1398,7 @@ extern class VFXEffect {
 	static public function SetUVFrameSize(): Dynamic;
 }
 
+@:native("_G.VideoWidget")
 extern class VideoWidget {
 	static public function GetSize(): Dynamic;
 	static public function IsDone(): Dynamic;
@@ -1217,6 +1411,7 @@ extern class VideoWidget {
 	static public function Stop(): Dynamic;
 }
 
+@:native("_G.WaveComponent")
 extern class WaveComponent {
 	static public function Init(): Dynamic;
 	static public function SetWaveEffect(): Dynamic;
@@ -1234,6 +1429,7 @@ extern class JSON
 	static private var _PACKAGE: String; // ""
 	static public function decode(): Dynamic;
 	static public function encode(): Dynamic;
-	static private function null(): Dynamic;
+	@:native("null")
+	static private function _null(): Dynamic; // prefixed for Haxe compat
 	static private function object(): Dynamic;
 }
