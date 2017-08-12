@@ -119,7 +119,8 @@ extern class CompiledEngine
 	static public function anglediff(a:Float, b:Float): Float;
 
 	/**
-	 * Never used.
+	 * Unused.
+	 * @returns a new table instance.
 	 */
 	@:deprecated
 	static public function createTable(): Dynamic;
@@ -195,22 +196,20 @@ extern class CompiledEngine
 	 */
 	static public function walltime(): Float;
 
-	// part of Lua or Debuggee
-	// static public function __halt__(): Dynamic;
-	// static public function coroutine(): Dynamic;
-	// static public var debug: {}; // table
-	// static public function gcinfo(): Dynamic;
-	// static public function getfenv(): Dynamic;
-	// static public var io: {}; // table
-	// static public function loadstring(): Dynamic;
-	// static public var math: {}; // table
-	// static public function module(): Dynamic;
-	// static public function newproxy(): Dynamic;
-	// static public var os: {}; // table
-	// static public var package: {}; // table
-	// static public var string: {}; // table
-	// static public var table: {}; // table
-	// static public function unpack(): Dynamic;
+	/**
+	 * Unused.
+	 * @returns an integer that is always different and always higher than the last.
+	 *   Probably a count of cleaned up objects.
+	 */
+	@:deprecated
+	static public function gcinfo(): Int;
+
+	/**
+	 * Unused.
+	 * @returns reference to a userdata object.
+	 */
+	@:deprecated
+	static public function newproxy(): Dynamic;
 }
 
 @:native("_G.AccountManager")
@@ -1423,11 +1422,7 @@ extern class JSON
 	static private function _null(): Dynamic; // prefixed for Haxe compat
 	static private function object(): Dynamic;
 }
-
-/**
-	* Collection of typed classes only used by the Network
-	* interface to transmit binary data.
-	*/
+	
 /**
  * All network types extend this implementation.
  */
@@ -1470,6 +1465,12 @@ private extern class BaseType<T> {
 	 */
 	public function value():T;
 }
+
+
+/**
+	* Collection of typed classes used only by the network
+	* interface to transmit binary data.
+	*/
 
 @:native("_G.net_bool")
 extern class NetBool extends BaseType<Bool> {}
