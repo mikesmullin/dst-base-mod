@@ -1,10 +1,12 @@
 package;
 
+import dst.CompiledEngine.Entity;
 import lua.Lua.*;
 import Utils.*;
 import dst.CompiledEngine.*;
 import dst.CompiledEngine.AccountManager;
 import dst.CompiledEngine.NetBool;
+import dst.MainFunctions.*;
 
 // import dst.Main;
 
@@ -14,9 +16,10 @@ class Main
 	{
 		dst.ModContext.injectLocalToGlobalAliases();
 
-		AccountManager.AddGameKeyToAccount();
+		var e = CreateEntity();
+				
 		function isCoolDirty() {}
-		var b = new NetBool("abcd-efgh-ijkl-mnop", "base_mod.isCool", "isCoolDirty");
+		var b = new NetBool(e.GetGUID(), "base_mod.isCool", "isCoolDirty");
 		b.set(true);
 		b.set_local(false);
 		trace(b.value());

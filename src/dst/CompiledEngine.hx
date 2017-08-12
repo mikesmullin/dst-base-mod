@@ -215,86 +215,86 @@ extern class CompiledEngine
 @:native("_G.AccountManager")
 extern class AccountManager
 {
-	static public function AddGameKeyToAccount(): Dynamic;
-	static public function CancelLogin(): Dynamic;
-	static public function CommunicationSucceeded(): Dynamic;
-	static public function CreateAccount(): Dynamic;
-	static public function GetSteamLoginURL(): Dynamic;
-	static public function GetToken(): Dynamic;
-	static public function GetUsername(): Dynamic;
-	static public function GetViewAccountURL(): Dynamic;
-	static public function HasAuthToken(): Dynamic;
-	static public function HasSteamTicket(): Dynamic;
-	static public function IsBanned(): Dynamic;
-	static public function IsWaitingForResponse(): Dynamic;
-	static public function Login(): Dynamic;
-	static public function Logout(): Dynamic;
-	static public function MustUpgradeClient(): Dynamic;
-	static public function MustValidateEmail(): Dynamic;
-	static public function RecoverPassword(): Dynamic;
-	static public function TokenPurpose(): Dynamic;
-	static public function ValidateToken(): Dynamic;
+	public function AddGameKeyToAccount(): Dynamic;
+	public function CancelLogin(): Dynamic;
+	public function CommunicationSucceeded(): Dynamic;
+	public function CreateAccount(): Dynamic;
+	public function GetSteamLoginURL(): Dynamic;
+	public function GetToken(): Dynamic;
+	public function GetUsername(): Dynamic;
+	public function GetViewAccountURL(): Dynamic;
+	public function HasAuthToken(): Dynamic;
+	public function HasSteamTicket(): Dynamic;
+	public function IsBanned(): Dynamic;
+	public function IsWaitingForResponse(): Dynamic;
+	public function Login(): Dynamic;
+	public function Logout(): Dynamic;
+	public function MustUpgradeClient(): Dynamic;
+	public function MustValidateEmail(): Dynamic;
+	public function RecoverPassword(): Dynamic;
+	public function TokenPurpose(): Dynamic;
+	public function ValidateToken(): Dynamic;
 }
 
 @:native("_G.AnimState")
 extern class AnimState
 {
-	static public function AddOverrideBuild(): Dynamic;
-	static public function AnimDone(): Dynamic;
-	static public function AssignItemSkins(): Dynamic;
-	static public function BuildHasSymbol(): Dynamic;
-	static public function ClearAllOverrideSymbols(): Dynamic;
-	static public function ClearBloomEffectHandle(): Dynamic;
-	static public function ClearOverrideBuild(): Dynamic;
-	static public function ClearOverrideSymbol(): Dynamic;
-	static public function ClearSymbolExchanges(): Dynamic;
-	static public function FastForward(): Dynamic;
-	static public function GetAddColour(): Dynamic;
-	static public function GetCurrentAnimationLength(): Dynamic;
-	static public function GetCurrentAnimationTime(): Dynamic;
-	static public function GetCurrentFacing(): Dynamic;
-	static public function GetMultColor(): Dynamic;
-	static public function GetSymbolPosition(): Dynamic;
-	static public function Hide(): Dynamic;
-	static public function HideSymbol(): Dynamic;
-	static public function IsCurrentAnimation(): Dynamic;
-	static public function OverrideItemSkinSymbol(): Dynamic;
-	static public function OverrideMultColor(): Dynamic;
-	static public function OverrideShade(): Dynamic;
-	static public function OverrideSymbol(): Dynamic;
-	static public function Pause(): Dynamic;
-	static public function PlayAnimation(): Dynamic;
-	static public function PushAnimation(): Dynamic;
-	static public function Resume(): Dynamic;
-	static public function SetAddColour(): Dynamic;
-	static public function SetBank(): Dynamic;
-	static public function SetBloomEffectHandle(): Dynamic;
-	static public function SetBuild(): Dynamic;
-	static public function SetClientSideBuildOverrideFlag(): Dynamic;
-	static public function SetClientsideBuildOverride(): Dynamic; // sic
-	static public function SetDeltaTimeMultipler(): Dynamic;
-	static public function SetDepthBias(): Dynamic;
-	static public function SetDepthTestEnabled(): Dynamic;
-	static public function SetErosionParams(): Dynamic;
-	static public function SetFinalOffset(): Dynamic;
-	static public function SetHaunted(): Dynamic;
-	static public function SetHighlightColour(): Dynamic;
-	static public function SetLayer(): Dynamic;
-	static public function SetLightOverride(): Dynamic;
-	static public function SetManualBB(): Dynamic;
-	static public function SetMultColour(): Dynamic;
-	static public function SetMultiSymbolExchange(): Dynamic;
-	static public function SetOrientation(): Dynamic;
-	static public function SetPercent(): Dynamic;
-	static public function SetRayTestOnBB(): Dynamic;
-	static public function SetScale(): Dynamic;
-	static public function SetSkin(): Dynamic;
-	static public function SetSortOrder(): Dynamic;
-	static public function SetSortWorldOffset(): Dynamic;
-	static public function SetSymbolExchange(): Dynamic;
-	static public function SetTime(): Dynamic;
-	static public function Show(): Dynamic;
-	static public function ShowSymbol(): Dynamic;
+	public function AddOverrideBuild(): Dynamic;
+	public function AnimDone(): Dynamic;
+	public function AssignItemSkins(): Dynamic;
+	public function BuildHasSymbol(): Dynamic;
+	public function ClearAllOverrideSymbols(): Dynamic;
+	public function ClearBloomEffectHandle(): Dynamic;
+	public function ClearOverrideBuild(): Dynamic;
+	public function ClearOverrideSymbol(): Dynamic;
+	public function ClearSymbolExchanges(): Dynamic;
+	public function FastForward(): Dynamic;
+	public function GetAddColour(): Dynamic;
+	public function GetCurrentAnimationLength(): Dynamic;
+	public function GetCurrentAnimationTime(): Dynamic;
+	public function GetCurrentFacing(): Dynamic;
+	public function GetMultColor(): Dynamic;
+	public function GetSymbolPosition(): Dynamic;
+	public function Hide(): Dynamic;
+	public function HideSymbol(): Dynamic;
+	public function IsCurrentAnimation(): Dynamic;
+	public function OverrideItemSkinSymbol(): Dynamic;
+	public function OverrideMultColor(): Dynamic;
+	public function OverrideShade(): Dynamic;
+	public function OverrideSymbol(): Dynamic;
+	public function Pause(): Dynamic;
+	public function PlayAnimation(): Dynamic;
+	public function PushAnimation(): Dynamic;
+	public function Resume(): Dynamic;
+	public function SetAddColour(): Dynamic;
+	public function SetBank(): Dynamic;
+	public function SetBloomEffectHandle(): Dynamic;
+	public function SetBuild(): Dynamic;
+	public function SetClientSideBuildOverrideFlag(): Dynamic;
+	public function SetClientsideBuildOverride(): Dynamic; // sic
+	public function SetDeltaTimeMultipler(): Dynamic;
+	public function SetDepthBias(): Dynamic;
+	public function SetDepthTestEnabled(): Dynamic;
+	public function SetErosionParams(): Dynamic;
+	public function SetFinalOffset(): Dynamic;
+	public function SetHaunted(): Dynamic;
+	public function SetHighlightColour(): Dynamic;
+	public function SetLayer(): Dynamic;
+	public function SetLightOverride(): Dynamic;
+	public function SetManualBB(): Dynamic;
+	public function SetMultColour(): Dynamic;
+	public function SetMultiSymbolExchange(): Dynamic;
+	public function SetOrientation(): Dynamic;
+	public function SetPercent(): Dynamic;
+	public function SetRayTestOnBB(): Dynamic;
+	public function SetScale(): Dynamic;
+	public function SetSkin(): Dynamic;
+	public function SetSortOrder(): Dynamic;
+	public function SetSortWorldOffset(): Dynamic;
+	public function SetSymbolExchange(): Dynamic;
+	public function SetTime(): Dynamic;
+	public function Show(): Dynamic;
+	public function ShowSymbol(): Dynamic;
 }
 
 @:native("_G.ClientSleepable")
@@ -305,103 +305,108 @@ extern class ClientSleepable
 @:native("_G.DebugRender")
 extern class DebugRender
 {
-	static public function Box(): Dynamic;
-	static public function Circle(): Dynamic;
-	static public function Flush(): Dynamic;
-	static public function Line(): Dynamic;
-	static public function Poly(): Dynamic;
-	static public function SetRenderLoop(): Dynamic;
-	static public function SetZ(): Dynamic;
-	static public function String(): Dynamic;
-	static public function Triangle(): Dynamic;
+	public function Box(): Dynamic;
+	public function Circle(): Dynamic;
+	public function Flush(): Dynamic;
+	public function Line(): Dynamic;
+	public function Poly(): Dynamic;
+	public function SetRenderLoop(): Dynamic;
+	public function SetZ(): Dynamic;
+	public function String(): Dynamic;
+	public function Triangle(): Dynamic;
 }
 
 @:native("_G.DynamicShadow")
 extern class DynamicShadow
 {
-	static public function Enable(): Dynamic;
-	static public function SetSize(): Dynamic;
+	public function Enable(): Dynamic;
+	public function SetSize(): Dynamic;
 }
 
 @:native("_G.Entity")
 extern class Entity
 {
-	static public function AddAccountManager(): Dynamic;
-	static public function AddAnimState(): Dynamic;
-	static public function AddClientSleepable(): Dynamic;
-	static public function AddDebugRender(): Dynamic;
-	static public function AddDynamicShadow(): Dynamic;
-	static public function AddEnvelopeManager(): Dynamic;
-	static public function AddFollower(): Dynamic;
-	static public function AddFontManager(): Dynamic;
-	static public function AddGraphicsOptions(): Dynamic;
-	static public function AddGroundCreep(): Dynamic;
-	static public function AddGroundCreepEntity(): Dynamic;
-	static public function AddImage(): Dynamic;
-	static public function AddImageWidget(): Dynamic;
-	static public function AddLabel(): Dynamic;
-	static public function AddLight(): Dynamic;
-	static public function AddLightWatcher(): Dynamic;
-	static public function AddMap(): Dynamic;
-	static public function AddMapExplorer(): Dynamic;
-	static public function AddMapGenSim(): Dynamic;
-	static public function AddMapLayerManager(): Dynamic;
-	static public function AddMiniMap(): Dynamic;
-	static public function AddMiniMapEntity(): Dynamic;
-	static public function AddNetwork(): Dynamic;
-	static public function AddParticleEmitter(): Dynamic;
-	static public function AddPathfinder(): Dynamic;
-	static public function AddPhysics(): Dynamic;
-	static public function AddPostProcessor(): Dynamic;
-	static public function AddRoadManager(): Dynamic;
-	static public function AddShadowManager(): Dynamic;
-	static public function AddShardClient(): Dynamic;
-	static public function AddShardNetwork(): Dynamic;
-	static public function AddSoundEmitter(): Dynamic;
-	static public function AddStaticShadow(): Dynamic;
-	static public function AddTag(): Dynamic;
-	static public function AddTextEditWidget(): Dynamic;
-	static public function AddTextWidget(): Dynamic;
-	static public function AddTransform(): Dynamic;
-	static public function AddTwitchOptions(): Dynamic;
-	static public function AddUITransform(): Dynamic;
-	static public function AddVFXEffect(): Dynamic;
-	static public function AddVideoWidget(): Dynamic;
-	static public function AddWaveComponent(): Dynamic;
-	static public function CallPrefabConstructionComplete(): Dynamic;
-	static public function CanPredictMovement(): Dynamic;
-	static public function EnableMovementPrediction(): Dynamic;
-	static public function FlattenMovementPrediction(): Dynamic;
-	static public function FlushLocalDirtyNetVars(): Dynamic;
-	static public function FrustumCheck(): Dynamic;
-	static public function GetDebugString(): Dynamic;
-	static public function GetGUID(): GUID;
-	static public function GetName(): Dynamic;
-	static public function GetParent(): Dynamic;
-	static public function GetPrefabName(): Dynamic;
-	static public function HasTag(): Dynamic;
-	static public function Hide(): Dynamic;
-	static public function IsAwake(): Dynamic;
-	static public function IsValid(): Dynamic;
-	static public function IsVisible(): Dynamic;
-	static public function LocalToWorldSpace(): Dynamic;
-	static public function LocalToWorldSpaceIncParent(): Dynamic;
-	static public function MoveToBack(): Dynamic;
-	static public function MoveToFront(): Dynamic;
-	static public function RemoveTag(): Dynamic;
-	static public function Retire(): Dynamic;
-	static public function SetAABB(): Dynamic;
-	static public function SetCanSleep(): Dynamic;
-	static public function SetClickable(): Dynamic;
-	static public function SetInLimbo(): Dynamic;
-	static public function SetIsPredictingMovement(): Dynamic;
-	static public function SetName(): Dynamic;
-	static public function SetParent(): Dynamic;
-	static public function SetPrefabName(): Dynamic;
-	static public function SetPristine(): Dynamic;
-	static public function SetSelected(): Dynamic;
-	static public function Show(): Dynamic;
-	static public function WorldToLocalSpace(): Dynamic;
+	/**
+	 * Use MainFunctions.CreateEntity(), instead.
+	 */
+	private function new();
+
+	public function AddAccountManager(): Dynamic;
+	public function AddAnimState(): Dynamic;
+	public function AddClientSleepable(): Dynamic;
+	public function AddDebugRender(): Dynamic;
+	public function AddDynamicShadow(): Dynamic;
+	public function AddEnvelopeManager(): Dynamic;
+	public function AddFollower(): Dynamic;
+	public function AddFontManager(): Dynamic;
+	public function AddGraphicsOptions(): Dynamic;
+	public function AddGroundCreep(): Dynamic;
+	public function AddGroundCreepEntity(): Dynamic;
+	public function AddImage(): Dynamic;
+	public function AddImageWidget(): Dynamic;
+	public function AddLabel(): Dynamic;
+	public function AddLight(): Dynamic;
+	public function AddLightWatcher(): Dynamic;
+	public function AddMap(): Dynamic;
+	public function AddMapExplorer(): Dynamic;
+	public function AddMapGenSim(): Dynamic;
+	public function AddMapLayerManager(): Dynamic;
+	public function AddMiniMap(): Dynamic;
+	public function AddMiniMapEntity(): Dynamic;
+	public function AddNetwork(): Dynamic;
+	public function AddParticleEmitter(): Dynamic;
+	public function AddPathfinder(): Dynamic;
+	public function AddPhysics(): Dynamic;
+	public function AddPostProcessor(): Dynamic;
+	public function AddRoadManager(): Dynamic;
+	public function AddShadowManager(): Dynamic;
+	public function AddShardClient(): Dynamic;
+	public function AddShardNetwork(): Dynamic;
+	public function AddSoundEmitter(): Dynamic;
+	public function AddStaticShadow(): Dynamic;
+	public function AddTag(): Dynamic;
+	public function AddTextEditWidget(): Dynamic;
+	public function AddTextWidget(): Dynamic;
+	public function AddTransform(): Dynamic;
+	public function AddTwitchOptions(): Dynamic;
+	public function AddUITransform(): Dynamic;
+	public function AddVFXEffect(): Dynamic;
+	public function AddVideoWidget(): Dynamic;
+	public function AddWaveComponent(): Dynamic;
+	public function CallPrefabConstructionComplete(): Dynamic;
+	public function CanPredictMovement(): Dynamic;
+	public function EnableMovementPrediction(): Dynamic;
+	public function FlattenMovementPrediction(): Dynamic;
+	public function FlushLocalDirtyNetVars(): Dynamic;
+	public function FrustumCheck(): Dynamic;
+	public function GetDebugString(): Dynamic;
+	public function GetGUID(): GUID;
+	public function GetName(): Dynamic;
+	public function GetParent(): Dynamic;
+	public function GetPrefabName(): Dynamic;
+	public function HasTag(): Dynamic;
+	public function Hide(): Dynamic;
+	public function IsAwake(): Dynamic;
+	public function IsValid(): Dynamic;
+	public function IsVisible(): Dynamic;
+	public function LocalToWorldSpace(): Dynamic;
+	public function LocalToWorldSpaceIncParent(): Dynamic;
+	public function MoveToBack(): Dynamic;
+	public function MoveToFront(): Dynamic;
+	public function RemoveTag(): Dynamic;
+	public function Retire(): Dynamic;
+	public function SetAABB(): Dynamic;
+	public function SetCanSleep(): Dynamic;
+	public function SetClickable(): Dynamic;
+	public function SetInLimbo(): Dynamic;
+	public function SetIsPredictingMovement(): Dynamic;
+	public function SetName(): Dynamic;
+	public function SetParent(): Dynamic;
+	public function SetPrefabName(): Dynamic;
+	public function SetPristine(): Dynamic;
+	public function SetSelected(): Dynamic;
+	public function Show(): Dynamic;
+	public function WorldToLocalSpace(): Dynamic;
 }
 
 @:native("_G.Ents")
@@ -412,626 +417,626 @@ extern class Ents
 @:native("_G.EnvelopeManager")
 extern class EnvelopeManager
 {
-	static public function AddColourEnvelope(): Dynamic;
-	static public function AddFloatEnvelope(): Dynamic;
-	static public function AddVector2Envelope(): Dynamic;
+	public function AddColourEnvelope(): Dynamic;
+	public function AddFloatEnvelope(): Dynamic;
+	public function AddVector2Envelope(): Dynamic;
 }
 
 @:native("_G.Follower")
 extern class Follower
 {
-	static public function FollowSymbol(): Dynamic;
-	static public function SetOffset(): Dynamic;
+	public function FollowSymbol(): Dynamic;
+	public function SetOffset(): Dynamic;
 }
 
 @:native("_G.FontManager")
 extern class FontManager
 {
-	static public function RegisterFont(): Dynamic;
+	public function RegisterFont(): Dynamic;
 }
 
 @:native("_G.GameService")
 extern class GameService
 {
-	static public function AwardAchievement(): Dynamic;
-	static public function RegisterAchievement(): Dynamic;
+	public function AwardAchievement(): Dynamic;
+	public function RegisterAchievement(): Dynamic;
 }
 
 @:native("_G.GraphicsOptions")
 extern class GraphicsOptions
 {
-	static public function DisableLightMapComponent(): Dynamic;
-	static public function DisableStencil(): Dynamic;
-	static public function EnableLightMapComponent(): Dynamic;
-	static public function EnableStencil(): Dynamic;
-	static public function GetCurrentDisplayModeID(): Dynamic;
-	static public function GetDisplayMode(): Dynamic;
-	static public function GetDisplayName(): Dynamic;
-	static public function GetFullscreenDisplayID(): Dynamic;
-	static public function GetFullscreenDisplayRefreshRate(): Dynamic;
-	static public function GetNumDisplayModes(): Dynamic;
-	static public function GetNumDisplays(): Dynamic;
-	static public function GetNumRefreshRates(): Dynamic;
-	static public function GetRefreshRate(): Dynamic;
-	static public function IsBloomEnabled(): Dynamic;
-	static public function IsDistortionEnabled(): Dynamic;
-	static public function IsFullScreen(): Dynamic;
-	static public function IsFullScreenEnabled(): Dynamic;
-	static public function IsSmallTexturesMode(): Dynamic;
-	static public function SetBloomEnabled(): Dynamic;
-	static public function SetDisplayMode(): Dynamic;
-	static public function SetDistortionEnabled(): Dynamic;
-	static public function SetFullScreen(): Dynamic;
-	static public function SetSmallTexturesMode(): Dynamic;
-	static public function ToggleFullScreen(): Dynamic;
+	public function DisableLightMapComponent(): Dynamic;
+	public function DisableStencil(): Dynamic;
+	public function EnableLightMapComponent(): Dynamic;
+	public function EnableStencil(): Dynamic;
+	public function GetCurrentDisplayModeID(): Dynamic;
+	public function GetDisplayMode(): Dynamic;
+	public function GetDisplayName(): Dynamic;
+	public function GetFullscreenDisplayID(): Dynamic;
+	public function GetFullscreenDisplayRefreshRate(): Dynamic;
+	public function GetNumDisplayModes(): Dynamic;
+	public function GetNumDisplays(): Dynamic;
+	public function GetNumRefreshRates(): Dynamic;
+	public function GetRefreshRate(): Dynamic;
+	public function IsBloomEnabled(): Dynamic;
+	public function IsDistortionEnabled(): Dynamic;
+	public function IsFullScreen(): Dynamic;
+	public function IsFullScreenEnabled(): Dynamic;
+	public function IsSmallTexturesMode(): Dynamic;
+	public function SetBloomEnabled(): Dynamic;
+	public function SetDisplayMode(): Dynamic;
+	public function SetDistortionEnabled(): Dynamic;
+	public function SetFullScreen(): Dynamic;
+	public function SetSmallTexturesMode(): Dynamic;
+	public function ToggleFullScreen(): Dynamic;
 }
 
 @:native("_G.GroundCreep")
 extern class GroundCreep
 {
-	static public function AddRenderLayer(): Dynamic;
-	static public function FastForward(): Dynamic;
-	static public function GetAsString(): Dynamic;
-	static public function GetTriggeredCreepSpawners(): Dynamic;
-	static public function OnCreep(): Dynamic;
-	static public function SetFromString(): Dynamic;
-	static public function SetMaxRadius(): Dynamic;
-	static public function SetUpdateInterval(): Dynamic;
-	static public function TriggerCreepSpawners(): Dynamic;
+	public function AddRenderLayer(): Dynamic;
+	public function FastForward(): Dynamic;
+	public function GetAsString(): Dynamic;
+	public function GetTriggeredCreepSpawners(): Dynamic;
+	public function OnCreep(): Dynamic;
+	public function SetFromString(): Dynamic;
+	public function SetMaxRadius(): Dynamic;
+	public function SetUpdateInterval(): Dynamic;
+	public function TriggerCreepSpawners(): Dynamic;
 }
 
 @:native("_G.GroundCreepEntity")
 extern class GroundCreepEntity
 {
-	static public function SetRadius(): Dynamic;
+	public function SetRadius(): Dynamic;
 }
 
 @:native("_G.Image")
 extern class Image
 {
-	static public function Enable(): Dynamic;
-	static public function GetSize(): Dynamic;
-	static public function SetAlphaRange(): Dynamic;
-	static public function SetBlendMode(): Dynamic;
-	static public function SetEffect(): Dynamic;
-	static public function SetSize(): Dynamic;
-	static public function SetTexture(): Dynamic;
-	static public function SetTextureHandle(): Dynamic;
-	static public function SetTint(): Dynamic;
-	static public function SetUIOffset(): Dynamic;
-	static public function SetWorldOffset(): Dynamic;
+	public function Enable(): Dynamic;
+	public function GetSize(): Dynamic;
+	public function SetAlphaRange(): Dynamic;
+	public function SetBlendMode(): Dynamic;
+	public function SetEffect(): Dynamic;
+	public function SetSize(): Dynamic;
+	public function SetTexture(): Dynamic;
+	public function SetTextureHandle(): Dynamic;
+	public function SetTint(): Dynamic;
+	public function SetUIOffset(): Dynamic;
+	public function SetWorldOffset(): Dynamic;
 }
 
 @:native("_G.ImageWidget")
 extern class ImageWidget
 {
-	static public function EnableEffectParams(): Dynamic;
-	static public function GetSize(): Dynamic;
-	static public function SetAlphaRange(): Dynamic;
-	static public function SetBlendMode(): Dynamic;
-	static public function SetEffect(): Dynamic;
-	static public function SetEffectParams(): Dynamic;
-	static public function SetHAnchor(): Dynamic;
-	static public function SetSize(): Dynamic;
-	static public function SetTexture(): Dynamic;
-	static public function SetTextureHandle(): Dynamic;
-	static public function SetTint(): Dynamic;
-	static public function SetUVScale(): Dynamic;
-	static public function SetVAnchor(): Dynamic;
+	public function EnableEffectParams(): Dynamic;
+	public function GetSize(): Dynamic;
+	public function SetAlphaRange(): Dynamic;
+	public function SetBlendMode(): Dynamic;
+	public function SetEffect(): Dynamic;
+	public function SetEffectParams(): Dynamic;
+	public function SetHAnchor(): Dynamic;
+	public function SetSize(): Dynamic;
+	public function SetTexture(): Dynamic;
+	public function SetTextureHandle(): Dynamic;
+	public function SetTint(): Dynamic;
+	public function SetUVScale(): Dynamic;
+	public function SetVAnchor(): Dynamic;
 }
 
 @:native("_G.InputProxy")
 extern class InputProxy
 {
-	static public function AddVibration(): Dynamic;
-	static public function ApplyControlMapping(): Dynamic;
-	static public function CancelMapping(): Dynamic;
-	static public function EnableInputDevice(): Dynamic;
-	static public function EnableVibration(): Dynamic;
-	static public function FlushInput(): Dynamic;
-	static public function GetInputDeviceCount(): Dynamic;
-	static public function GetInputDeviceName(): Dynamic;
-	static public function GetInputDeviceType(): Dynamic;
-	static public function GetLastActiveControllerIndex(): Dynamic;
-	static public function GetLocalizedControl(): Dynamic;
-	static public function GetOSCursorPos(): Dynamic;
-	static public function HasMappingChanged(): Dynamic;
-	static public function IsAnyControllerActive(): Dynamic;
-	static public function IsAnyControllerConnected(): Dynamic;
-	static public function IsAnyInputDeviceConnected(): Dynamic;
-	static public function IsInputDeviceConnected(): Dynamic;
-	static public function IsInputDeviceEnabled(): Dynamic;
-	static public function LoadControls(): Dynamic;
-	static public function LoadCurrentControlMapping(): Dynamic;
-	static public function LoadDefaultControlMapping(): Dynamic;
-	static public function MapControl(): Dynamic;
-	static public function RemoveVibration(): Dynamic;
-	static public function SaveControls(): Dynamic;
-	static public function SetCursorVisible(): Dynamic;
-	static public function SetOSCursorPos(): Dynamic;
-	static public function StartMappingControls(): Dynamic;
-	static public function StopMappingControls(): Dynamic;
-	static public function StopVibration(): Dynamic;
-	static public function UnMapControl(): Dynamic;
+	public function AddVibration(): Dynamic;
+	public function ApplyControlMapping(): Dynamic;
+	public function CancelMapping(): Dynamic;
+	public function EnableInputDevice(): Dynamic;
+	public function EnableVibration(): Dynamic;
+	public function FlushInput(): Dynamic;
+	public function GetInputDeviceCount(): Dynamic;
+	public function GetInputDeviceName(): Dynamic;
+	public function GetInputDeviceType(): Dynamic;
+	public function GetLastActiveControllerIndex(): Dynamic;
+	public function GetLocalizedControl(): Dynamic;
+	public function GetOSCursorPos(): Dynamic;
+	public function HasMappingChanged(): Dynamic;
+	public function IsAnyControllerActive(): Dynamic;
+	public function IsAnyControllerConnected(): Dynamic;
+	public function IsAnyInputDeviceConnected(): Dynamic;
+	public function IsInputDeviceConnected(): Dynamic;
+	public function IsInputDeviceEnabled(): Dynamic;
+	public function LoadControls(): Dynamic;
+	public function LoadCurrentControlMapping(): Dynamic;
+	public function LoadDefaultControlMapping(): Dynamic;
+	public function MapControl(): Dynamic;
+	public function RemoveVibration(): Dynamic;
+	public function SaveControls(): Dynamic;
+	public function SetCursorVisible(): Dynamic;
+	public function SetOSCursorPos(): Dynamic;
+	public function StartMappingControls(): Dynamic;
+	public function StopMappingControls(): Dynamic;
+	public function StopVibration(): Dynamic;
+	public function UnMapControl(): Dynamic;
 }
 
 @:native("_G.InventoryProxy")
 extern class InventoryProxy
 {
-	static public function CheckClientOwnership(): Dynamic;
-	static public function CheckOwnership(): Dynamic;
-	static public function CheckOwnershipGetLatest(): Dynamic;
-	static public function GetClientGiftCount(): Dynamic;
-	static public function GetFullInventory(): Dynamic;
-	static public function GetUnopenedEntitlementItems(): Dynamic;
-	static public function GetUnopenedItems(): Dynamic;
-	static public function HasDownloadedInventory(): Dynamic;
-	static public function IsDownloadingInventory(): Dynamic;
-	static public function SetItemOpened(): Dynamic;
+	public function CheckClientOwnership(): Dynamic;
+	public function CheckOwnership(): Dynamic;
+	public function CheckOwnershipGetLatest(): Dynamic;
+	public function GetClientGiftCount(): Dynamic;
+	public function GetFullInventory(): Dynamic;
+	public function GetUnopenedEntitlementItems(): Dynamic;
+	public function GetUnopenedItems(): Dynamic;
+	public function HasDownloadedInventory(): Dynamic;
+	public function IsDownloadingInventory(): Dynamic;
+	public function SetItemOpened(): Dynamic;
 }
 
 @:native("_G.ItemServerProxy")
 extern class ItemServerProxy
 {
-	static public function GetRecipes(): Dynamic;
-	static public function RedeemCode(): Dynamic;
-	static public function SwapItems(): Dynamic;
+	public function GetRecipes(): Dynamic;
+	public function RedeemCode(): Dynamic;
+	public function SwapItems(): Dynamic;
 }
 
 @:native("_G.Label")
 extern class Label
 {
-	static public function Enable(): Dynamic;
-	static public function SetColour(): Dynamic;
-	static public function SetFont(): Dynamic;
-	static public function SetFontSize(): Dynamic;
-	static public function SetText(): Dynamic;
-	static public function SetUIOffset(): Dynamic;
-	static public function SetWorldOffset(): Dynamic;
+	public function Enable(): Dynamic;
+	public function SetColour(): Dynamic;
+	public function SetFont(): Dynamic;
+	public function SetFontSize(): Dynamic;
+	public function SetText(): Dynamic;
+	public function SetUIOffset(): Dynamic;
+	public function SetWorldOffset(): Dynamic;
 }
 
 @:native("_G.Light")
 extern class Light
 {
-	static public function Enable(): Dynamic;
-	static public function EnableClientModulation(): Dynamic;
-	static public function GetCalculatedRadius(): Dynamic;
-	static public function GetColour(): Dynamic;
-	static public function GetDisableOnSceneRemoval(): Dynamic;
-	static public function GetFalloff(): Dynamic;
-	static public function GetIntensity(): Dynamic;
-	static public function GetRadius(): Dynamic;
-	static public function IsEnabled(): Dynamic;
-	static public function SetColour(): Dynamic;
-	static public function SetDisableOnSceneRemoval(): Dynamic;
-	static public function SetFalloff(): Dynamic;
-	static public function SetIntensity(): Dynamic;
-	static public function SetRadius(): Dynamic;
+	public function Enable(): Dynamic;
+	public function EnableClientModulation(): Dynamic;
+	public function GetCalculatedRadius(): Dynamic;
+	public function GetColour(): Dynamic;
+	public function GetDisableOnSceneRemoval(): Dynamic;
+	public function GetFalloff(): Dynamic;
+	public function GetIntensity(): Dynamic;
+	public function GetRadius(): Dynamic;
+	public function IsEnabled(): Dynamic;
+	public function SetColour(): Dynamic;
+	public function SetDisableOnSceneRemoval(): Dynamic;
+	public function SetFalloff(): Dynamic;
+	public function SetIntensity(): Dynamic;
+	public function SetRadius(): Dynamic;
 }
 
 @:native("_G.LightWatcher")
 extern class LightWatcher
 {
-	static public function GetLightAngle(): Dynamic;
-	static public function GetLightValue(): Dynamic;
-	static public function GetTimeInDark(): Dynamic;
-	static public function GetTimeInLight(): Dynamic;
-	static public function IsInLight(): Dynamic;
-	static public function SetDarkThresh(): Dynamic;
-	static public function SetLightThresh(): Dynamic;
+	public function GetLightAngle(): Dynamic;
+	public function GetLightValue(): Dynamic;
+	public function GetTimeInDark(): Dynamic;
+	public function GetTimeInLight(): Dynamic;
+	public function IsInLight(): Dynamic;
+	public function SetDarkThresh(): Dynamic;
+	public function SetLightThresh(): Dynamic;
 }
 
 @:native("_G.Map")
 extern class Map
 {
-	static public function AddRenderLayer(): Dynamic;
-	static public function Fill(): Dynamic;
-	static public function Finalize(): Dynamic;
-	static public function GetEntitiesOnTileAtPoint(): Dynamic;
-	static public function GetIslandAtPoint(): Dynamic;
-	static public function GetNavStringEncode(): Dynamic;
-	static public function GetNumVisitedTiles(): Dynamic;
-	static public function GetNumWalkableTiles(): Dynamic;
-	static public function GetRandomPointsForSite(): Dynamic;
-	static public function GetSize(): Dynamic;
-	static public function GetStringEncode(): Dynamic;
-	static public function GetTile(): Dynamic;
-	static public function GetTileAtPoint(): Dynamic;
-	static public function GetTileCenterPoint(): Dynamic;
-	static public function GetTileCoordsAtPoint(): Dynamic;
-	static public function GetTileXYAtPoint(): Dynamic;
-	static public function RebuildLayer(): Dynamic;
-	static public function Replace(): Dynamic;
-	static public function ResetVisited(): Dynamic;
-	static public function SetFromString(): Dynamic;
-	static public function SetImpassableType(): Dynamic;
-	static public function SetNavFromString(): Dynamic;
-	static public function SetNavSize(): Dynamic;
-	static public function SetOverlayColor0(): Dynamic;
-	static public function SetOverlayColor1(): Dynamic;
-	static public function SetOverlayColor2(): Dynamic;
-	static public function SetOverlayLerp(): Dynamic;
-	static public function SetOverlayTexture(): Dynamic;
-	static public function SetPhysicsWallDistance(): Dynamic;
-	static public function SetSize(): Dynamic;
-	static public function SetTile(): Dynamic;
-	static public function SetUndergroundRenderLayer(): Dynamic;
-	static public function TileVisited(): Dynamic;
-	static public function VisitTile(): Dynamic;
+	public function AddRenderLayer(): Dynamic;
+	public function Fill(): Dynamic;
+	public function Finalize(): Dynamic;
+	public function GetEntitiesOnTileAtPoint(): Dynamic;
+	public function GetIslandAtPoint(): Dynamic;
+	public function GetNavStringEncode(): Dynamic;
+	public function GetNumVisitedTiles(): Dynamic;
+	public function GetNumWalkableTiles(): Dynamic;
+	public function GetRandomPointsForSite(): Dynamic;
+	public function GetSize(): Dynamic;
+	public function GetStringEncode(): Dynamic;
+	public function GetTile(): Dynamic;
+	public function GetTileAtPoint(): Dynamic;
+	public function GetTileCenterPoint(): Dynamic;
+	public function GetTileCoordsAtPoint(): Dynamic;
+	public function GetTileXYAtPoint(): Dynamic;
+	public function RebuildLayer(): Dynamic;
+	public function Replace(): Dynamic;
+	public function ResetVisited(): Dynamic;
+	public function SetFromString(): Dynamic;
+	public function SetImpassableType(): Dynamic;
+	public function SetNavFromString(): Dynamic;
+	public function SetNavSize(): Dynamic;
+	public function SetOverlayColor0(): Dynamic;
+	public function SetOverlayColor1(): Dynamic;
+	public function SetOverlayColor2(): Dynamic;
+	public function SetOverlayLerp(): Dynamic;
+	public function SetOverlayTexture(): Dynamic;
+	public function SetPhysicsWallDistance(): Dynamic;
+	public function SetSize(): Dynamic;
+	public function SetTile(): Dynamic;
+	public function SetUndergroundRenderLayer(): Dynamic;
+	public function TileVisited(): Dynamic;
+	public function VisitTile(): Dynamic;
 }
 
 @:native("_G.MapExplorer")
 extern class MapExplorer
 {
-	static public function ActivateLocalMiniMap(): Dynamic;
-	static public function EnableUpdate(): Dynamic;
-	static public function LearnRecordedMap(): Dynamic;
-	static public function RecordMap(): Dynamic;
-	static public function RevealArea(): Dynamic;
+	public function ActivateLocalMiniMap(): Dynamic;
+	public function EnableUpdate(): Dynamic;
+	public function LearnRecordedMap(): Dynamic;
+	public function RecordMap(): Dynamic;
+	public function RevealArea(): Dynamic;
 }
 
 @:native("_G.MapGenSim")
 extern class MapGenSim
 {
-	static public function CreateBox(): Dynamic;
-	static public function CreateCircle(): Dynamic;
-	static public function CreateConstraint(): Dynamic;
-	static public function CreateWorld(): Dynamic;
-	static public function DestroyWorld(): Dynamic;
-	static public function GetMinimumRadius(): Dynamic;
-	static public function GetNodePosition(): Dynamic;
-	static public function UpdateSim(): Dynamic;
+	public function CreateBox(): Dynamic;
+	public function CreateCircle(): Dynamic;
+	public function CreateConstraint(): Dynamic;
+	public function CreateWorld(): Dynamic;
+	public function DestroyWorld(): Dynamic;
+	public function GetMinimumRadius(): Dynamic;
+	public function GetNodePosition(): Dynamic;
+	public function UpdateSim(): Dynamic;
 }
 
 @:native("_G.MapLayerManager")
 extern class MapLayerManager
 {
-	static public function CreateRenderLayer(): Dynamic;
-	static public function ReleaseRenderLayer(): Dynamic;
+	public function CreateRenderLayer(): Dynamic;
+	public function ReleaseRenderLayer(): Dynamic;
 }
 
 @:native("_G.MiniMap")
 extern class MiniMap
 {
-	static public function AddAtlas(): Dynamic;
-	static public function AddRenderLayer(): Dynamic;
-	static public function ClearRevealedAreas(): Dynamic;
-	static public function ContinuouslyClearRevealedAreas(): Dynamic;
-	static public function DrawForgottenFogOfWar(): Dynamic;
-	static public function EnableFogOfWar(): Dynamic;
-	static public function GetTextureHandle(): Dynamic;
-	static public function GetZoom(): Dynamic;
-	static public function IsVisible(): Dynamic;
-	static public function MapPosToWorldPos(): Dynamic;
-	static public function Offset(): Dynamic;
-	static public function RebuildLayer(): Dynamic;
-	static public function ResetOffset(): Dynamic;
-	static public function SetEffects(): Dynamic;
-	static public function ShowArea(): Dynamic;
-	static public function ToggleVisibility(): Dynamic;
-	static public function WorldPosToMapPos(): Dynamic;
-	static public function Zoom(): Dynamic;
+	public function AddAtlas(): Dynamic;
+	public function AddRenderLayer(): Dynamic;
+	public function ClearRevealedAreas(): Dynamic;
+	public function ContinuouslyClearRevealedAreas(): Dynamic;
+	public function DrawForgottenFogOfWar(): Dynamic;
+	public function EnableFogOfWar(): Dynamic;
+	public function GetTextureHandle(): Dynamic;
+	public function GetZoom(): Dynamic;
+	public function IsVisible(): Dynamic;
+	public function MapPosToWorldPos(): Dynamic;
+	public function Offset(): Dynamic;
+	public function RebuildLayer(): Dynamic;
+	public function ResetOffset(): Dynamic;
+	public function SetEffects(): Dynamic;
+	public function ShowArea(): Dynamic;
+	public function ToggleVisibility(): Dynamic;
+	public function WorldPosToMapPos(): Dynamic;
+	public function Zoom(): Dynamic;
 }
 
 @:native("_G.MiniMapEntity")
 extern class MiniMapEntity
 {
-	static public function CopyIcon(): Dynamic;
-	static public function SetCanUseCache(): Dynamic;
-	static public function SetDrawOverFogOfWar(): Dynamic;
-	static public function SetEnabled(): Dynamic;
-	static public function SetIcon(): Dynamic;
-	static public function SetIsFogRevealer(): Dynamic;
-	static public function SetIsProxy(): Dynamic;
-	static public function SetPriority(): Dynamic;
-	static public function SetRestriction(): Dynamic;
+	public function CopyIcon(): Dynamic;
+	public function SetCanUseCache(): Dynamic;
+	public function SetDrawOverFogOfWar(): Dynamic;
+	public function SetEnabled(): Dynamic;
+	public function SetIcon(): Dynamic;
+	public function SetIsFogRevealer(): Dynamic;
+	public function SetIsProxy(): Dynamic;
+	public function SetPriority(): Dynamic;
+	public function SetRestriction(): Dynamic;
 }
 
 @:native("_G.Network")
 extern class Network
 {
-	static public function AddUserFlag(): Dynamic;
-	static public function GetClientName(): Dynamic;
-	static public function GetPlayerAge(): Dynamic;
-	static public function GetPlayerColour(): Dynamic;
-	static public function GetUserFlags(): Dynamic;
-	static public function GetUserID(): Dynamic;
-	static public function IsServerAdmin(): Dynamic;
-	static public function RemoveUserFlag(): Dynamic;
-	static public function SetClassifiedTarget(): Dynamic;
-	static public function SetPlayerAge(): Dynamic;
-	static public function SetPlayerEquip(): Dynamic;
-	static public function SetPlayerSkin(): Dynamic;
+	public function AddUserFlag(): Dynamic;
+	public function GetClientName(): Dynamic;
+	public function GetPlayerAge(): Dynamic;
+	public function GetPlayerColour(): Dynamic;
+	public function GetUserFlags(): Dynamic;
+	public function GetUserID(): Dynamic;
+	public function IsServerAdmin(): Dynamic;
+	public function RemoveUserFlag(): Dynamic;
+	public function SetClassifiedTarget(): Dynamic;
+	public function SetPlayerAge(): Dynamic;
+	public function SetPlayerEquip(): Dynamic;
+	public function SetPlayerSkin(): Dynamic;
 }
 
 @:native("_G.NetworkProxy")
 extern class NetworkProxy
 {
-	static public function AddToWhiteList(): Dynamic;
-	static public function Announce(): Dynamic;
-	static public function AnnounceDeath(): Dynamic;
-	static public function AnnounceResurrect(): Dynamic;
-	static public function AnnounceVoteResult(): Dynamic;
-	static public function AutoJoinLanServer(): Dynamic;
-	static public function Ban(): Dynamic;
-	static public function BanForTime(): Dynamic;
-	static public function BeginServerModSetup(): Dynamic;
-	static public function BeginSession(): Dynamic;
-	static public function CallRPC(): Dynamic;
-	static public function CleanupSessionCache(): Dynamic;
-	static public function DeleteCluster(): Dynamic;
-	static public function DeleteSession(): Dynamic;
-	static public function DeleteUserSession(): Dynamic;
-	static public function DeserializeAllLocalUserSessions(): Dynamic;
-	static public function DeserializeUserSession(): Dynamic;
-	static public function DeserializeUserSessionInClusterSlot(): Dynamic;
-	static public function DiceRoll(): Dynamic;
-	static public function Disconnect(): Dynamic;
-	static public function DoneLoadingMap(): Dynamic;
-	static public function DownloadServerDetails(): Dynamic;
-	static public function DownloadServerMods(): Dynamic;
-	static public function EncodeUserPath(): Dynamic;
-	static public function GenerateClusterToken(): Dynamic;
-	static public function GetAllowIncomingConnections(): Dynamic;
-	static public function GetAutosaverEnabled(): Dynamic;
-	static public function GetAveragePing(): Dynamic;
-	static public function GetBlacklist(): Dynamic;
-	static public function GetChildProcessError(): Dynamic;
-	static public function GetChildProcessStatus(): Dynamic;
-	static public function GetClientMetricsForUser(): Dynamic;
-	static public function GetClientTable(): Dynamic;
-	static public function GetClientTableForUser(): Dynamic;
-	static public function GetCountryCode(): Dynamic;
-	static public function GetCurrentSnapshot(): Dynamic;
-	static public function GetDefaultClanAdmins(): Dynamic;
-	static public function GetDefaultClanID(): Dynamic;
-	static public function GetDefaultClanOnly(): Dynamic;
-	static public function GetDefaultEncodeUserPath(): Dynamic;
-	static public function GetDefaultEventSetting(): Dynamic;
-	static public function GetDefaultFriendsOnlyServer(): Dynamic;
-	static public function GetDefaultGameMode(): Dynamic;
-	static public function GetDefaultLANOnlyServer(): Dynamic;
-	static public function GetDefaultMaxPlayers(): Dynamic;
-	static public function GetDefaultPvpSetting(): Dynamic;
-	static public function GetDefaultServerDescription(): Dynamic;
-	static public function GetDefaultServerIntention(): Dynamic;
-	static public function GetDefaultServerName(): Dynamic;
-	static public function GetDefaultServerPassword(): Dynamic;
-	static public function GetDefaultVoteEnabled(): Dynamic;
-	static public function GetIsClient(): Dynamic;
-	static public function GetIsHosting(): Dynamic;
-	static public function GetIsMasterSimulation(): Dynamic;
-	static public function GetIsServer(): Dynamic;
-	static public function GetIsServerAdmin(): Dynamic;
-	static public function GetLanguageCode(): Dynamic;
-	static public function GetLocalUserName(): Dynamic;
-	static public function GetNetworkStatistics(): Dynamic;
-	static public function GetPVPEnabled(): Dynamic;
-	static public function GetPing(): Dynamic;
-	static public function GetPlayerCount(): Dynamic;
-	static public function GetPlayerSaveLocationInClusterSlot(): Dynamic;
-	static public function GetServerClanID(): Dynamic;
-	static public function GetServerClanOnly(): Dynamic;
-	static public function GetServerDescription(): Dynamic;
-	static public function GetServerEvent(): Dynamic;
-	static public function GetServerFriendsOnly(): Dynamic;
-	static public function GetServerGameMode(): Dynamic;
-	static public function GetServerHasPassword(): Dynamic;
-	static public function GetServerHasPresentAdmin(): Dynamic;
-	static public function GetServerIntention(): Dynamic;
-	static public function GetServerIsClientHosted(): Dynamic;
-	static public function GetServerIsDedicated(): Dynamic;
-	static public function GetServerLANOnly(): Dynamic;
-	static public function GetServerListing(): Dynamic;
-	static public function GetServerListingFromActualIndex(): Dynamic;
-	static public function GetServerListingReadDirty(): Dynamic;
-	static public function GetServerListings(): Dynamic;
-	static public function GetServerMaxPlayers(): Dynamic;
-	static public function GetServerModNames(): Dynamic;
-	static public function GetServerModsDescription(): Dynamic;
-	static public function GetServerModsEnabled(): Dynamic;
-	static public function GetServerName(): Dynamic;
-	static public function GetServerPVP(): Dynamic;
-	static public function GetSessionIdentifier(): Dynamic;
-	static public function GetUserID(): Dynamic;
-	static public function GetUserSessionFile(): Dynamic;
-	static public function GetUserSessionFileInClusterSlot(): Dynamic;
-	static public function GetWorldSessionFile(): Dynamic;
-	static public function GetWorldSessionFileInClusterSlot(): Dynamic;
-	static public function HasPendingConnection(): Dynamic;
-	static public function IncrementSnapshot(): Dynamic;
-	static public function IsClanIDValid(): Dynamic;
-	static public function IsDedicated(): Dynamic;
-	static public function IsDedicatedOfflineCluster(): Dynamic;
-	static public function IsNetIDPlatformValid(): Dynamic;
-	static public function IsNetOverlayEnabled(): Dynamic;
-	static public function IsOnlineMode(): Dynamic;
-	static public function IsSearchingServers(): Dynamic;
-	static public function IsVoiceActive(): Dynamic;
-	static public function IsWhiteListed(): Dynamic;
-	static public function JoinServerResponse(): Dynamic;
-	static public function Kick(): Dynamic;
-	static public function ListSnapshots(): Dynamic;
-	static public function ListSnapshotsInClusterSlot(): Dynamic;
-	static public function LoadPermissionLists(): Dynamic;
-	static public function NotifyAuthenticationFailure(): Dynamic;
-	static public function NotifyLoadingState(): Dynamic;
-	static public function OnPlayerHistoryUpdated(): Dynamic;
-	static public function PrintNetwork(): Dynamic;
-	static public function RemoveFromWhiteList(): Dynamic;
-	static public function ReportListing(): Dynamic;
-	static public function RequestServerAndStartClient(): Dynamic;
-	static public function Say(): Dynamic;
-	static public function SearchLANServers(): Dynamic;
-	static public function SearchServers(): Dynamic;
-	static public function SendModRPCToServer(): Dynamic;
-	static public function SendRPCToServer(): Dynamic;
-	static public function SendRemoteExecute(): Dynamic;
-	static public function SendResumeRequestToServer(): Dynamic;
-	static public function SendSlashCmdToServer(): Dynamic;
-	static public function SendSpawnRequestToServer(): Dynamic;
-	static public function SendWorldResetRequestToServer(): Dynamic;
-	static public function SendWorldRollbackRequestToServer(): Dynamic;
-	static public function SendWorldSaveRequestToMaster(): Dynamic;
-	static public function SerializeUserSession(): Dynamic;
-	static public function SerializeWorldSession(): Dynamic;
-	static public function ServerModCollectionSetup(): Dynamic;
-	static public function ServerModSetup(): Dynamic;
-	static public function ServerModsDownloadCompleted(): Dynamic;
-	static public function SetAllowIncomingConnections(): Dynamic;
-	static public function SetBlacklist(): Dynamic;
-	static public function SetCheckVersionOnQuery(): Dynamic;
-	static public function SetClientCacheSessionIdentifier(): Dynamic;
-	static public function SetCurrentSnapshot(): Dynamic;
-	static public function SetDefaultClanInfo(): Dynamic;
-	static public function SetDefaultEventSetting(): Dynamic;
-	static public function SetDefaultFriendsOnlyServer(): Dynamic;
-	static public function SetDefaultGameMode(): Dynamic;
-	static public function SetDefaultLANOnlyServer(): Dynamic;
-	static public function SetDefaultMaxPlayers(): Dynamic;
-	static public function SetDefaultPvpSetting(): Dynamic;
-	static public function SetDefaultServerDescription(): Dynamic;
-	static public function SetDefaultServerIntention(): Dynamic;
-	static public function SetDefaultServerName(): Dynamic;
-	static public function SetDefaultServerPassword(): Dynamic;
-	static public function SetGameData(): Dynamic;
-	static public function SetIsClientInWorld(): Dynamic;
-	static public function SetIsWorldResetting(): Dynamic;
-	static public function SetIsWorldSaving(): Dynamic;
-	static public function SetPlayerMuted(): Dynamic;
-	static public function SetSeason(): Dynamic;
-	static public function SetServerTags(): Dynamic;
-	static public function SetWorldGenData(): Dynamic;
-	static public function StartClient(): Dynamic;
-	static public function StartServer(): Dynamic;
-	static public function StartVote(): Dynamic;
-	static public function StopSearchingServers(): Dynamic;
-	static public function StopVote(): Dynamic;
-	static public function SystemMessage(): Dynamic;
-	static public function Talker(): Dynamic;
-	static public function TruncateSnapshots(): Dynamic;
-	static public function TruncateSnapshotsInClusterSlot(): Dynamic;
-	static public function TryDefaultEncodeUserPath(): Dynamic;
-	static public function ViewNetFriends(): Dynamic;
-	static public function ViewNetProfile(): Dynamic;
-	static public function Vote(): Dynamic;
+	public function AddToWhiteList(): Dynamic;
+	public function Announce(): Dynamic;
+	public function AnnounceDeath(): Dynamic;
+	public function AnnounceResurrect(): Dynamic;
+	public function AnnounceVoteResult(): Dynamic;
+	public function AutoJoinLanServer(): Dynamic;
+	public function Ban(): Dynamic;
+	public function BanForTime(): Dynamic;
+	public function BeginServerModSetup(): Dynamic;
+	public function BeginSession(): Dynamic;
+	public function CallRPC(): Dynamic;
+	public function CleanupSessionCache(): Dynamic;
+	public function DeleteCluster(): Dynamic;
+	public function DeleteSession(): Dynamic;
+	public function DeleteUserSession(): Dynamic;
+	public function DeserializeAllLocalUserSessions(): Dynamic;
+	public function DeserializeUserSession(): Dynamic;
+	public function DeserializeUserSessionInClusterSlot(): Dynamic;
+	public function DiceRoll(): Dynamic;
+	public function Disconnect(): Dynamic;
+	public function DoneLoadingMap(): Dynamic;
+	public function DownloadServerDetails(): Dynamic;
+	public function DownloadServerMods(): Dynamic;
+	public function EncodeUserPath(): Dynamic;
+	public function GenerateClusterToken(): Dynamic;
+	public function GetAllowIncomingConnections(): Dynamic;
+	public function GetAutosaverEnabled(): Dynamic;
+	public function GetAveragePing(): Dynamic;
+	public function GetBlacklist(): Dynamic;
+	public function GetChildProcessError(): Dynamic;
+	public function GetChildProcessStatus(): Dynamic;
+	public function GetClientMetricsForUser(): Dynamic;
+	public function GetClientTable(): Dynamic;
+	public function GetClientTableForUser(): Dynamic;
+	public function GetCountryCode(): Dynamic;
+	public function GetCurrentSnapshot(): Dynamic;
+	public function GetDefaultClanAdmins(): Dynamic;
+	public function GetDefaultClanID(): Dynamic;
+	public function GetDefaultClanOnly(): Dynamic;
+	public function GetDefaultEncodeUserPath(): Dynamic;
+	public function GetDefaultEventSetting(): Dynamic;
+	public function GetDefaultFriendsOnlyServer(): Dynamic;
+	public function GetDefaultGameMode(): Dynamic;
+	public function GetDefaultLANOnlyServer(): Dynamic;
+	public function GetDefaultMaxPlayers(): Dynamic;
+	public function GetDefaultPvpSetting(): Dynamic;
+	public function GetDefaultServerDescription(): Dynamic;
+	public function GetDefaultServerIntention(): Dynamic;
+	public function GetDefaultServerName(): Dynamic;
+	public function GetDefaultServerPassword(): Dynamic;
+	public function GetDefaultVoteEnabled(): Dynamic;
+	public function GetIsClient(): Dynamic;
+	public function GetIsHosting(): Dynamic;
+	public function GetIsMasterSimulation(): Dynamic;
+	public function GetIsServer(): Dynamic;
+	public function GetIsServerAdmin(): Dynamic;
+	public function GetLanguageCode(): Dynamic;
+	public function GetLocalUserName(): Dynamic;
+	public function GetNetworkStatistics(): Dynamic;
+	public function GetPVPEnabled(): Dynamic;
+	public function GetPing(): Dynamic;
+	public function GetPlayerCount(): Dynamic;
+	public function GetPlayerSaveLocationInClusterSlot(): Dynamic;
+	public function GetServerClanID(): Dynamic;
+	public function GetServerClanOnly(): Dynamic;
+	public function GetServerDescription(): Dynamic;
+	public function GetServerEvent(): Dynamic;
+	public function GetServerFriendsOnly(): Dynamic;
+	public function GetServerGameMode(): Dynamic;
+	public function GetServerHasPassword(): Dynamic;
+	public function GetServerHasPresentAdmin(): Dynamic;
+	public function GetServerIntention(): Dynamic;
+	public function GetServerIsClientHosted(): Dynamic;
+	public function GetServerIsDedicated(): Dynamic;
+	public function GetServerLANOnly(): Dynamic;
+	public function GetServerListing(): Dynamic;
+	public function GetServerListingFromActualIndex(): Dynamic;
+	public function GetServerListingReadDirty(): Dynamic;
+	public function GetServerListings(): Dynamic;
+	public function GetServerMaxPlayers(): Dynamic;
+	public function GetServerModNames(): Dynamic;
+	public function GetServerModsDescription(): Dynamic;
+	public function GetServerModsEnabled(): Dynamic;
+	public function GetServerName(): Dynamic;
+	public function GetServerPVP(): Dynamic;
+	public function GetSessionIdentifier(): Dynamic;
+	public function GetUserID(): Dynamic;
+	public function GetUserSessionFile(): Dynamic;
+	public function GetUserSessionFileInClusterSlot(): Dynamic;
+	public function GetWorldSessionFile(): Dynamic;
+	public function GetWorldSessionFileInClusterSlot(): Dynamic;
+	public function HasPendingConnection(): Dynamic;
+	public function IncrementSnapshot(): Dynamic;
+	public function IsClanIDValid(): Dynamic;
+	public function IsDedicated(): Dynamic;
+	public function IsDedicatedOfflineCluster(): Dynamic;
+	public function IsNetIDPlatformValid(): Dynamic;
+	public function IsNetOverlayEnabled(): Dynamic;
+	public function IsOnlineMode(): Dynamic;
+	public function IsSearchingServers(): Dynamic;
+	public function IsVoiceActive(): Dynamic;
+	public function IsWhiteListed(): Dynamic;
+	public function JoinServerResponse(): Dynamic;
+	public function Kick(): Dynamic;
+	public function ListSnapshots(): Dynamic;
+	public function ListSnapshotsInClusterSlot(): Dynamic;
+	public function LoadPermissionLists(): Dynamic;
+	public function NotifyAuthenticationFailure(): Dynamic;
+	public function NotifyLoadingState(): Dynamic;
+	public function OnPlayerHistoryUpdated(): Dynamic;
+	public function PrintNetwork(): Dynamic;
+	public function RemoveFromWhiteList(): Dynamic;
+	public function ReportListing(): Dynamic;
+	public function RequestServerAndStartClient(): Dynamic;
+	public function Say(): Dynamic;
+	public function SearchLANServers(): Dynamic;
+	public function SearchServers(): Dynamic;
+	public function SendModRPCToServer(): Dynamic;
+	public function SendRPCToServer(): Dynamic;
+	public function SendRemoteExecute(): Dynamic;
+	public function SendResumeRequestToServer(): Dynamic;
+	public function SendSlashCmdToServer(): Dynamic;
+	public function SendSpawnRequestToServer(): Dynamic;
+	public function SendWorldResetRequestToServer(): Dynamic;
+	public function SendWorldRollbackRequestToServer(): Dynamic;
+	public function SendWorldSaveRequestToMaster(): Dynamic;
+	public function SerializeUserSession(): Dynamic;
+	public function SerializeWorldSession(): Dynamic;
+	public function ServerModCollectionSetup(): Dynamic;
+	public function ServerModSetup(): Dynamic;
+	public function ServerModsDownloadCompleted(): Dynamic;
+	public function SetAllowIncomingConnections(): Dynamic;
+	public function SetBlacklist(): Dynamic;
+	public function SetCheckVersionOnQuery(): Dynamic;
+	public function SetClientCacheSessionIdentifier(): Dynamic;
+	public function SetCurrentSnapshot(): Dynamic;
+	public function SetDefaultClanInfo(): Dynamic;
+	public function SetDefaultEventSetting(): Dynamic;
+	public function SetDefaultFriendsOnlyServer(): Dynamic;
+	public function SetDefaultGameMode(): Dynamic;
+	public function SetDefaultLANOnlyServer(): Dynamic;
+	public function SetDefaultMaxPlayers(): Dynamic;
+	public function SetDefaultPvpSetting(): Dynamic;
+	public function SetDefaultServerDescription(): Dynamic;
+	public function SetDefaultServerIntention(): Dynamic;
+	public function SetDefaultServerName(): Dynamic;
+	public function SetDefaultServerPassword(): Dynamic;
+	public function SetGameData(): Dynamic;
+	public function SetIsClientInWorld(): Dynamic;
+	public function SetIsWorldResetting(): Dynamic;
+	public function SetIsWorldSaving(): Dynamic;
+	public function SetPlayerMuted(): Dynamic;
+	public function SetSeason(): Dynamic;
+	public function SetServerTags(): Dynamic;
+	public function SetWorldGenData(): Dynamic;
+	public function StartClient(): Dynamic;
+	public function StartServer(): Dynamic;
+	public function StartVote(): Dynamic;
+	public function StopSearchingServers(): Dynamic;
+	public function StopVote(): Dynamic;
+	public function SystemMessage(): Dynamic;
+	public function Talker(): Dynamic;
+	public function TruncateSnapshots(): Dynamic;
+	public function TruncateSnapshotsInClusterSlot(): Dynamic;
+	public function TryDefaultEncodeUserPath(): Dynamic;
+	public function ViewNetFriends(): Dynamic;
+	public function ViewNetProfile(): Dynamic;
+	public function Vote(): Dynamic;
 }
 
 @:native("_G.ParticleEmitter")
 extern class ParticleEmitter
 {
-	static public function AddParticle(): Dynamic;
-	static public function AddParticleUV(): Dynamic;
-	static public function AddRotatingParticle(): Dynamic;
-	static public function AddRotatingParticleUV(): Dynamic;
-	static public function ClearAllParticles(): Dynamic;
-	static public function EnableBloomPass(): Dynamic;
-	static public function EnableDepthTest(): Dynamic;
-	static public function FastForward(): Dynamic;
-	static public function GetNumLiveParticles(): Dynamic;
-	static public function SetAcceleration(): Dynamic;
-	static public function SetBlendMode(): Dynamic;
-	static public function SetColourEnvelope(): Dynamic;
-	static public function SetDragCoefficient(): Dynamic;
-	static public function SetLayer(): Dynamic;
-	static public function SetMaxLifetime(): Dynamic;
-	static public function SetMaxNumParticles(): Dynamic;
-	static public function SetRadius(): Dynamic;
-	static public function SetRenderResources(): Dynamic;
-	static public function SetRotationStatus(): Dynamic;
-	static public function SetScaleEnvelope(): Dynamic;
-	static public function SetSortOrder(): Dynamic;
-	static public function SetSpawnVectors(): Dynamic;
-	static public function SetUVFrameSize(): Dynamic;
+	public function AddParticle(): Dynamic;
+	public function AddParticleUV(): Dynamic;
+	public function AddRotatingParticle(): Dynamic;
+	public function AddRotatingParticleUV(): Dynamic;
+	public function ClearAllParticles(): Dynamic;
+	public function EnableBloomPass(): Dynamic;
+	public function EnableDepthTest(): Dynamic;
+	public function FastForward(): Dynamic;
+	public function GetNumLiveParticles(): Dynamic;
+	public function SetAcceleration(): Dynamic;
+	public function SetBlendMode(): Dynamic;
+	public function SetColourEnvelope(): Dynamic;
+	public function SetDragCoefficient(): Dynamic;
+	public function SetLayer(): Dynamic;
+	public function SetMaxLifetime(): Dynamic;
+	public function SetMaxNumParticles(): Dynamic;
+	public function SetRadius(): Dynamic;
+	public function SetRenderResources(): Dynamic;
+	public function SetRotationStatus(): Dynamic;
+	public function SetScaleEnvelope(): Dynamic;
+	public function SetSortOrder(): Dynamic;
+	public function SetSpawnVectors(): Dynamic;
+	public function SetUVFrameSize(): Dynamic;
 }
 
 @:native("_G.PathFinder")
 extern class PathFinder
 {
-	static public function AddWall(): Dynamic;
-	static public function GetPathTileIndexFromPoint(): Dynamic;
-	static public function GetSearchResult(): Dynamic;
-	static public function GetSearchStatus(): Dynamic;
-	static public function HasWall(): Dynamic;
-	static public function IsClear(): Dynamic;
-	static public function KillSearch(): Dynamic;
-	static public function RemoveWall(): Dynamic;
-	static public function SubmitSearch(): Dynamic;
+	public function AddWall(): Dynamic;
+	public function GetPathTileIndexFromPoint(): Dynamic;
+	public function GetSearchResult(): Dynamic;
+	public function GetSearchStatus(): Dynamic;
+	public function HasWall(): Dynamic;
+	public function IsClear(): Dynamic;
+	public function KillSearch(): Dynamic;
+	public function RemoveWall(): Dynamic;
+	public function SubmitSearch(): Dynamic;
 }
 
 @:native("_G.Physics")
 extern class Physics
 {
-	static public function CheckGridOffset(): Dynamic;
-	static public function ClearCollisionMask(): Dynamic;
-	static public function ClearMotorVelOverride(): Dynamic;
-	static public function CollidesWith(): Dynamic;
-	static public function GeoProbe(): Dynamic;
-	static public function GetCollisionGroup(): Dynamic;
-	static public function GetCollisionMask(): Dynamic;
-	static public function GetHeight(): Dynamic;
-	static public function GetMass(): Dynamic;
-	static public function GetMotorSpeed(): Dynamic;
-	static public function GetMotorVel(): Dynamic;
-	static public function GetRadius(): Dynamic;
-	static public function GetVelocity(): Dynamic;
-	static public function IsActive(): Dynamic;
-	static public function IsPassable(): Dynamic;
-	static public function SetActive(): Dynamic;
-	static public function SetCapsule(): Dynamic;
-	static public function SetCollides(): Dynamic;
-	static public function SetCollisionCallback(): Dynamic;
-	static public function SetCollisionGroup(): Dynamic;
-	static public function SetCollisionMask(): Dynamic;
-	static public function SetCylinder(): Dynamic;
-	static public function SetDamping(): Dynamic;
-	static public function SetDontRemoveOnSleep(): Dynamic;
-	static public function SetFriction(): Dynamic;
-	static public function SetMass(): Dynamic;
-	static public function SetMotorVel(): Dynamic;
-	static public function SetMotorVelOverride(): Dynamic;
-	static public function SetRestitution(): Dynamic;
-	static public function SetSphere(): Dynamic;
-	static public function SetVel(): Dynamic;
-	static public function Stop(): Dynamic;
-	static public function Teleport(): Dynamic;
+	public function CheckGridOffset(): Dynamic;
+	public function ClearCollisionMask(): Dynamic;
+	public function ClearMotorVelOverride(): Dynamic;
+	public function CollidesWith(): Dynamic;
+	public function GeoProbe(): Dynamic;
+	public function GetCollisionGroup(): Dynamic;
+	public function GetCollisionMask(): Dynamic;
+	public function GetHeight(): Dynamic;
+	public function GetMass(): Dynamic;
+	public function GetMotorSpeed(): Dynamic;
+	public function GetMotorVel(): Dynamic;
+	public function GetRadius(): Dynamic;
+	public function GetVelocity(): Dynamic;
+	public function IsActive(): Dynamic;
+	public function IsPassable(): Dynamic;
+	public function SetActive(): Dynamic;
+	public function SetCapsule(): Dynamic;
+	public function SetCollides(): Dynamic;
+	public function SetCollisionCallback(): Dynamic;
+	public function SetCollisionGroup(): Dynamic;
+	public function SetCollisionMask(): Dynamic;
+	public function SetCylinder(): Dynamic;
+	public function SetDamping(): Dynamic;
+	public function SetDontRemoveOnSleep(): Dynamic;
+	public function SetFriction(): Dynamic;
+	public function SetMass(): Dynamic;
+	public function SetMotorVel(): Dynamic;
+	public function SetMotorVelOverride(): Dynamic;
+	public function SetRestitution(): Dynamic;
+	public function SetSphere(): Dynamic;
+	public function SetVel(): Dynamic;
+	public function Stop(): Dynamic;
+	public function Teleport(): Dynamic;
 }
 
 @:native("_G.PostProcessor")
 extern class PostProcessor
 {
-	static public function SetColourCubeData(): Dynamic;
-	static public function SetColourCubeLerp(): Dynamic;
-	static public function SetColourModifier(): Dynamic;
-	static public function SetDistortionFactor(): Dynamic;
-	static public function SetDistortionRadii(): Dynamic;
-	static public function SetEffectTime(): Dynamic;
+	public function SetColourCubeData(): Dynamic;
+	public function SetColourCubeLerp(): Dynamic;
+	public function SetColourModifier(): Dynamic;
+	public function SetDistortionFactor(): Dynamic;
+	public function SetDistortionRadii(): Dynamic;
+	public function SetEffectTime(): Dynamic;
 }
 
 @:native("_G.RawImgui")
 extern class RawImgui
 {
-	static public function IsImguiEnabled(): Dynamic;
+	public function IsImguiEnabled(): Dynamic;
 }
 
 @:native("_G.RoadManager")
 extern class RoadManager {
-	static public function AddControlPoint(): Dynamic;
-	static public function AddSmoothedControlPoint(): Dynamic;
-	static public function BeginRoad(): Dynamic;
-	static public function GenerateQuadTree(): Dynamic;
-	static public function GenerateVB(): Dynamic;
-	static public function IsOnRoad(): Dynamic;
-	static public function SetStripEffect(): Dynamic;
-	static public function SetStripTextures(): Dynamic;
-	static public function SetStripUVAnimStep(): Dynamic;
-	static public function SetStripWrapMode(): Dynamic;
+	public function AddControlPoint(): Dynamic;
+	public function AddSmoothedControlPoint(): Dynamic;
+	public function BeginRoad(): Dynamic;
+	public function GenerateQuadTree(): Dynamic;
+	public function GenerateVB(): Dynamic;
+	public function IsOnRoad(): Dynamic;
+	public function SetStripEffect(): Dynamic;
+	public function SetStripTextures(): Dynamic;
+	public function SetStripUVAnimStep(): Dynamic;
+	public function SetStripWrapMode(): Dynamic;
 }
 
 @:native("_G.ShadowManager")
 extern class ShadowManager {
-	static public function GenerateStaticShadows(): Dynamic;
-	static public function SetTexture(): Dynamic;
+	public function GenerateStaticShadows(): Dynamic;
+	public function SetTexture(): Dynamic;
 }
 
 @:native("_G.ShardClient")
@@ -1046,367 +1051,367 @@ extern class ShardNetwork {
 
 @:native("_G.ShardProxy")
 extern class ShardProxy {
-	static public function GetDefaultShardEnabled(): Dynamic;
-	static public function GetShardId(): Dynamic;
-	static public function GetSlavePlayerCounts(): Dynamic;
-	static public function IsMaster(): Dynamic;
-	static public function IsMigrating(): Dynamic;
-	static public function IsPlayer(): Dynamic;
-	static public function IsSlave(): Dynamic;
-	static public function SetSlaveLoading(): Dynamic;
-	static public function StartMigration(): Dynamic;
+	public function GetDefaultShardEnabled(): Dynamic;
+	public function GetShardId(): Dynamic;
+	public function GetSlavePlayerCounts(): Dynamic;
+	public function IsMaster(): Dynamic;
+	public function IsMigrating(): Dynamic;
+	public function IsPlayer(): Dynamic;
+	public function IsSlave(): Dynamic;
+	public function SetSlaveLoading(): Dynamic;
+	public function StartMigration(): Dynamic;
 }
 
 @:native("_G.Sim")
 extern class Sim {
-	static public function AdjustFontAdvance(): Dynamic;
-	static public function CanWriteConfigurationDirectory(): Dynamic;
-	static public function CheckPersistentStringExists(): Dynamic;
-	static public function CleanAllMods(): Dynamic;
-	static public function ClearAllDSP(): Dynamic;
-	static public function ClearDSP(): Dynamic;
-	static public function ClearFileSystemAliases(): Dynamic;
-	static public function ClearInput(): Dynamic;
-	static public function CreateEntity(): Dynamic;
-	static public function DebugPause(): Dynamic;
-	static public function DebugPushJsonMessage(): Dynamic;
-	static public function DebugStringScreen(): Dynamic;
-	static public function DumpMemInfo(): Dynamic;
-	static public function DumpMemoryStats(): Dynamic;
-	static public function ErasePersistentString(): Dynamic;
-	static public function FindEntities(): Dynamic;
-	static public function FindFirstEntityWithTag(): Dynamic;
-	static public function ForceAbort(): Dynamic;
-	static public function GenerateNewWorld(): Dynamic;
-	static public function GetAnalogControl(): Dynamic;
-	static public function GetBuildDate(): Dynamic;
-	static public function GetClientModsDownloading(): Dynamic;
-	static public function GetClipboardData(): Dynamic;
-	static public function GetDebugPhysicsRenderEnabled(): Dynamic;
-	static public function GetDebugRenderEnabled(): Dynamic;
-	static public function GetDigitalControl(): Dynamic;
-	static public function GetEntitiesAtScreenPoint(): Dynamic;
-	static public function GetEntityAtScreenPoint(): Dynamic;
-	static public function GetFPS(): Dynamic;
-	static public function GetFileModificationTime(): Dynamic;
-	static public function GetGameID(): Dynamic;
-	static public function GetGroundViewDirection(): Dynamic;
-	static public function GetLightAtPoint(): Dynamic;
-	static public function GetMOTDImage(): Dynamic;
-	static public function GetModDirectoryNames(): Dynamic;
-	static public function GetMouseButtonState(): Dynamic;
-	static public function GetNumLaunches(): Dynamic;
-	static public function GetNumberOfEntities(): Dynamic;
-	static public function GetPersistentString(): Dynamic;
-	static public function GetPersistentStringInClusterSlot(): Dynamic;
-	static public function GetPosition(): Dynamic;
-	static public function GetRealTime(): Dynamic;
-	static public function GetScreenPos(): Dynamic;
-	static public function GetScreenSize(): Dynamic;
-	static public function GetServerModsDownloading(): Dynamic;
-	static public function GetSetting(): Dynamic;
-	static public function GetSoundVolume(): Dynamic;
-	static public function GetStashedPlayInstance(): Dynamic;
-	static public function GetSteamAppID(): Dynamic;
-	static public function GetSteamBetaBranchName(): Dynamic;
-	static public function GetSteamIDNumber(): Dynamic;
-	static public function GetSteamUserID(): Dynamic;
-	static public function GetStep(): Dynamic;
-	static public function GetTick(): Dynamic;
-	static public function GetTickTime(): Dynamic;
-	static public function GetTimeScale(): Dynamic;
-	static public function GetUserHasLicenseForApp(): Dynamic;
-	static public function GetUsersName(): Dynamic;
-	static public function GetWindowSize(): Dynamic;
-	static public function GetWorkshopVersion(): Dynamic;
-	static public function HasWindowFocus(): Dynamic;
-	static public function HideAnimOnEntitiesWithTag(): Dynamic;
-	static public function Hook(): Dynamic;
-	static public function IsBorrowed(): Dynamic;
-	static public function IsDLCEnabled(): Dynamic;
-	static public function IsDLCInstalled(): Dynamic;
-	static public function IsDebugPaused(): Dynamic;
-	static public function IsKeyDown(): Dynamic;
-	static public function IsLoggedOn(): Dynamic;
-	static public function IsNetbookMode(): Dynamic;
-	static public function IsPlaying(): Dynamic;
-	static public function LoadFont(): Dynamic;
-	static public function LoadPrefabs(): Dynamic;
-	static public function LoadUserFile(): Dynamic;
-	static public function LockModDir(): Dynamic;
-	static public function LogBulkMetric(): Dynamic;
-	static public function LuaPrint(): Dynamic;
-	static public function LuaPrintRemote(): Dynamic;
-	static public function MemTrackerPop(): Dynamic;
-	static public function MemTrackerPush(): Dynamic;
-	static public function OnAssetPathResolve(): Dynamic;
-	static public function PreloadFile(): Dynamic;
-	static public function PrintTextureInfo(): Dynamic;
-	static public function Profile(): Dynamic;
-	static public function ProfilerPop(): Dynamic;
-	static public function ProfilerPush(): Dynamic;
-	static public function ProjectScreenPos(): Dynamic;
-	static public function QueryServer(): Dynamic;
-	static public function QueryStats(): Dynamic;
-	static public function QueueDownloadTempMod(): Dynamic;
-	static public function Quit(): Dynamic;
-	static public function RegisterPrefab(): Dynamic;
-	static public function RemapSoundEvent(): Dynamic;
-	static public function RenderOneFrame(): Dynamic;
-	static public function ReportAction(): Dynamic;
-	static public function RequestPlayerID(): Dynamic;
-	static public function Reset(): Dynamic;
-	static public function SendGameStat(): Dynamic;
-	static public function SendHardwareStats(): Dynamic;
-	static public function SendJSMessage(): Dynamic;
-	static public function SendProfileStats(): Dynamic;
-	static public function SendUITrigger(): Dynamic;
-	static public function SetActiveAreaCenterpoint(): Dynamic;
-	static public function SetAmbientColour(): Dynamic;
-	static public function SetCameraDir(): Dynamic;
-	static public function SetCameraFOV(): Dynamic;
-	static public function SetCameraPos(): Dynamic;
-	static public function SetCameraUp(): Dynamic;
-	static public function SetDLCEnabled(): Dynamic;
-	static public function SetDebugCameraRotation(): Dynamic;
-	static public function SetDebugCameraTarget(): Dynamic;
-	static public function SetDebugPhysicsRenderEnabled(): Dynamic;
-	static public function SetDebugRenderEnabled(): Dynamic;
-	static public function SetErosionTexture(): Dynamic;
-	static public function SetHighPassFilter(): Dynamic;
-	static public function SetInstanceParameters(): Dynamic;
-	static public function SetListener(): Dynamic;
-	static public function SetLowPassFilter(): Dynamic;
-	static public function SetMemInfoTrackingInterval(): Dynamic;
-	static public function SetMemoryTracking(): Dynamic;
-	static public function SetNetbookMode(): Dynamic;
-	static public function SetPersistentString(): Dynamic;
-	static public function SetPersistentStringInClusterSlot(): Dynamic;
-	static public function SetRenderPassDefaultEffect(): Dynamic;
-	static public function SetReverbPreset(): Dynamic;
-	static public function SetSetting(): Dynamic;
-	static public function SetSoundVolume(): Dynamic;
-	static public function SetTimeScale(): Dynamic;
-	static public function SetUIRoot(): Dynamic;
-	static public function SetVisualAmbientColour(): Dynamic;
-	static public function SetupFontFallbacks(): Dynamic;
-	static public function ShouldPlayIntroMovie(): Dynamic;
-	static public function ShouldWarnModsLoaded(): Dynamic;
-	static public function ShowAnimOnEntitiesWithTag(): Dynamic;
-	static public function SpawnPrefab(): Dynamic;
-	static public function StartDownloadTempMods(): Dynamic;
-	static public function StartWorkshopQuery(): Dynamic;
-	static public function StashPlayInstance(): Dynamic;
-	static public function Step(): Dynamic;
-	static public function StopAllSounds(): Dynamic;
-	static public function SubscribeToMod(): Dynamic;
-	static public function ToggleDataProfiler(): Dynamic;
-	static public function ToggleDebugCamera(): Dynamic;
-	static public function ToggleDebugPause(): Dynamic;
-	static public function ToggleDebugTexture(): Dynamic;
-	static public function ToggleFrameProfiler(): Dynamic;
-	static public function TogglePerfGraph(): Dynamic;
-	static public function TryLockModDir(): Dynamic;
-	static public function TurnOffReverb(): Dynamic;
-	static public function UnloadAllPrefabs(): Dynamic;
-	static public function UnloadFont(): Dynamic;
-	static public function UnloadPrefabs(): Dynamic;
-	static public function UnlockModDir(): Dynamic;
-	static public function UnregisterAllPrefabs(): Dynamic;
-	static public function UnregisterPrefabs(): Dynamic;
-	static public function UpdateDebugTexture(): Dynamic;
-	static public function UpdateDeviceCaps(): Dynamic;
-	static public function UpdateWorkshopMod(): Dynamic;
-	static public function UserChooseDirectory(): Dynamic;
-	static public function ValidateHeap(): Dynamic;
-	static public function VerifyModVersions(): Dynamic;
-	static public function WorldPointInPoly(): Dynamic;
+	public function AdjustFontAdvance(): Dynamic;
+	public function CanWriteConfigurationDirectory(): Dynamic;
+	public function CheckPersistentStringExists(): Dynamic;
+	public function CleanAllMods(): Dynamic;
+	public function ClearAllDSP(): Dynamic;
+	public function ClearDSP(): Dynamic;
+	public function ClearFileSystemAliases(): Dynamic;
+	public function ClearInput(): Dynamic;
+	public function CreateEntity(): Dynamic;
+	public function DebugPause(): Dynamic;
+	public function DebugPushJsonMessage(): Dynamic;
+	public function DebugStringScreen(): Dynamic;
+	public function DumpMemInfo(): Dynamic;
+	public function DumpMemoryStats(): Dynamic;
+	public function ErasePersistentString(): Dynamic;
+	public function FindEntities(): Dynamic;
+	public function FindFirstEntityWithTag(): Dynamic;
+	public function ForceAbort(): Dynamic;
+	public function GenerateNewWorld(): Dynamic;
+	public function GetAnalogControl(): Dynamic;
+	public function GetBuildDate(): Dynamic;
+	public function GetClientModsDownloading(): Dynamic;
+	public function GetClipboardData(): Dynamic;
+	public function GetDebugPhysicsRenderEnabled(): Dynamic;
+	public function GetDebugRenderEnabled(): Dynamic;
+	public function GetDigitalControl(): Dynamic;
+	public function GetEntitiesAtScreenPoint(): Dynamic;
+	public function GetEntityAtScreenPoint(): Dynamic;
+	public function GetFPS(): Dynamic;
+	public function GetFileModificationTime(): Dynamic;
+	public function GetGameID(): Dynamic;
+	public function GetGroundViewDirection(): Dynamic;
+	public function GetLightAtPoint(): Dynamic;
+	public function GetMOTDImage(): Dynamic;
+	public function GetModDirectoryNames(): Dynamic;
+	public function GetMouseButtonState(): Dynamic;
+	public function GetNumLaunches(): Dynamic;
+	public function GetNumberOfEntities(): Dynamic;
+	public function GetPersistentString(): Dynamic;
+	public function GetPersistentStringInClusterSlot(): Dynamic;
+	public function GetPosition(): Dynamic;
+	public function GetRealTime(): Dynamic;
+	public function GetScreenPos(): Dynamic;
+	public function GetScreenSize(): Dynamic;
+	public function GetServerModsDownloading(): Dynamic;
+	public function GetSetting(): Dynamic;
+	public function GetSoundVolume(): Dynamic;
+	public function GetStashedPlayInstance(): Dynamic;
+	public function GetSteamAppID(): Dynamic;
+	public function GetSteamBetaBranchName(): Dynamic;
+	public function GetSteamIDNumber(): Dynamic;
+	public function GetSteamUserID(): Dynamic;
+	public function GetStep(): Dynamic;
+	public function GetTick(): Dynamic;
+	public function GetTickTime(): Dynamic;
+	public function GetTimeScale(): Dynamic;
+	public function GetUserHasLicenseForApp(): Dynamic;
+	public function GetUsersName(): Dynamic;
+	public function GetWindowSize(): Dynamic;
+	public function GetWorkshopVersion(): Dynamic;
+	public function HasWindowFocus(): Dynamic;
+	public function HideAnimOnEntitiesWithTag(): Dynamic;
+	public function Hook(): Dynamic;
+	public function IsBorrowed(): Dynamic;
+	public function IsDLCEnabled(): Dynamic;
+	public function IsDLCInstalled(): Dynamic;
+	public function IsDebugPaused(): Dynamic;
+	public function IsKeyDown(): Dynamic;
+	public function IsLoggedOn(): Dynamic;
+	public function IsNetbookMode(): Dynamic;
+	public function IsPlaying(): Dynamic;
+	public function LoadFont(): Dynamic;
+	public function LoadPrefabs(): Dynamic;
+	public function LoadUserFile(): Dynamic;
+	public function LockModDir(): Dynamic;
+	public function LogBulkMetric(): Dynamic;
+	public function LuaPrint(): Dynamic;
+	public function LuaPrintRemote(): Dynamic;
+	public function MemTrackerPop(): Dynamic;
+	public function MemTrackerPush(): Dynamic;
+	public function OnAssetPathResolve(): Dynamic;
+	public function PreloadFile(): Dynamic;
+	public function PrintTextureInfo(): Dynamic;
+	public function Profile(): Dynamic;
+	public function ProfilerPop(): Dynamic;
+	public function ProfilerPush(): Dynamic;
+	public function ProjectScreenPos(): Dynamic;
+	public function QueryServer(): Dynamic;
+	public function QueryStats(): Dynamic;
+	public function QueueDownloadTempMod(): Dynamic;
+	public function Quit(): Dynamic;
+	public function RegisterPrefab(): Dynamic;
+	public function RemapSoundEvent(): Dynamic;
+	public function RenderOneFrame(): Dynamic;
+	public function ReportAction(): Dynamic;
+	public function RequestPlayerID(): Dynamic;
+	public function Reset(): Dynamic;
+	public function SendGameStat(): Dynamic;
+	public function SendHardwareStats(): Dynamic;
+	public function SendJSMessage(): Dynamic;
+	public function SendProfileStats(): Dynamic;
+	public function SendUITrigger(): Dynamic;
+	public function SetActiveAreaCenterpoint(): Dynamic;
+	public function SetAmbientColour(): Dynamic;
+	public function SetCameraDir(): Dynamic;
+	public function SetCameraFOV(): Dynamic;
+	public function SetCameraPos(): Dynamic;
+	public function SetCameraUp(): Dynamic;
+	public function SetDLCEnabled(): Dynamic;
+	public function SetDebugCameraRotation(): Dynamic;
+	public function SetDebugCameraTarget(): Dynamic;
+	public function SetDebugPhysicsRenderEnabled(): Dynamic;
+	public function SetDebugRenderEnabled(): Dynamic;
+	public function SetErosionTexture(): Dynamic;
+	public function SetHighPassFilter(): Dynamic;
+	public function SetInstanceParameters(): Dynamic;
+	public function SetListener(): Dynamic;
+	public function SetLowPassFilter(): Dynamic;
+	public function SetMemInfoTrackingInterval(): Dynamic;
+	public function SetMemoryTracking(): Dynamic;
+	public function SetNetbookMode(): Dynamic;
+	public function SetPersistentString(): Dynamic;
+	public function SetPersistentStringInClusterSlot(): Dynamic;
+	public function SetRenderPassDefaultEffect(): Dynamic;
+	public function SetReverbPreset(): Dynamic;
+	public function SetSetting(): Dynamic;
+	public function SetSoundVolume(): Dynamic;
+	public function SetTimeScale(): Dynamic;
+	public function SetUIRoot(): Dynamic;
+	public function SetVisualAmbientColour(): Dynamic;
+	public function SetupFontFallbacks(): Dynamic;
+	public function ShouldPlayIntroMovie(): Dynamic;
+	public function ShouldWarnModsLoaded(): Dynamic;
+	public function ShowAnimOnEntitiesWithTag(): Dynamic;
+	public function SpawnPrefab(): Dynamic;
+	public function StartDownloadTempMods(): Dynamic;
+	public function StartWorkshopQuery(): Dynamic;
+	public function StashPlayInstance(): Dynamic;
+	public function Step(): Dynamic;
+	public function StopAllSounds(): Dynamic;
+	public function SubscribeToMod(): Dynamic;
+	public function ToggleDataProfiler(): Dynamic;
+	public function ToggleDebugCamera(): Dynamic;
+	public function ToggleDebugPause(): Dynamic;
+	public function ToggleDebugTexture(): Dynamic;
+	public function ToggleFrameProfiler(): Dynamic;
+	public function TogglePerfGraph(): Dynamic;
+	public function TryLockModDir(): Dynamic;
+	public function TurnOffReverb(): Dynamic;
+	public function UnloadAllPrefabs(): Dynamic;
+	public function UnloadFont(): Dynamic;
+	public function UnloadPrefabs(): Dynamic;
+	public function UnlockModDir(): Dynamic;
+	public function UnregisterAllPrefabs(): Dynamic;
+	public function UnregisterPrefabs(): Dynamic;
+	public function UpdateDebugTexture(): Dynamic;
+	public function UpdateDeviceCaps(): Dynamic;
+	public function UpdateWorkshopMod(): Dynamic;
+	public function UserChooseDirectory(): Dynamic;
+	public function ValidateHeap(): Dynamic;
+	public function VerifyModVersions(): Dynamic;
+	public function WorldPointInPoly(): Dynamic;
 }
 
 @:native("_G.SoundEmitter")
 extern class SoundEmitter {
-	static public function GetEntity(): Dynamic;
-	static public function KillAllSounds(): Dynamic;
-	static public function KillSound(): Dynamic;
-	static public function OverrideVolumeMultiplier(): Dynamic;
-	static public function PlaySound(): Dynamic;
-	static public function PlaySoundWithParams(): Dynamic;
-	static public function PlayingSound(): Dynamic;
-	static public function SetMute(): Dynamic;
-	static public function SetParameter(): Dynamic;
-	static public function SetVolume(): Dynamic;
+	public function GetEntity(): Dynamic;
+	public function KillAllSounds(): Dynamic;
+	public function KillSound(): Dynamic;
+	public function OverrideVolumeMultiplier(): Dynamic;
+	public function PlaySound(): Dynamic;
+	public function PlaySoundWithParams(): Dynamic;
+	public function PlayingSound(): Dynamic;
+	public function SetMute(): Dynamic;
+	public function SetParameter(): Dynamic;
+	public function SetVolume(): Dynamic;
 }
 
 @:native("_G.StaticShadow")
 extern class StaticShadow {
-	static public function SetSize(): Dynamic;
+	public function SetSize(): Dynamic;
 }
 
 @:native("_G.SystemService")
 extern class SystemService {
-	static public function AdjustDisplaySafeArea(): Dynamic;
-	static public function ClearLastOperation(): Dynamic;
-	static public function DidBugReportSucceed(): Dynamic;
-	static public function EnableAutosave(): Dynamic;
-	static public function EnableStorage(): Dynamic;
-	static public function FileBugReport(): Dynamic;
-	static public function GetBugReportUserCode(): Dynamic;
-	static public function GetLastOperation(): Dynamic;
-	static public function GotoStorePageROG(): Dynamic;
-	static public function HasFocus(): Dynamic;
-	static public function IsAutosaveEnabled(): Dynamic;
-	static public function IsBugReportRunning(): Dynamic;
-	static public function IsDisplaySafeAreaAdjusted(): Dynamic;
-	static public function IsStorageAvailable(): Dynamic;
-	static public function IsStorageEnabled(): Dynamic;
-	static public function OverwriteStorage(): Dynamic;
-	static public function PrepareStorage(): Dynamic;
-	static public function RetryOperation(): Dynamic;
-	static public function SetStalling(): Dynamic;
-	static public function StartDedicatedServers(): Dynamic;
-	static public function StopDedicatedServers(): Dynamic;
+	public function AdjustDisplaySafeArea(): Dynamic;
+	public function ClearLastOperation(): Dynamic;
+	public function DidBugReportSucceed(): Dynamic;
+	public function EnableAutosave(): Dynamic;
+	public function EnableStorage(): Dynamic;
+	public function FileBugReport(): Dynamic;
+	public function GetBugReportUserCode(): Dynamic;
+	public function GetLastOperation(): Dynamic;
+	public function GotoStorePageROG(): Dynamic;
+	public function HasFocus(): Dynamic;
+	public function IsAutosaveEnabled(): Dynamic;
+	public function IsBugReportRunning(): Dynamic;
+	public function IsDisplaySafeAreaAdjusted(): Dynamic;
+	public function IsStorageAvailable(): Dynamic;
+	public function IsStorageEnabled(): Dynamic;
+	public function OverwriteStorage(): Dynamic;
+	public function PrepareStorage(): Dynamic;
+	public function RetryOperation(): Dynamic;
+	public function SetStalling(): Dynamic;
+	public function StartDedicatedServers(): Dynamic;
+	public function StopDedicatedServers(): Dynamic;
 }
 
 @:native("_G.TextEditWidget")
 extern class TextEditWidget {
-	static public function EnableScrollEditWindow(): Dynamic;
-	static public function GetString(): Dynamic;
-	static public function OnKeyDown(): Dynamic;
-	static public function OnKeyUp(): Dynamic;
-	static public function OnTextInput(): Dynamic;
-	static public function SetForceUpperCase(): Dynamic;
-	static public function SetPassword(): Dynamic;
-	static public function SetString(): Dynamic;
+	public function EnableScrollEditWindow(): Dynamic;
+	public function GetString(): Dynamic;
+	public function OnKeyDown(): Dynamic;
+	public function OnKeyUp(): Dynamic;
+	public function OnTextInput(): Dynamic;
+	public function SetForceUpperCase(): Dynamic;
+	public function SetPassword(): Dynamic;
+	public function SetString(): Dynamic;
 }
 
 @:native("_G.TextWidget")
 extern class TextWidget {
-	static public function EnableWhitespaceWrap(): Dynamic;
-	static public function EnableWordWrap(): Dynamic;
-	static public function GetRegionSize(): Dynamic;
-	static public function GetString(): Dynamic;
-	static public function HasOverflow(): Dynamic;
-	static public function SetColour(): Dynamic;
-	static public function SetEditCursorColour(): Dynamic;
-	static public function SetFont(): Dynamic;
-	static public function SetHAnchor(): Dynamic;
-	static public function SetHorizontalSqueeze(): Dynamic;
-	static public function SetRegionSize(): Dynamic;
-	static public function SetSize(): Dynamic;
-	static public function SetString(): Dynamic;
-	static public function SetVAnchor(): Dynamic;
-	static public function ShowEditCursor(): Dynamic;
+	public function EnableWhitespaceWrap(): Dynamic;
+	public function EnableWordWrap(): Dynamic;
+	public function GetRegionSize(): Dynamic;
+	public function GetString(): Dynamic;
+	public function HasOverflow(): Dynamic;
+	public function SetColour(): Dynamic;
+	public function SetEditCursorColour(): Dynamic;
+	public function SetFont(): Dynamic;
+	public function SetHAnchor(): Dynamic;
+	public function SetHorizontalSqueeze(): Dynamic;
+	public function SetRegionSize(): Dynamic;
+	public function SetSize(): Dynamic;
+	public function SetString(): Dynamic;
+	public function SetVAnchor(): Dynamic;
+	public function ShowEditCursor(): Dynamic;
 }
 
 @:native("_G.Transform")
 extern class Transform {
-	static public function GetFacing(): Dynamic;
-	static public function GetLocalPosition(): Dynamic;
-	static public function GetPredictionPosition(): Dynamic;
-	static public function GetRotation(): Dynamic;
-	static public function GetScale(): Dynamic;
-	static public function GetWorldPosition(): Dynamic;
-	static public function SetEightFaced(): Dynamic;
-	static public function SetFourFaced(): Dynamic;
-	static public function SetFromProxy(): Dynamic;
-	static public function SetNoFaced(): Dynamic;
-	static public function SetPosition(): Dynamic;
-	static public function SetRotation(): Dynamic;
-	static public function SetScale(): Dynamic;
-	static public function SetSixFaced(): Dynamic;
-	static public function SetTwoFaced(): Dynamic;
-	static public function UpdateTransform(): Dynamic;
+	public function GetFacing(): Dynamic;
+	public function GetLocalPosition(): Dynamic;
+	public function GetPredictionPosition(): Dynamic;
+	public function GetRotation(): Dynamic;
+	public function GetScale(): Dynamic;
+	public function GetWorldPosition(): Dynamic;
+	public function SetEightFaced(): Dynamic;
+	public function SetFourFaced(): Dynamic;
+	public function SetFromProxy(): Dynamic;
+	public function SetNoFaced(): Dynamic;
+	public function SetPosition(): Dynamic;
+	public function SetRotation(): Dynamic;
+	public function SetScale(): Dynamic;
+	public function SetSixFaced(): Dynamic;
+	public function SetTwoFaced(): Dynamic;
+	public function UpdateTransform(): Dynamic;
 }
 
 @:native("_G.TwitchOptions")
 extern class TwitchOptions {
-	static public function Forget(): Dynamic;
-	static public function GetBroadcastingEnabled(): Dynamic;
-	static public function GetChannelName(): Dynamic;
-	static public function GetChannelURL(): Dynamic;
-	static public function GetStreamingState(): Dynamic;
-	static public function GetStreamingStateString(): Dynamic;
-	static public function GetUserName(): Dynamic;
-	static public function GetVisibleChatEnabled(): Dynamic;
-	static public function IsInitialized(): Dynamic;
-	static public function IsPastInitializedState(): Dynamic;
-	static public function IsStreaming(): Dynamic;
-	static public function Login(): Dynamic;
-	static public function SaveSettings(): Dynamic;
-	static public function SetBroadcastingEnabled(): Dynamic;
-	static public function SetVisibleChatEnabled(): Dynamic;
-	static public function Start(): Dynamic;
-	static public function Stop(): Dynamic;
-	static public function SupportedByPlatform(): Dynamic;
-	static public function ToggleStreaming(): Dynamic;
+	public function Forget(): Dynamic;
+	public function GetBroadcastingEnabled(): Dynamic;
+	public function GetChannelName(): Dynamic;
+	public function GetChannelURL(): Dynamic;
+	public function GetStreamingState(): Dynamic;
+	public function GetStreamingStateString(): Dynamic;
+	public function GetUserName(): Dynamic;
+	public function GetVisibleChatEnabled(): Dynamic;
+	public function IsInitialized(): Dynamic;
+	public function IsPastInitializedState(): Dynamic;
+	public function IsStreaming(): Dynamic;
+	public function Login(): Dynamic;
+	public function SaveSettings(): Dynamic;
+	public function SetBroadcastingEnabled(): Dynamic;
+	public function SetVisibleChatEnabled(): Dynamic;
+	public function Start(): Dynamic;
+	public function Stop(): Dynamic;
+	public function SupportedByPlatform(): Dynamic;
+	public function ToggleStreaming(): Dynamic;
 }
 
 @:native("_G.UITransform")
 extern class UITransform {
-	static public function GetLocalPosition(): Dynamic;
-	static public function GetRotation(): Dynamic;
-	static public function GetScale(): Dynamic;
-	static public function GetWorldPosition(): Dynamic;
-	static public function SetHAnchor(): Dynamic;
-	static public function SetMaxPropUpscale(): Dynamic;
-	static public function SetPosition(): Dynamic;
-	static public function SetRotation(): Dynamic;
-	static public function SetScale(): Dynamic;
-	static public function SetScaleMode(): Dynamic;
-	static public function SetVAnchor(): Dynamic;
-	static public function UpdateTransform(): Dynamic;
+	public function GetLocalPosition(): Dynamic;
+	public function GetRotation(): Dynamic;
+	public function GetScale(): Dynamic;
+	public function GetWorldPosition(): Dynamic;
+	public function SetHAnchor(): Dynamic;
+	public function SetMaxPropUpscale(): Dynamic;
+	public function SetPosition(): Dynamic;
+	public function SetRotation(): Dynamic;
+	public function SetScale(): Dynamic;
+	public function SetScaleMode(): Dynamic;
+	public function SetVAnchor(): Dynamic;
+	public function UpdateTransform(): Dynamic;
 }
 
 @:native("_G.VFXEffect")
 extern class VFXEffect {
-	static public function AddParticle(): Dynamic;
-	static public function AddParticleUV(): Dynamic;
-	static public function AddRotatingParticle(): Dynamic;
-	static public function AddRotatingParticleUV(): Dynamic;
-	static public function ClearAllParticles(): Dynamic;
-	static public function EnableBloomPass(): Dynamic;
-	static public function EnableDepthTest(): Dynamic;
-	static public function FastForward(): Dynamic;
-	static public function GetNumLiveParticles(): Dynamic;
-	static public function InitEmitters(): Dynamic;
-	static public function SetAcceleration(): Dynamic;
-	static public function SetBlendMode(): Dynamic;
-	static public function SetColourEnvelope(): Dynamic;
-	static public function SetDragCoefficient(): Dynamic;
-	static public function SetFollowEmitter(): Dynamic;
-	static public function SetKillOnEntityDeath(): Dynamic;
-	static public function SetMaxLifetime(): Dynamic;
-	static public function SetMaxNumParticles(): Dynamic;
-	static public function SetRadius(): Dynamic;
-	static public function SetRenderResources(): Dynamic;
-	static public function SetRotationStatus(): Dynamic;
-	static public function SetScaleEnvelope(): Dynamic;
-	static public function SetSortOffset(): Dynamic;
-	static public function SetSortOrder(): Dynamic;
-	static public function SetSpawnVectors(): Dynamic;
-	static public function SetUVFrameSize(): Dynamic;
+	public function AddParticle(): Dynamic;
+	public function AddParticleUV(): Dynamic;
+	public function AddRotatingParticle(): Dynamic;
+	public function AddRotatingParticleUV(): Dynamic;
+	public function ClearAllParticles(): Dynamic;
+	public function EnableBloomPass(): Dynamic;
+	public function EnableDepthTest(): Dynamic;
+	public function FastForward(): Dynamic;
+	public function GetNumLiveParticles(): Dynamic;
+	public function InitEmitters(): Dynamic;
+	public function SetAcceleration(): Dynamic;
+	public function SetBlendMode(): Dynamic;
+	public function SetColourEnvelope(): Dynamic;
+	public function SetDragCoefficient(): Dynamic;
+	public function SetFollowEmitter(): Dynamic;
+	public function SetKillOnEntityDeath(): Dynamic;
+	public function SetMaxLifetime(): Dynamic;
+	public function SetMaxNumParticles(): Dynamic;
+	public function SetRadius(): Dynamic;
+	public function SetRenderResources(): Dynamic;
+	public function SetRotationStatus(): Dynamic;
+	public function SetScaleEnvelope(): Dynamic;
+	public function SetSortOffset(): Dynamic;
+	public function SetSortOrder(): Dynamic;
+	public function SetSpawnVectors(): Dynamic;
+	public function SetUVFrameSize(): Dynamic;
 }
 
 @:native("_G.VideoWidget")
 extern class VideoWidget {
-	static public function GetSize(): Dynamic;
-	static public function IsDone(): Dynamic;
-	static public function Load(): Dynamic;
-	static public function Pause(): Dynamic;
-	static public function Play(): Dynamic;
-	static public function SetHAnchor(): Dynamic;
-	static public function SetSize(): Dynamic;
-	static public function SetVAnchor(): Dynamic;
-	static public function Stop(): Dynamic;
+	public function GetSize(): Dynamic;
+	public function IsDone(): Dynamic;
+	public function Load(): Dynamic;
+	public function Pause(): Dynamic;
+	public function Play(): Dynamic;
+	public function SetHAnchor(): Dynamic;
+	public function SetSize(): Dynamic;
+	public function SetVAnchor(): Dynamic;
+	public function Stop(): Dynamic;
 }
 
 @:native("_G.WaveComponent")
 extern class WaveComponent {
-	static public function Init(): Dynamic;
-	static public function SetWaveEffect(): Dynamic;
-	static public function SetWaveParams(): Dynamic;
-	static public function SetWaveSize(): Dynamic;
-	static public function SetWaveTexture(): Dynamic;
+	public function Init(): Dynamic;
+	public function SetWaveEffect(): Dynamic;
+	public function SetWaveParams(): Dynamic;
+	public function SetWaveSize(): Dynamic;
+	public function SetWaveTexture(): Dynamic;
 }
 
 @:native("_G.json")

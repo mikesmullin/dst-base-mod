@@ -32,14 +32,14 @@ class ModContext
 			var mainFile = haxe.macro.Compiler.getOutput();
 			var compilerOutput = File.getContent(mainFile);
 			File.saveContent(mainFile, 
-				"local pcall = GLOBAL.pcall\n"+
-				"local getmetatable = GLOBAL.getmetatable\n"+
-				"local getmetatable = GLOBAL.getmetatable\n"+
-				"local setmetatable = GLOBAL.setmetatable\n"+
-				"local rawset = GLOBAL.rawset\n"+
-				"local select = GLOBAL.select\n" +
-				"local debug = GLOBAL.debug\n"+	
 				"local _G = GLOBAL\n\n" +
+				"local pcall = _G.pcall\n"+
+				"local getmetatable = _G.getmetatable\n"+
+				"local getmetatable = _G.getmetatable\n"+
+				"local setmetatable = _G.setmetatable\n"+
+				"local rawset = _G.rawset\n"+
+				"local select = _G.select\n" +
+				"local debug = _G.debug\n"+	
 
 				// If you are trying to reference a global from your own
 				// script which is not defined here, this is not the place

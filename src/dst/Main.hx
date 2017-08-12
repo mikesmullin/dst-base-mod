@@ -1,7 +1,7 @@
 package dst;
 
 @:native("_G")
-class Main
+extern class Main
 {
 	static public var MAIN: Int; // 1
 	static public var ENCODE_SAVES: Bool; // BRANCH ~= "dev" true
