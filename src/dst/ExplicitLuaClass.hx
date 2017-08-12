@@ -15,7 +15,7 @@ import Utils.DynamicObject;
  * you can get to enforcing them is to make it as easy as possible
  * for the developer to make the correct choice.
  *
- * Used by Klei to make stricter object-oriented classes in Lua.
+ * Used here to make stricter object-oriented classes in Lua.
  * 
  * Derivative of common open-source community conventions.
  */

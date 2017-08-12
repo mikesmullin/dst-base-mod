@@ -7,7 +7,7 @@ import haxe.io.Bytes;
 /**
  * bin/dontstarve_steam.exe
  *
- * This namespace represents hardware-acceleratd machine code
+ * This namespace represents hardware-accelerated machine code
  * interfaces Lua may access from its runtime sandbox.
  * It provides many commonly used definitions.
  */
@@ -380,11 +380,6 @@ extern class Entity
 	public function SetSelected(): Dynamic;
 	public function Show(): Dynamic;
 	public function WorldToLocalSpace(): Dynamic;
-}
-
-@:native("_G.Ents")
-extern class Ents
-{
 }
 
 @:native("_G.EnvelopeManager")
