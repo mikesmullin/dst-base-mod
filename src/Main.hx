@@ -62,7 +62,9 @@ class Main
 				if (!InGamePlay()) return;
 				log("and InGamePlay()");
 
-				require('vscode_debuggee').easyStart();
+				var debuggee = require('vscode_debuggee');
+				debuggee.easyStart();
+				log("debuggee on");
 
 				log("main() starting up...");
 
@@ -80,6 +82,10 @@ class Main
 				// 		end)
 				// end
 				// inst.sg:GoToState("spawn_pre")
+
+				debuggee.disable();
+				log("debuggee off");
+
 			}, TheWorld);
 			// inst:ListenForEvent("rez_player", OnRezPlayer)
 		});
