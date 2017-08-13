@@ -60,7 +60,7 @@ extern class Main
 	static public var TheMixer: {};
 
 	static public var Prefabs: Array<Dynamic>;
-	static public var Ents: Array<Dynamic>;
+	static public var Ents: Map<dst.CompiledEngine.GUID, dst.CompiledEngine.Entity>;
 	static public var AwakeEnts: Array<Dynamic>;
 	static public var UpdatingEnts: Array<Dynamic>;
 	static public var NewUpdatingEnts: Array<Dynamic>;
