@@ -1475,49 +1475,91 @@ private extern class BaseType<T> {
 
 
 /**
-	* Collection of typed classes used only by the network
-	* interface to transmit binary data.
-	*/
+ * Collection of typed classes used only by the network
+ * interface to transmit binary data.
+ */
 
+/**
+ * maps to a single bit boolean
+ */
 @:native("_G.net_bool")
 extern class NetBool extends BaseType<Bool> {}
 
+/**
+ * maps to an unsigned 8-bit integer
+ */
 @:native("_G.net_byte")
 extern class NetByte extends BaseType<Int> {}
 
+/**
+ * maps to an array of unsigned 8-bit integers
+ */
 @:native("_G.net_bytearray")
 extern class NetByteArray extends BaseType<Bytes> {}
 
+/**
+ * maps to an unsigned 64-bit integer containing the network id of the entity instance that is assigned
+ */
 @:native("_G.net_entity")
 extern class NetEntity extends BaseType<Entity> {}
 
+/**
+ * net_float - maps to a 32-bit float
+ */
 @:native("_G.net_float")
 extern class NetFloat extends BaseType<Float> {}
 
+/**
+ * maps to a unsigned 32-bit integer hash of the string assigned
+ */
 @:native("_G.net_hash")
 extern class NetHash extends BaseType<Hash> {}
 
+/**
+ * maps to a signed 32-bit integer
+ */
 @:native("_G.net_int")
 extern class NetInt extends BaseType<Int> {}
 
+/**
+ * maps to a signed 16-bit integer
+ */
 @:native("_G.net_shortint")
 extern class NetShortInt extends BaseType<Int> {}
 
+/**
+ * maps to an unsigned 32-bit integer
+ */
 @:native("_G.net_uint")
 extern class NetUInt extends BaseType<Int> {}
 
+/**
+ * maps to an unsigned 16-bit integer
+ */
 @:native("_G.net_ushortint")
 extern class NetUShortInt extends BaseType<Int> {}
 
+/**
+ * maps to an unsigned 3-bit integer
+ */
 @:native("_G.net_tinybyte")
 extern class NetTinyByte extends BaseType<Int> {}
 
+/**
+ * maps to an unsigned 6-bit integer
+ */
 @:native("_G.net_smallbyte")
 extern class NetSmallByte extends BaseType<Int> {}
 
+/**
+ * maps to an array of unsigned 6-bit integers
+ */
 @:native("_G.net_smallbytearray")
 extern class NetSmallByteArray extends BaseType<Bytes> {}
 
+/**
+ * maps to a string of variable length
+ */
 @:native("_G.net_string")
 extern class NetString extends BaseType<String> {}
 

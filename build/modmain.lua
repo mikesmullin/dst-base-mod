@@ -1,5 +1,4 @@
 local _G = GLOBAL
-
 local pcall = _G.pcall
 local getmetatable = _G.getmetatable
 local getmetatable = _G.getmetatable

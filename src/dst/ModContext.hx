@@ -32,7 +32,7 @@ class ModContext
 			var mainFile = haxe.macro.Compiler.getOutput();
 			var compilerOutput = File.getContent(mainFile);
 			File.saveContent(mainFile, 
-				"local _G = GLOBAL\n\n" +
+				"local _G = GLOBAL\n" +
 				"local pcall = _G.pcall\n"+
 				"local getmetatable = _G.getmetatable\n"+
 				"local getmetatable = _G.getmetatable\n"+
