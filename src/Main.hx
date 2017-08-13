@@ -24,7 +24,7 @@ class Main
 	{
 		ModContext.injectLocalToGlobalAliases();
 
-	  require('vscode_debuggee').easyStart();
+		//require('vscode_debuggee').easyStart();
 
 		log("main() starting up...");
 
