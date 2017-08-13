@@ -90,7 +90,7 @@ extern class Main
 	static public var MapLayerManager: {}; // nil
 	static public var Roads: {}; // nil
 	static public var TheFrontEnd: {}; // nil
-	static public var TheWorld: {}; // nil
+	static public var TheWorld: dst.CompiledEngine.Entity; // nil
 	static public var TheFocalPoint: {}; // nil
 	static public var ThePlayer: {}; // nil
 	static public var AllPlayers: {}; // {}
@@ -98,8 +98,11 @@ extern class Main
 
 	/**
 	 * Whether in-game or somewhere else (e.g., Title screen)
+	 *
+	 * Use Main.InGamePlay() instead.
 	 */
-	static public var inGamePlay: Bool; // false by default
+	 @:deprecated
+	static private var inGamePlay: Bool; // false by default
 }
 
 @:native("_G.VERBOSITY")

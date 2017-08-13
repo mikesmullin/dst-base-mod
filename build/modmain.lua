@@ -114,9 +114,39 @@ Array.prototype = _hx_a(
 
 Main.new = {}
 Main.main = function() 
-  _G.require("vscode_debuggee"):easyStart();
-  haxe.Log.trace("MikesPlugin: " .. "main() starting up...",_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Utils.hx",lineNumber=14,className="Utils",methodName="log"}));
   haxe.Log.trace("MikesPlugin: " .. "debug mode is enabled.",_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Utils.hx",lineNumber=14,className="Utils",methodName="log"}));
+  _G.CHEATS_ENABLED = true;
+  _G.require("debugtools");
+  _G.PRINT_SOURCE = true;
+  local inst = _G.CreateEntity();
+  inst:ListenForEvent("entitywake",function(_self,data) 
+    haxe.Log.trace("MikesPlugin: " .. "event entitywake",_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Utils.hx",lineNumber=14,className="Utils",methodName="log"}));
+  end,inst);
+  inst:ListenForEvent("onremove",function(self1,data1) 
+    haxe.Log.trace("MikesPlugin: " .. "event onremove",_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Utils.hx",lineNumber=14,className="Utils",methodName="log"}));
+  end,inst);
+  AddSimPostInit(function() 
+    haxe.Log.trace("MikesPlugin: " .. "AddSimPostInit",_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Utils.hx",lineNumber=14,className="Utils",methodName="log"}));
+    if (nil == _G.TheWorld) then 
+      do return end;
+    end;
+    haxe.Log.trace("MikesPlugin: " .. "and TheWorld",_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Utils.hx",lineNumber=14,className="Utils",methodName="log"}));
+    inst:ListenForEvent("ms_newplayercharacterspawned",function(self2,data2) 
+      haxe.Log.trace("MikesPlugin: " .. "event ms_newplayercharacterspawned",_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Utils.hx",lineNumber=14,className="Utils",methodName="log"}));
+      if (not _G.InGamePlay()) then 
+        do return end;
+      end;
+      haxe.Log.trace("MikesPlugin: " .. "and InGamePlay()",_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Utils.hx",lineNumber=14,className="Utils",methodName="log"}));
+      _G.require("vscode_debuggee"):easyStart();
+      haxe.Log.trace("MikesPlugin: " .. "main() starting up...",_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Utils.hx",lineNumber=14,className="Utils",methodName="log"}));
+    end,_G.TheWorld);
+  end);
+  AddGamePostInit(function() 
+    haxe.Log.trace("MikesPlugin: " .. "AddGamePostInit",_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Utils.hx",lineNumber=14,className="Utils",methodName="log"}));
+  end);
+  AddPlayerPostInit(function() 
+    haxe.Log.trace("MikesPlugin: " .. "AddPlayerPostInit",_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Utils.hx",lineNumber=14,className="Utils",methodName="log"}));
+  end);
 end
 
 String.new = {}

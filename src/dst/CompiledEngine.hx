@@ -329,6 +329,11 @@ extern class Entity
 	public var actionreplica: {}; // default: nil
 	public var replica: {}; // default: Replica(self)
 
+	// compiled functions
+	public function ListenForEvent(name: String, cb: Entity->Dynamic->Void, ?target: Dynamic): Void;
+
+
+
 
 	public function AddAccountManager(): Dynamic;
 	public function AddAnimState(): Dynamic;

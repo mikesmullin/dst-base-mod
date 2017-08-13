@@ -24,10 +24,6 @@ class Main
 	{
 		ModContext.injectLocalToGlobalAliases();
 
-		//require('vscode_debuggee').easyStart();
-
-		log("main() starting up...");
-
 		#if debug
 			log("debug mode is enabled.");
 			// enable Debug Keys feature
@@ -35,16 +31,72 @@ class Main
 			// - Shift-Right: jumps from main menu into the first save slot.
 			// - 0: jump to caves.
 
-			// Global.CHEATS_ENABLED = true;
-			// Global.require("debugtools");
+			CHEATS_ENABLED = true;
+			require("debugtools");
+			PRINT_SOURCE = true;
 		#end
 
-		// TODO: another way to do this is seen in main.lua defined in strict.lua
-		//				ie. global("SERVER_TERMINATION_TIMER")
-		// untyped __lua__("rawset(GLOBAL, \"PickMeatFirstGlobals\", PickMeatFirstGlobals)");
 
-		// var isMaster : Bool = false;
-		// var playerController : PlayerController;
 
+		// need an entity to subscribe an event listener
+		var inst = CreateEntity();
+		inst.ListenForEvent("entitywake", function(self, data) {
+			log("event entitywake");
+		}, inst);
+
+		inst.ListenForEvent("onremove", function(self, data) {
+			log("event onremove");
+		}, inst);
+
+
+
+		untyped AddSimPostInit(function() {
+			log("AddSimPostInit");
+
+			if (null == TheWorld) return;
+			log("and TheWorld");
+
+			inst.ListenForEvent("ms_newplayercharacterspawned", function(self, data) {
+				log("event ms_newplayercharacterspawned");
+
+				if (!InGamePlay()) return;
+				log("and InGamePlay()");
+
+				require('vscode_debuggee').easyStart();
+
+				log("main() starting up...");
+
+				// if data and data.player then
+				// 		data.player.AnimState:SetMultColour(0,0,0,1)
+				// 		data.player:Hide()
+				// 		data.player.components.playercontroller:Enable(false)
+				// 		data.player:DoTaskInTime(12*FRAMES, function(inst) 
+				// 				data.player:Show()
+				// 				data.player:DoTaskInTime(60*FRAMES, function(inst)
+				// 						inst.components.colourtweener:StartTween({1,1,1,1}, 14*FRAMES, function(inst)
+				// 								data.player.components.playercontroller:Enable(true)
+				// 						end)
+				// 				end)
+				// 		end)
+				// end
+				// inst.sg:GoToState("spawn_pre")
+			}, TheWorld);
+			// inst:ListenForEvent("rez_player", OnRezPlayer)
+		});
+
+		untyped AddGamePostInit(function() {
+			log("AddGamePostInit");
+		});
+
+		untyped AddPlayerPostInit(function() {
+			log("AddPlayerPostInit");
+		});
+
+		// untyped AddClassPostConstruct(function() {
+		// 	log("AddClassPostConstruct");
+		// });
+
+
+		
 	}
 }
