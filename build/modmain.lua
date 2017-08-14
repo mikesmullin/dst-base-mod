@@ -129,6 +129,17 @@ Main.main = function()
     if (nil == _G.TheWorld) then 
       do return end;
     end;
+
+local serpent = GLOBAL.require('serpent')
+GLOBAL.debug.sethook(function(event, lineno)
+	if (event ~= 'line') then return end
+	local data = GLOBAL.debug.getinfo(2, 'Sn')
+	GLOBAL.nolineprint('eval ' .. data.source .. ':' .. lineno .. ' ' .. data.name)
+	-- print('sethook event ' .. serpent.block({event=event,lineno=lineno}))
+	-- print('getinfo ' .. serpent.block(debug.getinfo(2, 'S')))
+end, 'l')
+
+
     haxe.Log.trace("MikesPlugin: " .. "and TheWorld",_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Utils.hx",lineNumber=14,className="Utils",methodName="log"}));
     inst:ListenForEvent("ms_newplayercharacterspawned",function(self2,data2) 
       haxe.Log.trace("MikesPlugin: " .. "event ms_newplayercharacterspawned",_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Utils.hx",lineNumber=14,className="Utils",methodName="log"}));
@@ -136,12 +147,11 @@ Main.main = function()
         do return end;
       end;
       haxe.Log.trace("MikesPlugin: " .. "and InGamePlay()",_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Utils.hx",lineNumber=14,className="Utils",methodName="log"}));
-      local debuggee = _G.require("vscode_debuggee");
-      debuggee:easyStart();
-      haxe.Log.trace("MikesPlugin: " .. "debuggee on",_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Utils.hx",lineNumber=14,className="Utils",methodName="log"}));
       haxe.Log.trace("MikesPlugin: " .. "main() starting up...",_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Utils.hx",lineNumber=14,className="Utils",methodName="log"}));
-      debuggee:disable();
-      haxe.Log.trace("MikesPlugin: " .. "debuggee off",_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Utils.hx",lineNumber=14,className="Utils",methodName="log"}));
+
+
+
+
     end,_G.TheWorld);
   end);
   AddGamePostInit(function() 

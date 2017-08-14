@@ -1429,40 +1429,74 @@ extern class JSON
 	static private function _null(): Dynamic; // prefixed for Haxe compat
 	static private function object(): Dynamic;
 }
-	
+
+
 /**
- * All network types extend this implementation.
+ * Network Variables
+ * 
+ * A collection of classes representing platform-agnostic data types
+ * and their values intended to be synchronized over a machine cluster
+ * via a streamed series of change and synchronization events.
+ *
+ * All network variable types extend this base class.
  */
-private extern class BaseType<T> {
-	
+private extern class NetVar<T>
+{
 	/**
-	 * Instantiation; registers a new network type object.
-	 * Used to transmit and/or receive change events with the server.
-
-	 * @param guid - Globally Unique Identifier;
-	 *   Provided by a call to an Entity:GetGUID() instance method.
-	 * @param name - Fully qualified name of the package and variable.
-	 *   Probably used for debug toString() dumps.
-	 *   But may be tracked by a compiled state machine
-	 *   and expected to be unique.
-	 * @param dirtyEventCallback - Event fired
-	 *   when client detects a change to this variable.
-	 *   May be triggered by server-to-client or
-	 *   a local-to-client modification.
+	 * Register event handler for network variable of a given name.
+   *
+	 * If any machine receives a value for a netvar name BEFORE it has
+	 * been locally registered, an error will be thrown similar to:
+	 *
+	 *   "Error deserializing lua state for entity...
+	 *    Failed to read net var data"
+	 *
+	 * Meaning a mod instantiating custom netvars needs to be installed
+	 * on BOTH the server and every participating client before it will
+	 * work.
+	 *
+	 * @param guid - Entity GUID.
+	 *
+	 * @param name - Network variable name. Must be unique per entity.
+	 *
+	 * @param dirtyCb - Dirty callback. See set() for details.
 	 */
-	public function new(guid:GUID, name:String, ?dirtyEventCallbackName:String);
+	public function new(guid:GUID, name:String, ?dirtyCb:String);
 
 	/**
-	 * Local and remote setter;
-	 * transmit a change notification to server,
-	 * and emit a change event locally.
+	 * Remote setter.
+	 *
+	 * Only when one of the following is also true
+	 * for this netvar instance:
+	 *
+	 *   a) given value is different than last value, or;
+	 *   b) set_local() used one or more times since last set()
+	 *
+	 * Transmits value to the server
+	 * Then triggers the event callback
+	 *
+	 * TODO: finish this
+	 * Questions:
+	 * - Will data be transmitted redundantly if value is same
+	 * - Does client wait for server to reflect data before triggering?
+	 * - Should this only be executed on server side code? (e.g., use case vs RPC)
+	 *
+	 * Used by ___
 	 */
 	public function set(value:T):Void;
 
 	/**
-	 * Local-only setter;
-	 * Do NOT notify server,
-	 * but emit a change event locally.
+	 * Local-only setter.
+	 *
+	 * Does NOT notify the cluster.
+	 *
+	 * TODO: finish this
+	 * Questions:
+	 * - Does this trigger event locally?
+	 *
+	 * Mainly used for interpolation.
+	 * Since a purely local value would not need to use a netvar.
+	 * (e.g. the client makes guesses locally until it can be corrected by the server)
 	 */
 	public function set_local(value:T):Void;
 
@@ -1473,95 +1507,121 @@ private extern class BaseType<T> {
 	public function value():T;
 }
 
-
 /**
- * Collection of typed classes used only by the network
- * interface to transmit binary data.
- */
-
-/**
- * maps to a single bit boolean
+ * 1-bit boolean
+ *
+ * e.g., set_local(true); set(true); can be used on net_bool
+ *   to transmit event notifications without having to
+ *   toggle true on/off between each event.
  */
 @:native("_G.net_bool")
-extern class NetBool extends BaseType<Bool> {}
+extern class NetBool extends NetVar<Bool> {}
 
 /**
- * maps to an unsigned 8-bit integer
+ * 8-bit unsigned integer   [0..255]
  */
 @:native("_G.net_byte")
-extern class NetByte extends BaseType<Int> {}
+extern class NetByte extends NetVar<Int> {}
 
 /**
- * maps to an array of unsigned 8-bit integers
+ * array of 8-bit unsigned integers (max size = 31)
+ *
+ * Arrays are expensive; avoid if you will dirty them often.
  */
 @:native("_G.net_bytearray")
-extern class NetByteArray extends BaseType<Bytes> {}
+extern class NetByteArray extends NetVar<Bytes> {}
 
 /**
- * maps to an unsigned 64-bit integer containing the network id of the entity instance that is assigned
+ * unsigned 64-bit integer containing entity network id
+ * represents the entity instance
  */
 @:native("_G.net_entity")
-extern class NetEntity extends BaseType<Entity> {}
+extern class NetEntity extends NetVar<Entity> {}
 
 /**
- * net_float - maps to a 32-bit float
+ * 32-bit float
  */
 @:native("_G.net_float")
-extern class NetFloat extends BaseType<Float> {}
+extern class NetFloat extends NetVar<Float> {}
 
 /**
- * maps to a unsigned 32-bit integer hash of the string assigned
+ * 32-bit unsigned integer
+ *
+ * If value is a number, it is forwarded as the hash.
+ * If value is a string, it is converted to a hash before sending.
+ *
+ * REMINDER: The hash algorithm is deterministic, so expect
+ *   clients to agree on output value regardless of platform.
  */
 @:native("_G.net_hash")
-extern class NetHash extends BaseType<Hash> {}
+extern class NetHash extends NetVar<Hash> {}
 
 /**
- * maps to a signed 32-bit integer
+ * 32-bit signed integer    [-2147483647..2147483647]
  */
 @:native("_G.net_int")
-extern class NetInt extends BaseType<Int> {}
+extern class NetInt extends NetVar<Int> {}
 
 /**
- * maps to a signed 16-bit integer
+ * 16-bit signed integer    [-32767..32767]
  */
 @:native("_G.net_shortint")
-extern class NetShortInt extends BaseType<Int> {}
+extern class NetShortInt extends NetVar<Int> {}
 
 /**
- * maps to an unsigned 32-bit integer
+ * Maps to an unsigned 32-bit integer.
  */
 @:native("_G.net_uint")
-extern class NetUInt extends BaseType<Int> {}
+extern class NetUInt extends NetVar<Int> {}
 
 /**
- * maps to an unsigned 16-bit integer
+ * 16-bit unsigned integer  [0..65535]
  */
 @:native("_G.net_ushortint")
-extern class NetUShortInt extends BaseType<Int> {}
+extern class NetUShortInt extends NetVar<Int> {}
 
 /**
- * maps to an unsigned 3-bit integer
+ * 3-bit unsigned integer   [0..7]
  */
 @:native("_G.net_tinybyte")
-extern class NetTinyByte extends BaseType<Int> {}
+extern class NetTinyByte extends NetVar<Int> {}
 
 /**
- * maps to an unsigned 6-bit integer
+ * 6-bit unsigned integer   [0..63]
  */
 @:native("_G.net_smallbyte")
-extern class NetSmallByte extends BaseType<Int> {}
+extern class NetSmallByte extends NetVar<Int> {}
 
 /**
- * maps to an array of unsigned 6-bit integers
+ * array of 6-bit unsigned integers (max size = 31)
+ *
+ * Arrays are expensive; avoid if you will dirty them often.
  */
 @:native("_G.net_smallbytearray")
-extern class NetSmallByteArray extends BaseType<Bytes> {}
+extern class NetSmallByteArray extends NetVar<Bytes> {}
 
 /**
- * maps to a string of variable length
+ * variable length string
  */
 @:native("_G.net_string")
-extern class NetString extends BaseType<String> {}
+extern class NetString extends NetVar<String> {}
+
+/**
+ * A convenience wrapper over net_bool.
+ * does the set_local(true) set(true) trick for you.
+ *
+ * Use for one-shot triggers.
+ */
+@:native("_G.net_event")
+extern class NetEvent extends NetVar<String> {
+	/**
+	 * Remote trigger.
+	 *
+	 * Like set() but no value is required.
+	 */
+	public function push(): Void;
+}
+
 
 
 
@@ -1584,7 +1644,7 @@ abstract PLATFORM(String)
 	var OSX_STEAM = "OSX_STEAM";
 	var LINUX_STEAM = "LINUX_STEAM";
 	var ANDROID = "ANDROID";
-	var NACL = "NACL";
+	var NACL = "NACL"; // Chrome Native Client
 }
 
 @:enum

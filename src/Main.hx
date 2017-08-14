@@ -36,8 +36,6 @@ class Main
 			PRINT_SOURCE = true;
 		#end
 
-
-
 		// need an entity to subscribe an event listener
 		var inst = CreateEntity();
 		inst.ListenForEvent("entitywake", function(self, data) {
@@ -62,11 +60,17 @@ class Main
 				if (!InGamePlay()) return;
 				log("and InGamePlay()");
 
-				var debuggee = require('vscode_debuggee');
-				debuggee.easyStart();
-				log("debuggee on");
+				// var debuggee = require('vscode_debuggee');
+				// debuggee.easyStart();
+				// log("debuggee on");
 
 				log("main() starting up...");
+
+
+
+
+
+
 
 				// if data and data.player then
 				// 		data.player.AnimState:SetMultColour(0,0,0,1)
@@ -83,8 +87,8 @@ class Main
 				// end
 				// inst.sg:GoToState("spawn_pre")
 
-				debuggee.disable();
-				log("debuggee off");
+				// debuggee.disable();
+				// log("debuggee off");
 
 			}, TheWorld);
 			// inst:ListenForEvent("rez_player", OnRezPlayer)
