@@ -130,14 +130,14 @@ Main.main = function()
       do return end;
     end;
 
-local serpent = GLOBAL.require('serpent')
-GLOBAL.debug.sethook(function(event, lineno)
-	if (event ~= 'line') then return end
-	local data = GLOBAL.debug.getinfo(2, 'Sn')
-	GLOBAL.nolineprint('eval ' .. data.source .. ':' .. lineno .. ' ' .. data.name)
-	-- print('sethook event ' .. serpent.block({event=event,lineno=lineno}))
-	-- print('getinfo ' .. serpent.block(debug.getinfo(2, 'S')))
-end, 'l')
+-- local serpent = GLOBAL.require('serpent')
+-- GLOBAL.debug.sethook(function(event, lineno)
+-- 	if (event ~= 'line') then return end
+-- 	local data = GLOBAL.debug.getinfo(2, 'Sn')
+-- 	GLOBAL.nolineprint('eval ' .. data.source .. ':' .. lineno .. ' ' .. data.name)
+-- 	-- print('sethook event ' .. serpent.block({event=event,lineno=lineno}))
+-- 	-- print('getinfo ' .. serpent.block(debug.getinfo(2, 'S')))
+-- end, 'l')
 
 
     haxe.Log.trace("MikesPlugin: " .. "and TheWorld",_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Utils.hx",lineNumber=14,className="Utils",methodName="log"}));
