@@ -55,16 +55,7 @@ class Main
 
 
 
-		require("serpent");
-		// TODO: split Entity into EntityScript and Entity types since inst.GetGUID() is invalid
-		var bleuCheese = new dst.CompiledEngine.NetBool(inst.GUID, "bleucheese", "bleucheesedirty");
-		inst.ListenForEvent("bleucheesedirty", function(e:dst.CompiledEngine.Entity) {
-			log("bleu cheese dirtied to "+ bleuCheese.value());
-			log(untyped serpent.dump(e));
-			log(untyped serpent.dump(data));
-		});
-		bleuCheese.set(false);
-		log("bleuCheese is now "+ bleuCheese.value());
+
 
 		untyped AddSimPostInit(function() {
 			log("AddSimPostInit");
@@ -169,10 +160,38 @@ class Main
 			
 		});
 
-		untyped AddPlayerPostInit(function() {
+		untyped AddPlayerPostInit(function(inst:dst.CompiledEngine.Entity) {
 			log("AddPlayerPostInit");
-			bleuCheese.set(true);
-			log("bleuCheese is now "+ bleuCheese.value());
+
+			// TODO: split Entity into EntityScript and Entity types since inst.GetGUID() is invalid
+			var bleuCheese = new dst.CompiledEngine.NetBool(inst.GUID, "bleucheese", "bleucheesedirty");
+			if (TheNet.GetIsClient()) {
+				require("serpent");
+
+				// TODO: document requirements: this event will not fire unless inst is like network enabled entity or something
+				inst.ListenForEvent("bleucheesedirty", function() {
+					log("bleu cheese dirtied to "+ bleuCheese.value());
+					// log(untyped serpent.dump(e));
+					// log(untyped serpent.dump(data));
+				});
+			}
+			if (TheNet.IsDedicated()) {
+				bleuCheese.set(false);
+			}
+			log("bleuCheese is "+ bleuCheese.value());
+
+
+
+			if (TheNet.IsDedicated()) {
+				inst.DoTaskInTime(5, function() {
+					bleuCheese.set(true);
+				});
+			}
+
+			inst.DoTaskInTime(6, function() {
+				log("bleuCheese is "+ bleuCheese.value());
+			});
+
 		});
 
 

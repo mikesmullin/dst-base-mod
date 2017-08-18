@@ -1,6 +1,7 @@
 package dst;
 
 import Utils.DynamicObject;
+import dst.CompiledEngine.Entity;
 
 /**
  * data/scripts/main.lua
@@ -93,7 +94,7 @@ extern class Main
 	static public var TheWorld: dst.CompiledEngine.Entity; // nil
 	static public var TheFocalPoint: {}; // nil
 	static public var ThePlayer: {}; // nil
-	static public var AllPlayers: {}; // {}
+	static public var AllPlayers: Array<Entity>; // {}
 	static public var SERVER_TERMINATION_TIMER: Int; // -1
 
 	/**

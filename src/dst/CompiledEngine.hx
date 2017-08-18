@@ -1512,6 +1512,8 @@ private extern class NetVar<T>
 /**
  * 1-bit boolean
  *
+ * Default: false
+ *
  * e.g., set_local(true); set(true); can be used on net_bool
  *   to transmit event notifications without having to
  *   toggle true on/off between each event.
