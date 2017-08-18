@@ -4,7 +4,13 @@ C:\Program Files (x86)\Steam\steamapps\common\Don't Starve Together Beta\mods
 
 e.g., open cmd.exe
 
+# client side
+
 mklink /J "C:\Program Files (x86)\Steam\steamapps\common\Don't Starve Together Beta\mods\base" "F:\Creative\DST_Mods\base\build"
+
+# server side
+
+mklink /J "H:\Games\SteamLibrary\steamapps\common\Don't Starve Together Dedicated Server\mods\base" "F:\Creative\DST_Mods\base\build"
 
 "Paste as Shortcut" or  alt+right-click "Link to" will not work
 

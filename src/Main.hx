@@ -34,6 +34,11 @@ class Main
 			CHEATS_ENABLED = true;
 			require("debugtools");
 			PRINT_SOURCE = true;
+			DISABLE_MOD_WARNING = true;
+
+			// NOTICE: You can/should also set from inside mods/modsettings.lua:
+			// ForceEnableMod("base") // replace "base" with mod name
+			// EnableModDebugPrint()
 		#end
 
 		// need an entity to subscribe an event listener
@@ -48,12 +53,76 @@ class Main
 
 
 
+
+
+		require("serpent");
+		// TODO: split Entity into EntityScript and Entity types since inst.GetGUID() is invalid
+		var bleuCheese = new dst.CompiledEngine.NetBool(inst.GUID, "bleucheese", "bleucheesedirty");
+		inst.ListenForEvent("bleucheesedirty", function(e:dst.CompiledEngine.Entity) {
+			log("bleu cheese dirtied to "+ bleuCheese.value());
+			log(untyped serpent.dump(e));
+			log(untyped serpent.dump(data));
+		});
+		bleuCheese.set(false);
+		log("bleuCheese is now "+ bleuCheese.value());
+
 		untyped AddSimPostInit(function() {
 			log("AddSimPostInit");
 
 			if (null == TheWorld) return;
 			log("and TheWorld");
 
+			// Commonly used client/server logic guards
+			//
+			// Mods should use these always to be clear about which side you want code to run on;
+			// by default it runs on both sides, and this can be very wasteful!
+			//
+			// client hosted: DST > Play > Host Game > Generate/Resume World
+			// client remote: DST > Play > Browse Games > Join
+			// dedicated: Steam > Tools > Dont Starve Together Dedicated Server
+			//
+			// |                      | client hosted | client remote | dedicated |
+			// --------------------------------------------------------------------
+			// | TheWorld.ismastersim |      Y        |      N        |     Y     |
+			// | TheNet.GetIsServer() |      Y        |      N        |     Y     |
+			// | TheNet.isDedicated() |      N        |      N        |     Y     |
+			// | TheNet.GetIsClient() |      N        |      Y        |     N     |
+			// 
+			// TheWorld.ismastersim == TheNet:GetIsServer() -- this is running on a computer hosting the game
+			// not TheWorld.ismastersim == TheNet:GetIsClient() -- this is running on a computer joining a game
+			// 
+			// TheNet:IsDedicated() -- for dedicated servers
+			//
+			// NOTICE that client hosted means client and server share a single simulator;
+			//        evaluating one instance of the logic for both client and server
+
+			if (untyped TheNet.GetIsServer()) {
+				log("I'm a server.");
+			}
+
+			if (untyped TheNet.GetIsClient()) {
+				log("I'm a client.");
+			}
+
+			if (untyped TheNet.IsDedicated()) {
+				log("I'm a dedicated server.");
+			}
+			else {
+				log("I'm NOT a dedicated server.");
+			}
+
+			if (untyped TheWorld.ismastersim) {
+				log("I'm a master simulator.");
+			}
+			else {
+				log("I'm NOT a master simulator.");
+			}
+
+
+
+
+			// TODO: note list of all possible events somewhere
+			// TODO: note in this event's description: only fires when player comes to life (not game resume)
 			inst.ListenForEvent("ms_newplayercharacterspawned", function(self, data) {
 				log("event ms_newplayercharacterspawned");
 
@@ -65,7 +134,6 @@ class Main
 				// log("debuggee on");
 
 				log("main() starting up...");
-
 
 
 
@@ -96,15 +164,16 @@ class Main
 
 		untyped AddGamePostInit(function() {
 			log("AddGamePostInit");
+
+
+			
 		});
 
 		untyped AddPlayerPostInit(function() {
 			log("AddPlayerPostInit");
+			bleuCheese.set(true);
+			log("bleuCheese is now "+ bleuCheese.value());
 		});
-
-		// untyped AddClassPostConstruct(function() {
-		// 	log("AddClassPostConstruct");
-		// });
 
 
 		

@@ -330,7 +330,8 @@ extern class Entity
 	public var replica: {}; // default: Replica(self)
 
 	// compiled functions
-	public function ListenForEvent(name: String, cb: Entity->Dynamic->Void, ?target: Dynamic): Void;
+	// public function ListenForEvent(name: String, cb: Entity->Dynamic->Void, ?target: Dynamic): Void;
+	public function ListenForEvent(name: String, cb: Function, ?target: Dynamic): Void;
 
 
 
@@ -1461,6 +1462,7 @@ private extern class NetVar<T>
 	 *
 	 * @param dirtyCb - Dirty callback. See set() for details.
 	 */
+	@:selfCall
 	public function new(guid:GUID, name:String, ?dirtyCb:String);
 
 	/**
@@ -1515,13 +1517,19 @@ private extern class NetVar<T>
  *   toggle true on/off between each event.
  */
 @:native("_G.net_bool")
-extern class NetBool extends NetVar<Bool> {}
+extern class NetBool extends NetVar<Bool>
+{
+	@:selfCall public function new(guid:GUID, name:String, ?dirtyCb:String);
+}
 
 /**
  * 8-bit unsigned integer   [0..255]
  */
 @:native("_G.net_byte")
-extern class NetByte extends NetVar<Int> {}
+extern class NetByte extends NetVar<Int>
+{
+	@:selfCall public function new(guid:GUID, name:String, ?dirtyCb:String);
+}
 
 /**
  * array of 8-bit unsigned integers (max size = 31)
@@ -1529,20 +1537,29 @@ extern class NetByte extends NetVar<Int> {}
  * Arrays are expensive; avoid if you will dirty them often.
  */
 @:native("_G.net_bytearray")
-extern class NetByteArray extends NetVar<Bytes> {}
+extern class NetByteArray extends NetVar<Bytes>
+{
+	@:selfCall public function new(guid:GUID, name:String, ?dirtyCb:String);
+}
 
 /**
  * unsigned 64-bit integer containing entity network id
  * represents the entity instance
  */
 @:native("_G.net_entity")
-extern class NetEntity extends NetVar<Entity> {}
+extern class NetEntity extends NetVar<Entity>
+{
+	@:selfCall public function new(guid:GUID, name:String, ?dirtyCb:String);
+}
 
 /**
  * 32-bit float
  */
 @:native("_G.net_float")
-extern class NetFloat extends NetVar<Float> {}
+extern class NetFloat extends NetVar<Float>
+{
+	@:selfCall public function new(guid:GUID, name:String, ?dirtyCb:String);
+}
 
 /**
  * 32-bit unsigned integer
@@ -1554,43 +1571,64 @@ extern class NetFloat extends NetVar<Float> {}
  *   clients to agree on output value regardless of platform.
  */
 @:native("_G.net_hash")
-extern class NetHash extends NetVar<Hash> {}
+extern class NetHash extends NetVar<Hash>
+{
+	@:selfCall public function new(guid:GUID, name:String, ?dirtyCb:String);
+}
 
 /**
  * 32-bit signed integer    [-2147483647..2147483647]
  */
 @:native("_G.net_int")
-extern class NetInt extends NetVar<Int> {}
+extern class NetInt extends NetVar<Int>
+{
+	@:selfCall public function new(guid:GUID, name:String, ?dirtyCb:String);
+}
 
 /**
  * 16-bit signed integer    [-32767..32767]
  */
 @:native("_G.net_shortint")
-extern class NetShortInt extends NetVar<Int> {}
+extern class NetShortInt extends NetVar<Int>
+{
+	@:selfCall public function new(guid:GUID, name:String, ?dirtyCb:String);
+}
 
 /**
  * Maps to an unsigned 32-bit integer.
  */
 @:native("_G.net_uint")
-extern class NetUInt extends NetVar<Int> {}
+extern class NetUInt extends NetVar<Int>
+{
+	@:selfCall public function new(guid:GUID, name:String, ?dirtyCb:String);
+}
 
 /**
  * 16-bit unsigned integer  [0..65535]
  */
 @:native("_G.net_ushortint")
-extern class NetUShortInt extends NetVar<Int> {}
+extern class NetUShortInt extends NetVar<Int>
+{
+	@:selfCall public function new(guid:GUID, name:String, ?dirtyCb:String);
+}
 
 /**
  * 3-bit unsigned integer   [0..7]
  */
 @:native("_G.net_tinybyte")
-extern class NetTinyByte extends NetVar<Int> {}
+extern class NetTinyByte extends NetVar<Int>
+{
+	@:selfCall public function new(guid:GUID, name:String, ?dirtyCb:String);
+}
 
 /**
  * 6-bit unsigned integer   [0..63]
  */
 @:native("_G.net_smallbyte")
-extern class NetSmallByte extends NetVar<Int> {}
+extern class NetSmallByte extends NetVar<Int>
+{
+	@:selfCall public function new(guid:GUID, name:String, ?dirtyCb:String);
+}
 
 /**
  * array of 6-bit unsigned integers (max size = 31)
@@ -1598,13 +1636,19 @@ extern class NetSmallByte extends NetVar<Int> {}
  * Arrays are expensive; avoid if you will dirty them often.
  */
 @:native("_G.net_smallbytearray")
-extern class NetSmallByteArray extends NetVar<Bytes> {}
+extern class NetSmallByteArray extends NetVar<Bytes>
+{
+	@:selfCall public function new(guid:GUID, name:String, ?dirtyCb:String);
+}
 
 /**
  * variable length string
  */
 @:native("_G.net_string")
-extern class NetString extends NetVar<String> {}
+extern class NetString extends NetVar<String>
+{
+	@:selfCall public function new(guid:GUID, name:String, ?dirtyCb:String);
+}
 
 /**
  * A convenience wrapper over net_bool.
@@ -1613,7 +1657,10 @@ extern class NetString extends NetVar<String> {}
  * Use for one-shot triggers.
  */
 @:native("_G.net_event")
-extern class NetEvent extends NetVar<String> {
+extern class NetEvent extends NetVar<String>
+{
+	@:selfCall public function new(guid:GUID, name:String, ?dirtyCb:String);
+
 	/**
 	 * Remote trigger.
 	 *
@@ -1625,7 +1672,7 @@ extern class NetEvent extends NetVar<String> {
 
 
 
-typedef GUID = String;
+typedef GUID = Int;
 typedef Hash = Int;
 
 @:enum

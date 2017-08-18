@@ -117,6 +117,7 @@ Main.main = function()
   _G.CHEATS_ENABLED = true;
   _G.require("debugtools");
   _G.PRINT_SOURCE = true;
+  _G.DISABLE_MOD_WARNING = true;
   local inst = _G.CreateEntity();
   inst:ListenForEvent("entitywake",function(_self,data) 
     haxe.Log.trace("MikesPlugin: " .. "event entitywake",_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Utils.hx",lineNumber=14,className="Utils",methodName="log"}));
@@ -124,23 +125,41 @@ Main.main = function()
   inst:ListenForEvent("onremove",function(self1,data1) 
     haxe.Log.trace("MikesPlugin: " .. "event onremove",_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Utils.hx",lineNumber=14,className="Utils",methodName="log"}));
   end,inst);
+  _G.require("serpent");
+  local bleuCheese = _G.net_bool(inst.GUID,"bleucheese","bleucheesedirty");
+  inst:ListenForEvent("bleucheesedirty",function(e) 
+    local s = "bleu cheese dirtied to " .. Std.string(bleuCheese:value());
+    haxe.Log.trace("MikesPlugin: " .. s,_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Utils.hx",lineNumber=14,className="Utils",methodName="log"}));
+    local s1 = serpent:dump(e);
+    haxe.Log.trace("MikesPlugin: " .. s1,_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Utils.hx",lineNumber=14,className="Utils",methodName="log"}));
+    local s2 = serpent:dump(data);
+    haxe.Log.trace("MikesPlugin: " .. s2,_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Utils.hx",lineNumber=14,className="Utils",methodName="log"}));
+  end);
+  bleuCheese:set(false);
+  local s3 = "bleuCheese is now " .. Std.string(bleuCheese:value());
+  haxe.Log.trace("MikesPlugin: " .. s3,_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Utils.hx",lineNumber=14,className="Utils",methodName="log"}));
   AddSimPostInit(function() 
     haxe.Log.trace("MikesPlugin: " .. "AddSimPostInit",_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Utils.hx",lineNumber=14,className="Utils",methodName="log"}));
     if (nil == _G.TheWorld) then 
       do return end;
     end;
-
--- local serpent = GLOBAL.require('serpent')
--- GLOBAL.debug.sethook(function(event, lineno)
--- 	if (event ~= 'line') then return end
--- 	local data = GLOBAL.debug.getinfo(2, 'Sn')
--- 	GLOBAL.nolineprint('eval ' .. data.source .. ':' .. lineno .. ' ' .. data.name)
--- 	-- print('sethook event ' .. serpent.block({event=event,lineno=lineno}))
--- 	-- print('getinfo ' .. serpent.block(debug.getinfo(2, 'S')))
--- end, 'l')
-
-
     haxe.Log.trace("MikesPlugin: " .. "and TheWorld",_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Utils.hx",lineNumber=14,className="Utils",methodName="log"}));
+    if (_G.TheNet:GetIsServer()) then 
+      haxe.Log.trace("MikesPlugin: " .. "I'm a server.",_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Utils.hx",lineNumber=14,className="Utils",methodName="log"}));
+    end;
+    if (_G.TheNet:GetIsClient()) then 
+      haxe.Log.trace("MikesPlugin: " .. "I'm a client.",_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Utils.hx",lineNumber=14,className="Utils",methodName="log"}));
+    end;
+    if (_G.TheNet:IsDedicated()) then 
+      haxe.Log.trace("MikesPlugin: " .. "I'm a dedicated server.",_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Utils.hx",lineNumber=14,className="Utils",methodName="log"}));
+    else
+      haxe.Log.trace("MikesPlugin: " .. "I'm NOT a dedicated server.",_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Utils.hx",lineNumber=14,className="Utils",methodName="log"}));
+    end;
+    if (_G.TheWorld.ismastersim) then 
+      haxe.Log.trace("MikesPlugin: " .. "I'm a master simulator.",_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Utils.hx",lineNumber=14,className="Utils",methodName="log"}));
+    else
+      haxe.Log.trace("MikesPlugin: " .. "I'm NOT a master simulator.",_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Utils.hx",lineNumber=14,className="Utils",methodName="log"}));
+    end;
     inst:ListenForEvent("ms_newplayercharacterspawned",function(self2,data2) 
       haxe.Log.trace("MikesPlugin: " .. "event ms_newplayercharacterspawned",_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Utils.hx",lineNumber=14,className="Utils",methodName="log"}));
       if (not _G.InGamePlay()) then 
@@ -148,10 +167,6 @@ Main.main = function()
       end;
       haxe.Log.trace("MikesPlugin: " .. "and InGamePlay()",_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Utils.hx",lineNumber=14,className="Utils",methodName="log"}));
       haxe.Log.trace("MikesPlugin: " .. "main() starting up...",_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Utils.hx",lineNumber=14,className="Utils",methodName="log"}));
-
-
-
-
     end,_G.TheWorld);
   end);
   AddGamePostInit(function() 
@@ -159,6 +174,9 @@ Main.main = function()
   end);
   AddPlayerPostInit(function() 
     haxe.Log.trace("MikesPlugin: " .. "AddPlayerPostInit",_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Utils.hx",lineNumber=14,className="Utils",methodName="log"}));
+    bleuCheese:set(true);
+    local s4 = "bleuCheese is now " .. Std.string(bleuCheese:value());
+    haxe.Log.trace("MikesPlugin: " .. s4,_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Utils.hx",lineNumber=14,className="Utils",methodName="log"}));
   end);
 end
 
