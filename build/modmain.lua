@@ -161,27 +161,28 @@ Main.main = function()
   end);
   AddPlayerPostInit(function(inst1) 
     haxe.Log.trace("MikesPlugin: " .. "AddPlayerPostInit",_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Utils.hx",lineNumber=14,className="Utils",methodName="log"}));
-    local bleuCheese = _G.net_bool(inst1.GUID,"bleucheese","bleucheesedirty");
-    if (_G.TheNet:GetIsClient()) then 
-      _G.require("serpent");
-      inst1:ListenForEvent("bleucheesedirty",function() 
-        local s = "bleu cheese dirtied to " .. Std.string(bleuCheese:value());
-        haxe.Log.trace("MikesPlugin: " .. s,_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Utils.hx",lineNumber=14,className="Utils",methodName="log"}));
-      end);
-    end;
-    if (_G.TheNet:IsDedicated()) then 
+    local bleuCheese = nil;
+    bleuCheese = _G.net_bool(inst1.GUID,"bleucheese","bleuCheesedirty");
+    inst1:ListenForEvent("bleuCheeseDirty",function(e,data3) 
+      local serpent = _G.require("serpent");
+      local s = "bleu cheese dirtied to " .. Std.string(bleuCheese:value());
+      haxe.Log.trace("MikesPlugin: " .. s,_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Utils.hx",lineNumber=14,className="Utils",methodName="log"}));
+      local s1 = serpent.block(e);
+      haxe.Log.trace("MikesPlugin: " .. s1,_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Utils.hx",lineNumber=14,className="Utils",methodName="log"}));
+      local s2 = serpent.block(data3);
+      haxe.Log.trace("MikesPlugin: " .. s2,_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Utils.hx",lineNumber=14,className="Utils",methodName="log"}));
+    end);
+    if (_G.TheNet:GetIsServer()) then 
       bleuCheese:set(false);
     end;
-    local s1 = "bleuCheese is " .. Std.string(bleuCheese:value());
-    haxe.Log.trace("MikesPlugin: " .. s1,_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Utils.hx",lineNumber=14,className="Utils",methodName="log"}));
-    if (_G.TheNet:IsDedicated()) then 
+    if (_G.TheNet:GetIsServer()) then 
       inst1:DoTaskInTime(5,function() 
         bleuCheese:set(true);
       end);
     end;
     inst1:DoTaskInTime(6,function() 
-      local s2 = "bleuCheese is " .. Std.string(bleuCheese:value());
-      haxe.Log.trace("MikesPlugin: " .. s2,_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Utils.hx",lineNumber=14,className="Utils",methodName="log"}));
+      local s3 = "bleuCheese is " .. Std.string(bleuCheese:value());
+      haxe.Log.trace("MikesPlugin: " .. s3,_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Utils.hx",lineNumber=14,className="Utils",methodName="log"}));
     end);
   end);
 end

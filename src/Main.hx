@@ -76,7 +76,7 @@ class Main
 			// --------------------------------------------------------------------
 			// | TheWorld.ismastersim |      Y        |      N        |     Y     |
 			// | TheNet.GetIsServer() |      Y        |      N        |     Y     |
-			// | TheNet.isDedicated() |      N        |      N        |     Y     |
+			// | TheNet.IsDedicated() |      N        |      N        |     Y     |
 			// | TheNet.GetIsClient() |      N        |      Y        |     N     |
 			// 
 			// TheWorld.ismastersim == TheNet:GetIsServer() -- this is running on a computer hosting the game
@@ -163,26 +163,67 @@ class Main
 		untyped AddPlayerPostInit(function(inst:dst.CompiledEngine.Entity) {
 			log("AddPlayerPostInit");
 
+			// TODO: move into api class doc blocks
+			// only GUID from entity inst that have :AddNetwork() will be able to sync and trigger netvar events
+			//  If the networked entity has :AddTag("CLASSIFIED"), then it won't show up to other clients?
+			//
+			// if listened on dedicated server side, it will trigger server side
+			//
+			// first arg to cb is entity inst
+			// there is no second arg
+			//
+			//
+			// if you set the netvar on client remote only, it will not trigger locally or remotely
+			// its not an error to set or set_local and value() on client-only, but it won't trigger and it doesn't notify server or other clients
+			//
+			//
+			// if you set netvar on client hosted, it will trigger locally (since local is both client and server, and there is only one sim)
+			//
+			// if you set netvar on dedicated, it will trigger server side and if the client has netvar definition on the client as well
+			//
+			// that thing about netvar entity unserialize error if one side doesn't have it is nuanced:
+			//   - if the netvar is set on a networked entity both sides are using same GUID for, then there are no errors but things don't trigger or sync
+			// 	- if the netvar is set on a networked entity but different GUID on both sides, you get a crash on the client side
+			//       [00:00:23]: Assert failure 'false && "cNetworkConnection::AllocReplica Invalid Prefab"' at ..\source\networklib\NetworkConnection.cpp(121): Trace follows...
+			//
+			//
+			// if you set netvar on client remote to dedicated, no trigger is sent to client or server and the value is only changed on client side
+			//
+			//
+			// if you set netvar on dedicated or on client hosted server, trigger fires and value syncs on server and on client (in the case of client remote, only if netvar is also set with listener)
+			// this is the intended use case
+			//
+			// event callback string name does not have to be all lowercase; can have uppercase
+			// but the event names are case-sensitive so it has to match between net_var definition and :ListenForEvent() reference
+			//
+
+
+			// var inst = CreateEntity();
+			// inst.entity.AddNetwork();
+			// log("inst GUID is "+ inst.GUID);
+			// inst.addTag('CLASSIFIED');
+
 			// TODO: split Entity into EntityScript and Entity types since inst.GetGUID() is invalid
-			var bleuCheese = new dst.CompiledEngine.NetBool(inst.GUID, "bleucheese", "bleucheesedirty");
-			if (TheNet.GetIsClient()) {
-				require("serpent");
+			var bleuCheese = null;
+			bleuCheese = new dst.CompiledEngine.NetBool(inst.GUID, "bleucheese", "bleuCheesedirty");
+			// if (TheNet.GetIsClient()) {
 
 				// TODO: document requirements: this event will not fire unless inst is like network enabled entity or something
-				inst.ListenForEvent("bleucheesedirty", function() {
+				inst.ListenForEvent("bleuCheeseDirty", function(e:dst.CompiledEngine.Entity, data:Dynamic) {
+					var serpent = require("serpent");
 					log("bleu cheese dirtied to "+ bleuCheese.value());
-					// log(untyped serpent.dump(e));
-					// log(untyped serpent.dump(data));
+					log(__lua__('serpent.block')(e));
+					log(__lua__('serpent.block')(data));
 				});
-			}
-			if (TheNet.IsDedicated()) {
+			// }
+			if (TheNet.GetIsServer()) {
 				bleuCheese.set(false);
 			}
-			log("bleuCheese is "+ bleuCheese.value());
+			// log("bleuCheese is "+ bleuCheese.value());
 
 
 
-			if (TheNet.IsDedicated()) {
+			if (TheNet.GetIsServer()) {
 				inst.DoTaskInTime(5, function() {
 					bleuCheese.set(true);
 				});
