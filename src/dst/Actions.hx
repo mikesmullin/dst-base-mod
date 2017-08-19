@@ -4,6 +4,108 @@ import haxe.Constraints.Function;
 
 /**
  * data/scripts/actions.lua
+ *
+ * Defines an [inter]action usable by entities.
+ *
+ * Used heavily throughout the game.
+ */
+@:native("_G.Action")
+extern class Action extends ExplicitLuaClass
+{
+	@:selfCall
+	public function new(data: {
+		?priority: Int,
+		?instant: Bool,
+		?rmb: Bool,
+		?distance: Float,
+		?mindistance: Float,
+		?ghost_exclusive: Bool,
+		?ghost_valid: Bool,
+		?mount_valid: Bool,
+		?encumbered_valid: Bool,
+		?canforce: Bool,
+		?rangecheckfn: Function
+	});
+
+	/**
+	 * Default: 0
+	 */
+	public var priority: Int;
+
+	/**
+	 * Default: no-op
+	 */
+	public var fn: ActionFunction;
+
+	/**
+	 * Default: null
+	 */
+	public var strfn: Null<ActionFunction>;
+
+	/**
+	 * Default: false
+	 */
+	public var instant: Bool;
+
+	/**
+	 * Whetherh right mouse button is down.
+	 * Used by tool interactions.
+	 *
+	 * Default: null
+	 */
+	public var rmb: Null<Bool>;
+
+	/**
+	 * Default: null
+	 */
+	public var distance: Null<Float>;
+
+	/**
+	 * Default: null
+	 */
+	public var mindistance: Null<Float>;
+
+	/**
+	 * Default: false
+	 */
+	public var ghost_exclusive: Bool;
+
+	/**
+	 * Default: null
+	 */
+	public var ghost_valid: Bool;
+
+	/**
+	 * Default: false
+	 */
+	public var mount_valid: Bool;
+
+	/**
+	 * Default: false
+	 */
+	public var encumbered_valid: Bool;
+
+	/**
+	 * Default: false
+	 */
+	public var canforce: Null<Bool>;
+
+	/**
+	 * Default: null
+	 */
+	public var rangecheckfn: Null<RangeCheckFunction>;
+
+	/**
+	 * Default: null
+	 */
+	public var mod_name: Null<String>;
+}
+
+typedef ActionFunction = BufferedAction -> Void; // act
+typedef RangeCheckFunction = EntityScript -> EntityScript; // doer, target
+
+/**
+ * Set of common actions entities may perform.
  */
 @:native("_G.ACTIONS")
 @:enum
@@ -129,46 +231,3 @@ extern class ActionExterns // Externs
 	 */
 	static public var ACTION_MOD_IDS: lua.Table<String, Action>;
 }
-
-@:native("_G.Action")
-extern class Action extends ExplicitLuaClass
-{
-	@:selfCall
-	public function new(data: {
-		?priority: Int,
-		?instant: Bool,
-		?rmb: Bool,
-		?distance: Float,
-		?mindistance: Float,
-		?ghost_exclusive: Bool,
-		?ghost_valid: Bool,
-		?mount_valid: Bool,
-		?encumbered_valid: Bool,
-		?canforce: Bool,
-		?rangecheckfn: Function
-	});
-
-	/**
-	 * Default: 0
-	 */
-	public var priority: Int;
-	/**
-	 * Default: no-op
-	 */
-	public var fn: ActionFunction;
-	public var strfn: Null<ActionFunction>;
-	public var instant: Bool;
-	public var rmb: Null<Bool>;
-	public var distance: Null<Float>;
-	public var mindistance: Null<Float>;
-	public var ghost_exclusive: Null<Bool>;
-	public var ghost_valid: Null<Bool>;
-	public var mount_valid: Null<Bool>;
-	public var encumbered_valid: Null<Bool>;
-	public var canforce: Null<Bool>;
-	public var rangecheckfn: Null<RangeCheckFunction>;
-	public var mod_name: Null<String>;
-}
-
-typedef ActionFunction = BufferedAction -> Void; // act
-typedef RangeCheckFunction = EntityScript -> EntityScript; // doer, target
