@@ -6,8 +6,6 @@ package dst.compiled;
 @:native("_G.TwitchOptions")
 extern class TwitchOptions
 {
-	private function new();
-
 	public function Forget(): Dynamic;
 	public function GetBroadcastingEnabled(): Dynamic;
 	public function GetChannelName(): Dynamic;

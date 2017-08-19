@@ -40,7 +40,10 @@ extern class Text extends Widget
 	public function EnableWordWrap(enable: Bool): Void;
 	public function EnableWhitespaceWrap(enable: Bool): Void;
 
-	private override function __tostring(): String;
+	/**
+	 * Serialize this object to console-friendly string.
+	 */
+	public override function __tostring(): String;
 }
 
 @:multiReturn

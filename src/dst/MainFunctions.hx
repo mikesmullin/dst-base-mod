@@ -1,7 +1,5 @@
 package dst;
 
-import dst.compiled.Entity;
-
 /**
  * data/scripts/mainfunctions.lua
  */

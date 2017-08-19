@@ -3,8 +3,6 @@ package dst.compiled;
 @:native("_G.LightWatcher")
 extern class LightWatcher
 {
-	private function new();
-
 	public function GetLightAngle(): Dynamic;
 	public function GetLightValue(): Dynamic;
 	public function GetTimeInDark(): Dynamic;

@@ -3,8 +3,6 @@ package dst.compiled;
 @:native("_G.TextEditWidget")
 extern class TextEditWidget
 {
-	private function new();
-
 	public function EnableScrollEditWindow(): Dynamic;
 	public function GetString(): Dynamic;
 	public function OnKeyDown(): Dynamic;

@@ -3,8 +3,6 @@ package dst.compiled;
 @:native("_G.GroundCreep")
 extern class GroundCreep
 {
-	private function new();
-
 	public function AddRenderLayer(): Dynamic;
 	public function FastForward(): Dynamic;
 	public function GetAsString(): Dynamic;

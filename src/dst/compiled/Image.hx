@@ -3,8 +3,6 @@ package dst.compiled;
 @:native("_G.Image")
 extern class Image
 {
-	private function new();
-
 	public function Enable(): Dynamic;
 	public function GetSize(): Dynamic;
 	public function SetAlphaRange(): Dynamic;

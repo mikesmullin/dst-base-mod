@@ -3,8 +3,6 @@ package dst.compiled;
 @:native("_G.SoundEmitter")
 extern class SoundEmitter
 {
-	private function new();
-
 	public function GetEntity(): Dynamic;
 	public function KillAllSounds(): Dynamic;
 	public function KillSound(): Dynamic;

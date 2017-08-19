@@ -3,8 +3,6 @@ package dst.compiled;
 @:native("_G.Transform")
 extern class Transform
 {
-	private function new();
-
 	public function GetFacing(): Dynamic;
 	public function GetLocalPosition(): Dynamic;
 	public function GetPredictionPosition(): Dynamic;

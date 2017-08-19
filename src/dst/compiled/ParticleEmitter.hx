@@ -3,8 +3,6 @@ package dst.compiled;
 @:native("_G.ParticleEmitter")
 extern class ParticleEmitter
 {
-	private function new();
-
 	public function AddParticle(): Dynamic;
 	public function AddParticleUV(): Dynamic;
 	public function AddRotatingParticle(): Dynamic;

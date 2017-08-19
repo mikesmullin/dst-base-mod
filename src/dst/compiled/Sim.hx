@@ -3,8 +3,6 @@ package dst.compiled;
 @:native("_G.Sim")
 extern class Sim
 {
-	private function new();
-	
 	public function AdjustFontAdvance(): Dynamic;
 	public function CanWriteConfigurationDirectory(): Dynamic;
 	public function CheckPersistentStringExists(): Dynamic;

@@ -112,7 +112,10 @@ extern class Widget extends ExplicitLuaClass
 	public function SetHoverText(text: Dynamic, params: Dynamic): Dynamic;
 	public function ClearHoverText(): Dynamic;
 
-	private function __tostring(): String;
+	/**
+	 * Serialize this object to console-friendly string.
+	 */
+	public function __tostring(): String;
 }
 
 private extern class WidgetEntity extends Entity

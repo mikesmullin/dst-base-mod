@@ -17,7 +17,7 @@ private typedef OPTION_VALUE = {
   * Defines surprisingly few configuration values.
   */
 @:native("_G.TheConfig")
-extern class Config
+extern class Config extends ExplicitLuaClass
 {
 	/**
 	 * Singleton instance reference.
@@ -48,5 +48,8 @@ extern class Config
 	 */
 	public function Disable(option: OPTION_NAME): Void;
 
-	private function __tostring(): String;
+	/**
+	 * Serialize this object to console-friendly string.
+	 */
+	public function __tostring(): String;
 }

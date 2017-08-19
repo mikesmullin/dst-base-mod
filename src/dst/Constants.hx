@@ -2,6 +2,9 @@ package dst;
 
 import lua.Table;
 
+/**
+ * data/scripts/constants.lua
+ */
 @:native("_G")
 extern class Constants
 {

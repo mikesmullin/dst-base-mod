@@ -3,8 +3,6 @@ package dst.compiled;
 @:native("_G.Map")
 extern class Map
 {
-	private function new();
-
 	public function AddRenderLayer(): Dynamic;
 	public function Fill(): Dynamic;
 	public function Finalize(): Dynamic;

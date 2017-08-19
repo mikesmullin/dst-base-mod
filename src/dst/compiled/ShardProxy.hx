@@ -3,8 +3,6 @@ package dst.compiled;
 @:native("_G.ShardProxy")
 extern class ShardProxy
 {
-	private function new();
-
 	public function GetDefaultShardEnabled(): Dynamic;
 	public function GetShardId(): Dynamic;
 	public function GetSlavePlayerCounts(): Dynamic;

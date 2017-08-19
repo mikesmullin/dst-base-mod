@@ -12,7 +12,7 @@ import haxe.extern.EitherType;
  * Used alot throught most parts of game code.
  */
 @:native("_G.Vector3")
-extern class Vector3
+extern class Vector3 extends ExplicitLuaClass
 {
 	public function new(x: Float, y: Float, z: Float);
 
@@ -107,9 +107,9 @@ extern class Vector3
 	static public function ToVector3(obj: EitherType<Float,Array<Int>>, y: Float, z: Float): Vector3;
 
 	/**
-	 * String representation for debugging.
+	 * Serialize this object to console-friendly string.
 	 */
-	private function __tostring(): String;
+	public function __tostring(): String;
 }
 
 @:native("_G.Point")

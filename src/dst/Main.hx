@@ -73,7 +73,7 @@ extern class Main
 	static public var NumEnts: Int;
 
 	/**
-	 * "This is here so mods dont crash 
+	 * "This is here so mods dont crash
 	 * because one of our prefab scripts missed the local
 	 * and a number of mods were erroneously abusing it"
 	 *   -- Klei team
@@ -91,7 +91,7 @@ extern class Main
 	static public var MapLayerManager: {}; // nil
 	static public var Roads: {}; // nil
 	static public var TheFrontEnd: {}; // nil
-	static public var TheWorld: dst.compiled.Entity; // nil
+	static public var TheWorld: World; // nil
 	static public var TheFocalPoint: {}; // nil
 	static public var ThePlayer: {}; // nil
 	static public var AllPlayers: Array<Entity>; // {}

@@ -3,8 +3,6 @@ package dst.compiled;
 @:native("_G.InventoryProxy")
 extern class InventoryProxy
 {
-	private function new();
-
 	public function CheckClientOwnership(): Dynamic;
 	public function CheckOwnership(): Dynamic;
 	public function CheckOwnershipGetLatest(): Dynamic;

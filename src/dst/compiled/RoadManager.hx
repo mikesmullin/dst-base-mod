@@ -3,8 +3,6 @@ package dst.compiled;
 @:native("_G.RoadManager")
 extern class RoadManager
 {
-	private function new();
-
 	public function AddControlPoint(): Dynamic;
 	public function AddSmoothedControlPoint(): Dynamic;
 	public function BeginRoad(): Dynamic;

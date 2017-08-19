@@ -3,8 +3,6 @@ package dst.compiled;
 @:native("_G.SystemService")
 extern class SystemService
 {
-	private function new();
-
 	public function AdjustDisplaySafeArea(): Dynamic;
 	public function ClearLastOperation(): Dynamic;
 	public function DidBugReportSucceed(): Dynamic;

@@ -3,8 +3,6 @@ package dst.compiled;
 @:native("_G.GraphicsOptions")
 extern class GraphicsOptions
 {
-	private function new();
-
 	public function DisableLightMapComponent(): Dynamic;
 	public function DisableStencil(): Dynamic;
 	public function EnableLightMapComponent(): Dynamic;

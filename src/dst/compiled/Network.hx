@@ -3,8 +3,6 @@ package dst.compiled;
 @:native("_G.Network")
 extern class Network
 {
-	private function new();
-
 	public function AddUserFlag(): Dynamic;
 	public function GetClientName(): Dynamic;
 	public function GetPlayerAge(): Dynamic;

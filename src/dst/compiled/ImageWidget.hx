@@ -3,8 +3,6 @@ package dst.compiled;
 @:native("_G.ImageWidget")
 extern class ImageWidget
 {
-	private function new();
-
 	public function EnableEffectParams(): Dynamic;
 	public function GetSize(): Dynamic;
 	public function SetAlphaRange(): Dynamic;

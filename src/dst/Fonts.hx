@@ -1,7 +1,9 @@
 package dst;
 
 /**
- * Use this type to refer to fonts.
+ * data/scripts/fonts.lua
+ *
+ * Enumerates available font names.
  */
 @:native("_G")
 extern enum FONT

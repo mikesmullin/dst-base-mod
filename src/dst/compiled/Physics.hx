@@ -3,8 +3,6 @@ package dst.compiled;
 @:native("_G.Physics")
 extern class Physics
 {
-	private function new();
-
 	public function CheckGridOffset(): Dynamic;
 	public function ClearCollisionMask(): Dynamic;
 	public function ClearMotorVelOverride(): Dynamic;

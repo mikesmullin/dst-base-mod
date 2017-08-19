@@ -3,8 +3,6 @@ package dst.compiled;
 @:native("_G.Light")
 extern class Light
 {
-	private function new();
-
 	public function Enable(): Dynamic;
 	public function EnableClientModulation(): Dynamic;
 	public function GetCalculatedRadius(): Dynamic;

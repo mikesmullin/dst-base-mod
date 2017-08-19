@@ -26,5 +26,8 @@ extern class Image extends Widget
 	public function SetUVScale(xScale: Dynamic, yScale: Dynamic): Dynamic;
 	public function SetBlendMode(mode: Dynamic): Dynamic;
 
-	private override function __tostring(): String;
+	/**
+	 * Serialize this object to console-friendly string.
+	 */
+	public override function __tostring(): String;
 }
