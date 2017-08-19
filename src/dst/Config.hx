@@ -1,30 +1,23 @@
 package dst;
 
-@:enum
-abstract OPTION_NAME(String) {
-	var hide_vignette = "hide_vignette";
-	var force_netbookmode = "force_netbookmode";
-}
-
-private typedef OPTION_VALUE = {
-	? hide_vignette: Bool, // true if ANDROID | IOS
-	? force_netbookmode: Bool // true if NACL | ANDROID | IOS
-}
-
  /**
   * data/scripts/config.lua
 	*
-  * Defines surprisingly few configuration values.
+  * Not as useful as it sounds.
   */
-@:native("_G.TheConfig")
-extern class Config extends ExplicitLuaClass
+@:native("_G")
+extern class ConfigExterns // Externs
 {
 	/**
-	 * Singleton instance reference.
-	 */
-	static public var TheConfig(default, never): Config;
+	* Singleton instance.
+	*/
+	static public var TheConfig: Config;
+}
 
-	private function new(options: OPTION_VALUE);
+private extern class Config extends ExplicitLuaClass
+{
+	@:selfCall
+	public function new(options: OPTION_VALUE);
 
 	/**
 	 * Override existing configuration values.
@@ -52,4 +45,15 @@ extern class Config extends ExplicitLuaClass
 	 * Serialize this object to console-friendly string.
 	 */
 	public function __tostring(): String;
+}
+
+@:enum
+abstract OPTION_NAME(String) {
+	var hide_vignette = "hide_vignette";
+	var force_netbookmode = "force_netbookmode";
+}
+
+private typedef OPTION_VALUE = {
+	? hide_vignette: Bool, // true if ANDROID | IOS
+	? force_netbookmode: Bool // true if NACL | ANDROID | IOS
 }

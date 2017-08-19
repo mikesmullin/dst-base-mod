@@ -19,6 +19,7 @@ extern class EntityScript extends ExplicitLuaClass
 	 * Don't invoke this directly;
 	 * Use MainFunctions.CreateEntity() instead.
 	 */
+	@:selfCall
 	private function new(entity: Entity);
 
 	/**

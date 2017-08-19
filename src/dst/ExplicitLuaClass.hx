@@ -22,6 +22,7 @@ import Utils.DynamicObject;
 @:native("_G.Class")
 extern class ExplicitLuaClass
 {
+	@:selfCall // NOTICE: you must explicitly copy this compiler metadata to all subclass definitions!
 	public function new(base: Dynamic, constructor: Function, props: StringMap<Dynamic>);
 
 	/**

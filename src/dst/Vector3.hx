@@ -14,6 +14,7 @@ import haxe.extern.EitherType;
 @:native("_G.Vector3")
 extern class Vector3 extends ExplicitLuaClass
 {
+	@:selfCall
 	public function new(x: Float, y: Float, z: Float);
 
 	public var x: Float;

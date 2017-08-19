@@ -2,7 +2,7 @@ package dst.widgets;
 
 import haxe.Constraints.Function;
 import haxe.extern.Rest;
-import dst.CompiledEngine.Entity;
+import dst.EntityScript;
 import dst.ExplicitLuaClass;
 
 /**
@@ -13,6 +13,7 @@ import dst.ExplicitLuaClass;
  */
 extern class Widget extends ExplicitLuaClass
 {
+	@:selfCall
 	public function new(name: String);
 	
 	public var children: Array<Widget>;
@@ -118,7 +119,7 @@ extern class Widget extends ExplicitLuaClass
 	public function __tostring(): String;
 }
 
-private extern class WidgetEntity extends Entity
+private extern class WidgetEntity extends EntityScript
 {
 	public var widget: Widget;
 }

@@ -6,5 +6,6 @@ package dst;
 @:native("_G.Action")
 extern class Action extends ExplicitLuaClass
 {
-	// TODO: finish
+	@:selfCall
+	public function new();
 }
