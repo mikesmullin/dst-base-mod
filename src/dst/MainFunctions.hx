@@ -4,7 +4,7 @@ package dst;
  * data/scripts/mainfunctions.lua
  */
 @:native("_G")
-extern class MainFunctions
+extern class MainFunctions // Externs
 {
 	/**
 	 * Recommended method to create a new Entity.

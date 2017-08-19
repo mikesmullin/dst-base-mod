@@ -6,7 +6,7 @@ import lua.Table;
  * data/scripts/constants.lua
  */
 @:native("_G")
-extern class Constants
+extern class Constants // Externs
 {
 	public var PI: Float; // 3.14159
 	public var DEGREES: Float; // PI/180

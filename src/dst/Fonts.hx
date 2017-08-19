@@ -6,7 +6,7 @@ package dst;
  * Enumerates available font names.
  */
 @:native("_G")
-extern enum FONT
+extern enum FONT // Externs
 {
 	DEFAULTFONT; // "opensans"
 	DIALOGFONT; // "opensans"
@@ -29,7 +29,7 @@ extern enum FONT
 }
 
 @:native("_G")
-extern class Fonts
+extern class Fonts // Externs
 {
 	static public var DEFAULT_FALLBACK_TABLE: FONT; // CONTROLLERS, FALLBACK_FONT
 	static public var DEFAULT_FALLBACK_TABLE_OUTLINE: FONT; // CONTROLLERS, FALLBACK_FONT_OUTLINE

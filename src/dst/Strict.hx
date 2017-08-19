@@ -14,7 +14,7 @@ import Utils.DynamicObject;
 	* Based on a commonly used open-source module for Lua.
   */
 @:native("_G")
-extern class Strict
+extern class Strict // Externs
 {
 	/**
 	 * Indicates strict mode methods for Lua are

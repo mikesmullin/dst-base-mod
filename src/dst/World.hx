@@ -8,7 +8,7 @@ import dst.Prefabs.Asset;
  * data/scripts/world.lua
  */
 @:native("_G")
-extern class Externs {
+extern class WorldExterns { // Externs
 	static public function MakeWorld(name: String,
 		customPrefabs: Array<Prefab>,
 		customAssets: Array<Asset>,

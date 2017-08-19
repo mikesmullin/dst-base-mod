@@ -15,7 +15,7 @@ import dst.compiled.Entity;
  * - establishing the title screen state
  */
 @:native("_G")
-extern class Main
+extern class Main // Externs
 {
 	/**
 	 * Defined per Lua file/chunk, never accessed again by code.

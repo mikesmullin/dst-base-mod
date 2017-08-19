@@ -14,7 +14,7 @@ import haxe.Constraints.Function;
  * the scope, never defined or referenced by Lua code.
  */
 @:native("_G")
-extern class Globals
+extern class Globals // Externs
 {
 	/**
 	 * Build information.

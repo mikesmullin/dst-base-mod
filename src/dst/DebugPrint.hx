@@ -14,7 +14,7 @@ import haxe.ds.StringMap;
 	* - optional prefixed lua file name + line no
   */
 @:native("_G")
-extern class DebugPrint
+extern class DebugPrint // Externs
 {
 	/**
 	 * Determines whether references to source files and line numbers
