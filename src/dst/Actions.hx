@@ -12,6 +12,9 @@ import haxe.Constraints.Function;
 @:native("_G.Action")
 extern class Action extends ExplicitLuaClass
 {
+	/**
+	 * Define a new Action.
+	 */
 	@:selfCall
 	public function new(data: {
 		?priority: Int,
@@ -28,59 +31,93 @@ extern class Action extends ExplicitLuaClass
 	});
 
 	/**
+	 * Whether this action should take precedence
+	 * when racing other enqueued actions.
 	 * Default: 0
 	 */
 	public var priority: Int;
 
 	/**
+	 * The primary function responsible for performing
+	 * the work this action enumeration represents.
+	 *
+	 * There is only room for one of these functions but you
+	 * can still chain them by keeping a reference to the old
+	 * function before overriding it, and then calling the
+	 * old function as if it were `super()`.
+	 *
 	 * Default: no-op
+	 * @return Whether action completed successfully.
 	 */
 	public var fn: ActionFunction;
 
 	/**
+	 * External validation function responsible for determining
+	 * if now is an acceptable time to perform this action
+	 * using a custom, often very specific, set of checks.
+	 *
+	 * There is only room for one of these functions but you
+	 * can still chain them by keeping a reference to the old
+	 * function before overriding it, and then calling the
+	 * old function as if it were `super()`.
+	 *
 	 * Default: null
+	 * @return Whether action should be performed now.
 	 */
 	public var strfn: Null<ActionFunction>;
 
 	/**
+	 * Whether action must wait for server acknowledgement.
 	 * Default: false
 	 */
 	public var instant: Bool;
 
 	/**
-	 * Whetherh right mouse button is down.
-	 * Used by tool interactions.
-	 *
+	 * Whether player right mouse button input was down
+	 * when this action was created.
+	 * Useful during tool interactions.
 	 * Default: null
 	 */
 	public var rmb: Null<Bool>;
 
 	/**
+	 * Minimum distance for `:rangecheckfn()`.
 	 * Default: null
 	 */
 	public var distance: Null<Float>;
 
 	/**
+	 * Maximum distance for `:rangecheckfn()`.
 	 * Default: null
 	 */
 	public var mindistance: Null<Float>;
 
 	/**
+	 * Whether within range for action.
+	 * Default: null
+	 */
+	public var rangecheckfn: Null<RangeCheckFunction>;
+
+	/**
+	 * Whether only ghosts may perform this action.
 	 * Default: false
 	 */
 	public var ghost_exclusive: Bool;
 
 	/**
+	 * Whether ghosts are denied this action.
 	 * Default: null
 	 */
 	public var ghost_valid: Bool;
 
 	/**
+	 * Whether actionable while entity is mounted or mounting.
 	 * Default: false
 	 */
 	public var mount_valid: Bool;
 
 	/**
+	 * Whether actionable while carrying heavy objects.
 	 * Default: false
 	 */
 	public var encumbered_valid: Bool;
@@ -91,17 +128,14 @@ extern class Action extends ExplicitLuaClass
 	public var canforce: Null<Bool>;
 
 	/**
-	 * Default: null
-	 */
-	public var rangecheckfn: Null<RangeCheckFunction>;
-
-	/**
+	 * Which mod defines this action.
+	 * Most actions are not defined by any mod.
 	 * Default: null
 	 */
 	public var mod_name: Null<String>;
 }
 
-typedef ActionFunction = BufferedAction -> Void; // act
+typedef ActionFunction = BufferedAction -> Bool; // act
 typedef RangeCheckFunction = EntityScript -> EntityScript; // doer, target
 
 /**
