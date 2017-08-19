@@ -94,6 +94,8 @@ extern class Action extends ExplicitLuaClass
 
 	/**
 	 * Whether within range for action.
+	 * Most pre-defined actions provide `Actions.DefaultRangeCheck()`,
+	 * but that is private, so make a copy if you need it.
 	 * Default: null
 	 */
 	public var rangecheckfn: Null<RangeCheckFunction>;
@@ -258,6 +260,8 @@ extern abstract ACTIONS(Action) // Externs
 @:native("_G")
 extern class ActionExterns // Externs
 {
+	static private function DefaultRangeCheck(doer: EntityScript, target: EntityScript): Bool;
+
 	static public var ACTION_IDS: lua.Table<String, Action>;
 
 	/**
