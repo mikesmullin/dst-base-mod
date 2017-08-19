@@ -1,7 +1,7 @@
 package dst;
 
 import Utils.DynamicObject;
-import dst.CompiledEngine.Entity;
+import dst.compiled.Entity;
 
 /**
  * data/scripts/main.lua
@@ -61,7 +61,7 @@ extern class Main
 	static public var TheMixer: {};
 
 	static public var Prefabs: Array<Dynamic>;
-	static public var Ents: Map<dst.CompiledEngine.GUID, dst.CompiledEngine.Entity>;
+	static public var Ents: Map<dst.types.GUID, dst.compiled.Entity>;
 	static public var AwakeEnts: Array<Dynamic>;
 	static public var UpdatingEnts: Array<Dynamic>;
 	static public var NewUpdatingEnts: Array<Dynamic>;
@@ -91,7 +91,7 @@ extern class Main
 	static public var MapLayerManager: {}; // nil
 	static public var Roads: {}; // nil
 	static public var TheFrontEnd: {}; // nil
-	static public var TheWorld: dst.CompiledEngine.Entity; // nil
+	static public var TheWorld: dst.compiled.Entity; // nil
 	static public var TheFocalPoint: {}; // nil
 	static public var ThePlayer: {}; // nil
 	static public var AllPlayers: Array<Entity>; // {}

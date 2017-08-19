@@ -2,21 +2,23 @@ package;
 
 import lua.Lua.*;
 import Utils.*;
+
 // TODO: simplify to dst.* ?
-import dst.CompiledEngine.*;
-import dst.Config.*;
+import dst.compiled.Globals.*;
+import dst.compiled.*;
+// import dst.types.*;
+
+// import dst.Config.*;
 import dst.DebugPrint.*;
-import dst.ExplicitLuaClass.*;
+// import dst.ExplicitLuaClass.*;
 import dst.Main.*;
 import dst.MainFunctions.*;
 import dst.ModContext;
-import dst.Strict.*;
-import dst.Vector3;
-import dst.Vector3.Point;
-import dst.Fonts.*;
-import dst.Constants.*;
-
-// import dst.Main;
+// import dst.Strict.*;
+// import dst.Vector3;
+// import dst.Vector3.Point;
+// import dst.Fonts.*;
+// import dst.Constants.*;
 
 class Main
 {
@@ -135,7 +137,7 @@ class Main
 			
 		});
 
-		untyped AddPlayerPostInit(function(inst:dst.CompiledEngine.Entity) {
+		untyped AddPlayerPostInit(function(inst:Entity) {
 			log("AddPlayerPostInit");
 
 			// TODO: move into api class doc blocks
@@ -148,11 +150,11 @@ class Main
 
 			// TODO: split Entity into EntityScript and Entity types since inst.GetGUID() is invalid
 			var bleuCheese = null;
-			bleuCheese = new dst.compiled.NetVars.NetBool(inst.GUID, "bleucheese", "bleuCheesedirty");
+			bleuCheese = new NetVars.NetBool(inst.GUID, "bleucheese", "bleuCheesedirty");
 			// if (TheNet.GetIsClient()) {
 
 				// TODO: document requirements: this event will not fire unless inst is like network enabled entity or something
-				inst.ListenForEvent("bleuCheeseDirty", function(e:dst.CompiledEngine.Entity, data:Dynamic) {
+				inst.ListenForEvent("bleuCheeseDirty", function(e:Entity, data:Dynamic) {
 					var serpent = require("serpent");
 					log("bleu cheese dirtied to "+ bleuCheese.value());
 					log(__lua__('serpent.block')(e));

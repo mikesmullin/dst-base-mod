@@ -1,6 +1,6 @@
 package dst;
 
-import dst.CompiledEngine.Entity;
+import dst.compiled.Entity;
 
 /**
  * data/scripts/mainfunctions.lua

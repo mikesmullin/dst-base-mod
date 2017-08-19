@@ -1,9 +1,9 @@
 package dst.compiled;
 
 import haxe.io.Bytes;
-import dst.CompiledEngine.GUID;
-import dst.CompiledEngine.Hash;
-import dst.CompiledEngine.Entity;
+import dst.types.GUID;
+import dst.types.Hash;
+import dst.compiled.Entity;
 
 /**
  * Netvars (Network Variables)
