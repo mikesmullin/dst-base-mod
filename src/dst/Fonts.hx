@@ -6,26 +6,27 @@ package dst;
  * Enumerates available font names.
  */
 @:native("_G")
-extern enum FONT // Externs
+@:enum
+extern abstract FONT(String) // Externs
 {
-	DEFAULTFONT; // "opensans"
-	DIALOGFONT; // "opensans"
-	TITLEFONT; // "bp100"
-	UIFONT; // "bp50"
-	BUTTONFONT; // "buttonfont"
-	NEWFONT; // "spirequal"
-	NEWFONT_SMALL; // "spirequal_small" -- hardly used
-	NEWFONT_OUTLINE; // "spirequal_outline"
-	NEWFONT_OUTLINE_SMALL; // "spirequal_outline_small" -- not in use
-	NUMBERFONT; // "stint-ucr"
-	TALKINGFONT; // "talkingfont"
-	SMALLNUMBERFONT; // "stint-small"
-	BODYTEXTFONT; // "stint-ucr"
-	CODEFONT; // "ptmono" -- not in use yet
-	CONTROLLERS; // "controllers"
+	var DEFAULTFONT; // "opensans"
+	var DIALOGFONT; // "opensans"
+	var TITLEFONT; // "bp100"
+	var UIFONT; // "bp50"
+	var BUTTONFONT; // "buttonfont"
+	var NEWFONT; // "spirequal"
+	var NEWFONT_SMALL; // "spirequal_small" -- hardly used
+	var NEWFONT_OUTLINE; // "spirequal_outline"
+	var NEWFONT_OUTLINE_SMALL; // "spirequal_outline_small" -- not in use
+	var NUMBERFONT; // "stint-ucr"
+	var TALKINGFONT; // "talkingfont"
+	var SMALLNUMBERFONT; // "stint-small"
+	var BODYTEXTFONT; // "stint-ucr"
+	var CODEFONT; // "ptmono" -- not in use yet
+	var CONTROLLERS; // "controllers"
 
-	FALLBACK_FONT; // "fallback_font"
-	FALLBACK_FONT_OUTLINE; // "fallback_font_outline"
+	var FALLBACK_FONT; // "fallback_font"
+	var FALLBACK_FONT_OUTLINE; // "fallback_font_outline"
 }
 
 @:native("_G")
