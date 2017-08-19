@@ -66,3 +66,29 @@ DO NOT set the PATHEXT env var. that is the most assinine suggestion.
 
 i also copy + renamed lua5.1.exe to lua.exe for convenience (typing `lua` in cmd just works)
 
+
+
+
+
+
+
+opening asset files:
+
+- sound: use FMOD from Steam DST Tools launcher
+
+  FMOD Event Player is the best and can play .fev
+  H:\Games\SteamLibrary\steamapps\common\Don't Starve Mod Tools\mod_tools\FMOD_Designer\fmod_eventplayer.exe
+
+- anim: use ktools from forums and then Spriter on *.scml file
+  https://forums.kleientertainment.com/files/file/583-ktools-cross-platform-modding-tools-for-dont-starve/
+  NOTE you have to unzip the *_build.zip and then the desired animation *.zip into a single folder to proceed with following
+
+"F:\Creative\DST_Mods\tools\ktools-4.4.4-win32\ktools-4.4.4\krane.exe" -v "F:\Desktop\tmp\dst\tmp\anim.bin" "F:\Desktop\tmp\dst\tmp\build.bin" "F:\Desktop\tmp\dst\tmp"
+
+"F:\Creative\DST_Mods\tools\ktools-4.4.4-win32\ktools-4.4.4\ktech.exe" "F:\Desktop\tmp\dst\tmp\atlas-0.tex"
+
+- image (.tex): use Handsom Matt's tools from klei forum
+  https://forums.kleientertainment.com/files/file/73-handsome-matts-tools/
+
+- packaging mod from steam: use Steam tools launcher (default radio selection)
+

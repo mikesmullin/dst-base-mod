@@ -75,7 +75,7 @@ import dst.CompiledEngine.Entity;
  * or an Entity that does not have an `:AddNetwork()` component attached to it,
  * it will NOT sync or trigger, neither locally or remotely.
  *
- * Binding a netvar to an Entity GUID that does not exist on the client side
+ * Binding a netvar to an Entity GUID that different on the client side
  * will cause a hard crash on the client.
  *
  * Network protocol is an un-encrypted implementation of RakNet mainly udp/10999
