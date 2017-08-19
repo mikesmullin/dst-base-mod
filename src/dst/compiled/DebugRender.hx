@@ -3,6 +3,8 @@ package dst.compiled;
 @:native("_G.DebugRender")
 extern class DebugRender
 {
+	private function new();
+
 	public function Box(): Dynamic;
 	public function Circle(): Dynamic;
 	public function Flush(): Dynamic;

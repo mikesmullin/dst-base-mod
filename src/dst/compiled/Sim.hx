@@ -1,7 +1,10 @@
 package dst.compiled;
 
 @:native("_G.Sim")
-extern class Sim {
+extern class Sim
+{
+	private function new();
+	
 	public function AdjustFontAdvance(): Dynamic;
 	public function CanWriteConfigurationDirectory(): Dynamic;
 	public function CheckPersistentStringExists(): Dynamic;
@@ -10,7 +13,14 @@ extern class Sim {
 	public function ClearDSP(): Dynamic;
 	public function ClearFileSystemAliases(): Dynamic;
 	public function ClearInput(): Dynamic;
-	public function CreateEntity(): Dynamic;
+
+	/**
+	 * Creates an Entity instance on the compiled side.
+	 * Do not call this directly; 
+	 * instead use MainFunctions.CreateEntity().
+	 */
+	public function CreateEntity(): Entity;
+	
 	public function DebugPause(): Dynamic;
 	public function DebugPushJsonMessage(): Dynamic;
 	public function DebugStringScreen(): Dynamic;

@@ -3,6 +3,8 @@ package dst.compiled;
 @:native("_G.AnimState")
 extern class AnimState
 {
+	private function new();
+
 	public function AddOverrideBuild(): Dynamic;
 	public function AnimDone(): Dynamic;
 	public function AssignItemSkins(): Dynamic;

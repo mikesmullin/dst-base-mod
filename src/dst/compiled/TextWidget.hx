@@ -1,7 +1,10 @@
 package dst.compiled;
 
 @:native("_G.TextWidget")
-extern class TextWidget {
+extern class TextWidget
+{
+	private function new();
+
 	public function EnableWhitespaceWrap(): Dynamic;
 	public function EnableWordWrap(): Dynamic;
 	public function GetRegionSize(): Dynamic;

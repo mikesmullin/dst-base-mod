@@ -3,6 +3,8 @@ package dst.compiled;
 @:native("_G.NetworkProxy")
 extern class NetworkProxy
 {
+	private function new();
+
 	public function AddToWhiteList(): Dynamic;
 	public function Announce(): Dynamic;
 	public function AnnounceDeath(): Dynamic;

@@ -3,6 +3,8 @@ package dst.compiled;
 @:native("_G.MiniMap")
 extern class MiniMap
 {
+	private function new();
+
 	public function AddAtlas(): Dynamic;
 	public function AddRenderLayer(): Dynamic;
 	public function ClearRevealedAreas(): Dynamic;

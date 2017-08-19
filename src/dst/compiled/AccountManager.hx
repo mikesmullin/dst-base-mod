@@ -3,6 +3,8 @@ package dst.compiled;
 @:native("_G.AccountManager")
 extern class AccountManager
 {
+	private function new();
+
 	public function AddGameKeyToAccount(): Dynamic;
 	public function CancelLogin(): Dynamic;
 	public function CommunicationSucceeded(): Dynamic;

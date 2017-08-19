@@ -3,6 +3,8 @@ package dst.compiled;
 @:native("_G.PathFinder")
 extern class PathFinder
 {
+	private function new();
+
 	public function AddWall(): Dynamic;
 	public function GetPathTileIndexFromPoint(): Dynamic;
 	public function GetSearchResult(): Dynamic;

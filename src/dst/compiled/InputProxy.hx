@@ -3,6 +3,8 @@ package dst.compiled;
 @:native("_G.InputProxy")
 extern class InputProxy
 {
+	private function new();
+
 	public function AddVibration(): Dynamic;
 	public function ApplyControlMapping(): Dynamic;
 	public function CancelMapping(): Dynamic;

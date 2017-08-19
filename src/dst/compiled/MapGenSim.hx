@@ -3,6 +3,8 @@ package dst.compiled;
 @:native("_G.MapGenSim")
 extern class MapGenSim
 {
+	private function new();
+
 	public function CreateBox(): Dynamic;
 	public function CreateCircle(): Dynamic;
 	public function CreateConstraint(): Dynamic;

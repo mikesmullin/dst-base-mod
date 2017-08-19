@@ -4,7 +4,10 @@ package dst.compiled;
  * bin/twitchsdk_32_release.dll
  */
 @:native("_G.TwitchOptions")
-extern class TwitchOptions {
+extern class TwitchOptions
+{
+	private function new();
+
 	public function Forget(): Dynamic;
 	public function GetBroadcastingEnabled(): Dynamic;
 	public function GetChannelName(): Dynamic;

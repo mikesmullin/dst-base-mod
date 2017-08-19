@@ -1,7 +1,10 @@
 package dst.compiled;
 
 @:native("_G.UITransform")
-extern class UITransform {
+extern class UITransform
+{
+	private function new();
+
 	public function GetLocalPosition(): Dynamic;
 	public function GetRotation(): Dynamic;
 	public function GetScale(): Dynamic;

@@ -9,12 +9,21 @@ import dst.compiled.Entity;
 extern class MainFunctions
 {
 	/**
-	 * Used exclusively; all Entity objects are made by this method.
+	 * Recommended method to create a new Entity.
+	 *
+	 * - Creates new Entity instance
+	 * - wraps and returns in new EntityScript instance
+	 * - increments Lua-side total Entity instance counter `NumEnts`
+	 * - indexes Lua-side map of all Entity instances `Ents`
+	 *
+	 * Used extensively throughout Lua code.
 	 */
-	static public function CreateEntity(): Entity;
+	static public function CreateEntity(): EntityScript;
 
 	/**
 	 * Is set true after TheWorld is init.
 	 */
 	static public function InGamePlay(): Bool;
+
+	// TODO: finish this
 }

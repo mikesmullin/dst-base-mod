@@ -3,6 +3,8 @@ package dst.compiled;
 @:native("_G.Label")
 extern class Label
 {
+	private function new();
+
 	public function Enable(): Dynamic;
 	public function SetColour(): Dynamic;
 	public function SetFont(): Dynamic;

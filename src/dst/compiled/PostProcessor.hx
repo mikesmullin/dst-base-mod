@@ -3,6 +3,8 @@ package dst.compiled;
 @:native("_G.PostProcessor")
 extern class PostProcessor
 {
+	private function new();
+
 	public function SetColourCubeData(): Dynamic;
 	public function SetColourCubeLerp(): Dynamic;
 	public function SetColourModifier(): Dynamic;

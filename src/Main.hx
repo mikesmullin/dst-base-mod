@@ -14,6 +14,7 @@ import dst.DebugPrint.*;
 import dst.Main.*;
 import dst.MainFunctions.*;
 import dst.ModContext;
+import dst.EntityScript;
 // import dst.Strict.*;
 // import dst.Vector3;
 // import dst.Vector3.Point;
@@ -137,7 +138,7 @@ class Main
 			
 		});
 
-		untyped AddPlayerPostInit(function(inst:Entity) {
+		untyped AddPlayerPostInit(function(inst:EntityScript) {
 			log("AddPlayerPostInit");
 
 			// TODO: move into api class doc blocks
@@ -146,7 +147,7 @@ class Main
 			// var inst = CreateEntity();
 			// inst.entity.AddNetwork();
 			// log("inst GUID is "+ inst.GUID);
-			// inst.addTag('CLASSIFIED');
+			// inst.entity.AddTag('CLASSIFIED');
 
 			// TODO: split Entity into EntityScript and Entity types since inst.GetGUID() is invalid
 			var bleuCheese = null;
@@ -154,7 +155,7 @@ class Main
 			// if (TheNet.GetIsClient()) {
 
 				// TODO: document requirements: this event will not fire unless inst is like network enabled entity or something
-				inst.ListenForEvent("bleuCheeseDirty", function(e:Entity, data:Dynamic) {
+				inst.ListenForEvent("bleuCheeseDirty", function(e:EntityScript, data:Dynamic) {
 					var serpent = require("serpent");
 					log("bleu cheese dirtied to "+ bleuCheese.value());
 					log(__lua__('serpent.block')(e));

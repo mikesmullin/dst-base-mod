@@ -3,6 +3,8 @@ package dst.compiled;
 @:native("_G.MiniMapEntity")
 extern class MiniMapEntity
 {
+	private function new();
+
 	public function CopyIcon(): Dynamic;
 	public function SetCanUseCache(): Dynamic;
 	public function SetDrawOverFogOfWar(): Dynamic;
