@@ -113,6 +113,8 @@ Array.prototype = _hx_a(
 
 Main.new = {}
 Main.main = function() 
+  _G.ACTIONS.ABANDON.fn = function(self,a) 
+   end;
   haxe.Log.trace("MikesPlugin: " .. "debug mode is enabled.",_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Utils.hx",lineNumber=14,className="Utils",methodName="log"}));
   _G.CHEATS_ENABLED = true;
   _G.require("debugtools");
