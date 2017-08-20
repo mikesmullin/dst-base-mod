@@ -24,5 +24,9 @@ extern class WorldExterns { // Externs
  */
 extern class World extends EntityScript
 {
+	public var ismastersim: Bool;
+
+	public var ismastershard: Bool;
+	
 	// TODO: finish
 }

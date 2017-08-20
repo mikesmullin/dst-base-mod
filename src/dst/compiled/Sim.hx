@@ -144,7 +144,13 @@ extern class Sim
 	public function ShouldPlayIntroMovie(): Dynamic;
 	public function ShouldWarnModsLoaded(): Dynamic;
 	public function ShowAnimOnEntitiesWithTag(): Dynamic;
-	public function SpawnPrefab(): Dynamic;
+
+	/**
+	 * Don't use this directly.
+	 * Use MainFunctions.SpawnPrefab() instead.
+	 */
+	private function SpawnPrefab(name: String, skin: String, skin_id: String, creator: String): Dynamic;
+
 	public function StartDownloadTempMods(): Dynamic;
 	public function StartWorkshopQuery(): Dynamic;
 	public function StashPlayInstance(): Dynamic;

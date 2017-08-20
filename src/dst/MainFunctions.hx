@@ -23,5 +23,10 @@ extern class MainFunctions // Externs
 	 */
 	static public function InGamePlay(): Bool;
 
+	/**
+	 * Spawn a new Prefab instance into the simulation.
+	 */
+	static public function SpawnPrefab(name: String, skin: String, skin_id: String, creator: String): EntityScript;
+
 	// TODO: finish this
 }

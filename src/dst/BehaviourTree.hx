@@ -1,7 +1,6 @@
 package dst;
 
 import haxe.Constraints.Function;
-import dst.Actions.Action;
 
 /**
  * data/scripts/behaviourtree.lua
@@ -139,18 +138,22 @@ extern class ConditionWaitNode extends BehaviourNode
 	public var fn: Function;
 }
 
+private typedef VoidFunction = Void->Void;
+
 /**
  * This node is similiar to the ConditionNode,
  * except that after running the function “action”,
  * it will always be successful.
+ *
+ * Not related to Action or BufferedAction.
  */
 @:native("_G.ActionNode")
 extern class ActionNode extends BehaviourNode
 {
 	@:selfCall
-	public function new(action: Action, name: String);
+	public function new(action: VoidFunction, name: String);
 
-	public var action: Action;
+	public var action: VoidFunction;
 }
 
 /**

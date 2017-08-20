@@ -112,13 +112,13 @@ extern class StateGraph extends ExplicitLuaClass
 	@:selfCall
 	public function new(name: String, states: lua.Table<Int,State>,
 		events:lua.Table<Int,EventHandler>, defaultstate: State,
-		actionhandlers: lua.Table<Int,ActionHandler>);
+		actionhandlers: lua.Table<Action,ActionHandler>);
 
 	public var defline: String;
 	public var name: String;
 	public var defaultstate: State;
 
-	public var actionhandlers: lua.Table<Int,ActionHandler>;
+	public var actionhandlers: lua.Table<Action,ActionHandler>;
 	public var events: lua.Table<Int,EventHandler>;
 	public var states: lua.Table<Int,State>;
 

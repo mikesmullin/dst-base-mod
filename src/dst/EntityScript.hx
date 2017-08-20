@@ -179,7 +179,7 @@ extern class EntityScript extends ExplicitLuaClass
 
 	public function RestartBrain(): Void;
 	public function StopBrain(): Void;
-	public function SetBrain(brainfn: Dynamic): Void;
+	public function SetBrain(brainCls: Brain): Void;
 
 	public function SetStateGraph(name: String): Void;
 	public function ClearStateGraph(): Void;
