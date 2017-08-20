@@ -1,3 +1,22 @@
+## Dependency graph of critical structures
+
+```
+- Prefab: what an object "is"
+  - Asset: art media files on disk
+  - EntityScript: instance of an entity
+    - StateGraph: states of this entity instance
+    - BufferedAction: an instance of an action to be executed
+      - Action: reference to enum of possible actions
+      - Recipe: validate action capability is earned
+        - TechTree: structure requirements
+        - Ingredient: item requirements
+    - Component: what an object "does"
+      - Replica: sync component data with network
+    - Brain: artificial intelligence
+      - BehaviourTree: hierarchy of things entity will do
+        - BehaviourNode: logical building blocks
+```
+
 the build output has to symlinked to 
 
 C:\Program Files (x86)\Steam\steamapps\common\Don't Starve Together Beta\mods
