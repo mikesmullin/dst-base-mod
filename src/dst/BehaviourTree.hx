@@ -7,6 +7,24 @@ import dst.Actions.Action;
  * data/scripts/behaviourtree.lua
  */
 @:native("_G")
+extern class BehaviourTreeExterns // Externs
+{
+	/**
+	 * Waits for given node to finish or cond to return false,
+	 * whichever happens first.
+	 */
+	public function WhileNode(cond: Void->Bool, name: String, node: BehaviourNode): ParallelNode;
+
+	/**
+	 * Proceeds to visit given node only if cond returns true.
+	 */
+	public function IfNode(cond: Void->Bool, name: String, node: BehaviourNode): SequenceNode;
+}
+
+/**
+ * The four states of a BehaviourNode.
+ */
+@:native("_G")
 @:enum
 extern abstract BehaviourNodeState(String) {
 	var SUCCESS;
@@ -15,6 +33,12 @@ extern abstract BehaviourNodeState(String) {
 	var RUNNING;
 }
 
+/**
+ * The BehaviourTree has a root node, which acts as the “stem”
+ * of the tree. Usually a PriorityNode is used for that.
+ *
+ * Every Brain has a BehaviourTree.
+ */
 @:native("_G.BT")
 extern class BehaviourTree extends ExplicitLuaClass
 {
@@ -33,6 +57,23 @@ extern class BehaviourTree extends ExplicitLuaClass
 	public function __tostring(): String;
 }
 
+/**
+ * Generally, each BehaviourNode in a BehaviourTree boils down to sending
+ * instructions to components: components still end up doing all the
+ * real “work”. So the ChaseAndAttack behaviour, for example, sends
+ * instructions to the Locomotor (for movement) and Combat (for attacking)
+ * components, and those components handle the details.
+ *
+ * BehaviourNodes can have one of four states:
+ * - "READY" means the brain will try (visit) that node when it can.
+ * - "RUNNING" means the brain waits for the node to finish.
+ * - "FAILED" means the brain carries on to the next node.
+ * - "SUCCESS" means the brain stops there.
+ *
+ * A node can have a name and child nodes. It is possible for nodes to sleep
+ * and interact with their parents or children. However, all of that is
+ * optional, it depends on the kind of node whether it’s used.
+ */
 @:native("_G.BehaviourNode")
 extern class BehaviourNode extends ExplicitLuaClass
 {
@@ -60,6 +101,10 @@ extern class BehaviourNode extends ExplicitLuaClass
 	public function Stop(): Void;
 }
 
+/**
+ * This is a plain behaviour node that can have only one child,
+ * nothing more than decoration.
+ */
 @:native("_G.DecoratorNode")
 extern class DecoratorNode extends BehaviourNode
 {
@@ -67,24 +112,38 @@ extern class DecoratorNode extends BehaviourNode
 	public function new(name: String, child: BehaviourNode);
 }
 
+/**
+ * This node runs “fn” when visited, and only if
+ * the function returns true the node has success.
+ * Otherwise, it fails.
+ */
 @:native("_G.ConditionNode")
 extern class ConditionNode extends BehaviourNode
 {
 	@:selfCall
-	public function new(fn: Function, name: String);
+	public function new(fn: Void -> Bool, name: String);
 
 	public var fn: Function;
 }
 
+/**
+ * Like ConditionNode, but rather than failing,
+ * it runs until the function returns true.
+ */
 @:native("_G.ConditionWaitNode")
 extern class ConditionWaitNode extends BehaviourNode
 {
 	@:selfCall
-	public function new(fn: Function, name: String);
+	public function new(fn: Void -> Bool, name: String);
 
 	public var fn: Function;
 }
 
+/**
+ * This node is similiar to the ConditionNode,
+ * except that after running the function “action”,
+ * it will always be successful.
+ */
 @:native("_G.ActionNode")
 extern class ActionNode extends BehaviourNode
 {
@@ -94,6 +153,10 @@ extern class ActionNode extends BehaviourNode
 	public var action: Action;
 }
 
+/**
+ * This node sleeps for “time” seconds whenever it gets visited,
+ * and upon waking, it has success. It’s essentially a delay node.
+ */
 @:native("_G.WaitNode")
 extern class WaitNode extends BehaviourNode
 {
@@ -103,6 +166,15 @@ extern class WaitNode extends BehaviourNode
 	public var wait_time: Int;
 }
 
+/**
+ * This node goes each child in order and visits them.
+ * Only when the child is not running and not failed
+ * will it proceed to visit the next child.
+ * Only when all children are not running and not failed
+ * will this node be success.
+ * If any child is failed, this node is failed, and the
+ * remaining children are not visited.
+ */
 @:native("_G.SequenceNode")
 extern class SequenceNode extends BehaviourNode
 {
@@ -112,6 +184,11 @@ extern class SequenceNode extends BehaviourNode
 	public var idx: Int; // default: 1
 }
 
+/**
+ * This node is similiar to SequenceNode, but has success as soon as
+ * a child node has success. Only if none of the children succeed,
+ * this node fails.
+ */
 @:native("_G.SelectorNode")
 extern class SelectorNode extends BehaviourNode
 {
@@ -121,6 +198,10 @@ extern class SelectorNode extends BehaviourNode
 	public var idx: Int; // default: 1
 }
 
+/**
+ * This node fails if the child succeeds and vica versa.
+ * It’s the classic NOT logic gate.
+ */
 @:native("_G.NotDecorator")
 extern class NotDecorator extends DecoratorNode
 {
@@ -128,6 +209,10 @@ extern class NotDecorator extends DecoratorNode
 	public function new(child: BehaviourNode);
 }
 
+/**
+ * This node is almost like the DecoratorNode,
+ * except that if the child is running, the node fails.
+ */
 @:native("_G.FailIfRunningDecorator")
 extern class FailIfRunningDecorator extends DecoratorNode
 {
@@ -142,6 +227,12 @@ extern class FailIfSuccessDecorator extends DecoratorNode
 	public function new(child: BehaviourNode);
 }
 
+/**
+ * This is a sequenceNode that doesn’t immediately succeed,
+ * but only if its children succeed “maxreps” times.
+ * This effectively means that the same sequence is run several times
+ * rather than once.
+ */
 @:native("_G.LoopNode")
 extern class LoopNode extends BehaviourNode
 {
@@ -153,6 +244,11 @@ extern class LoopNode extends BehaviourNode
 	public var rep: Int; // default: 0
 }
 
+/**
+ * This picks a random child,
+ * and only if that child fails, it picks the next one.
+ * Only if all children fail, the RandomNode fails.
+ */
 @:native("_G.RandomNode")
 extern class RandomNode extends BehaviourNode
 {
@@ -160,6 +256,14 @@ extern class RandomNode extends BehaviourNode
 	public function new(children: lua.Table<Int,BehaviourNode>);
 }
 
+/**
+ * This node has a period that must have passed before it does anything again.
+ * When visited and the period has passed, it goes through the children in order.
+ * If a child has success or is running, the node takes that state and
+ * only resets the remain children.
+ *
+ * This is usually the root node of every behaviour tree.
+ */
 @:native("_G.PriorityNode")
 extern class PriorityNode extends BehaviourNode
 {
@@ -170,6 +274,11 @@ extern class PriorityNode extends BehaviourNode
 	public var lasttime: Float;
 }
 
+/**
+ * This node visits all children at once in parallel,
+ * and succeeds if all stopped running without failing.
+ * If any child fails, it will stop checking the other children.
+ */
 @:native("_G.ParallelNode")
 extern class ParallelNode extends BehaviourNode
 {
@@ -177,6 +286,10 @@ extern class ParallelNode extends BehaviourNode
 	public function new(children: lua.Table<Int,BehaviourNode>, name: String);
 }
 
+/**
+ * This is a ParallelNode that succeeds as long as
+ * at least one child stops running without failing.
+ */
 @:native("_G.ParallelNodeAny")
 extern class ParallelNodeAny extends ParallelNode
 {
@@ -186,6 +299,11 @@ extern class ParallelNodeAny extends ParallelNode
 	public var stoponanycomplete: Bool; // default: true
 }
 
+/**
+ * This node attaches an event listener for “event” to the instance “inst”.
+ * If that event fires, the node triggers and wakes the parent priority node.
+ * Upon getting visited, then the child gets visited.
+ */
 @:native("_G.EventNode")
 extern class EventNode extends BehaviourNode
 {
@@ -199,20 +317,6 @@ extern class EventNode extends BehaviourNode
 	public var eventfn: EntityScript -> Dynamic -> Void; // inst, data
 
 	public function OnEvent(data: Dynamic): Void;
-}
-
-@:native("_G.WhileNode")
-extern class WhileNode extends BehaviourNode
-{
-	@:selfCall
-	public function new(name: String, node: BehaviourNode);
-}
-
-@:native("_G.IfNode")
-extern class IfNode extends BehaviourNode
-{
-	@:selfCall
-	public function new(name: String, node: BehaviourNode);
 }
 
 @:native("_G.LatchNode")
