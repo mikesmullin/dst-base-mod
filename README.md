@@ -4,16 +4,16 @@
 - Prefab: what an object "is"
   - Asset: art media files on disk
   - EntityScript: instance of an entity
-    - StateGraph: states of this entity instance
+    - StateGraph: FSM procession of operating modes (e.g., moods, limbo, idle)
     - BufferedAction: an instance of an action to be executed
       - Action: reference to enum of possible actions
       - Recipe: validate action capability is earned
         - TechTree: structure requirements
         - Ingredient: item requirements
-    - Component: what an object "does"
+    - Component: what an object "does" (e.g., eat, attack, follow)
       - Replica: sync component data with network
     - Brain: artificial intelligence
-      - BehaviourTree: hierarchy of things entity will do
+      - BehaviourTree: hierarchy of things entity will try
         - BehaviourNode: logical building blocks
 ```
 
