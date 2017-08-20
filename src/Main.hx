@@ -20,6 +20,7 @@ import dst.EntityScript;
 // import dst.Vector3.Point;
 // import dst.Fonts.*;
 // import dst.Constants.*;
+import dst.ModUtil.ModUtilExterns.*;
 
 using dst.EntityScript.EventHelper;
 
@@ -62,28 +63,28 @@ class Main
 
 
 
-		untyped AddSimPostInit(function() {
+		AddSimPostInit(function() {
 			log("AddSimPostInit");
 
 			if (null == TheWorld) return;
 			log("and TheWorld");
 
-			if (untyped TheNet.GetIsServer()) {
+			if (TheNet.GetIsServer()) {
 				log("I'm a server.");
 			}
 
-			if (untyped TheNet.GetIsClient()) {
+			if (TheNet.GetIsClient()) {
 				log("I'm a client.");
 			}
 
-			if (untyped TheNet.IsDedicated()) {
+			if (TheNet.IsDedicated()) {
 				log("I'm a dedicated server.");
 			}
 			else {
 				log("I'm NOT a dedicated server.");
 			}
 
-			if (untyped TheWorld.ismastersim) {
+			if (TheWorld.ismastersim) {
 				log("I'm a master simulator.");
 			}
 			else {
@@ -133,14 +134,14 @@ class Main
 			// inst:ListenForEvent("rez_player", OnRezPlayer)
 		});
 
-		untyped AddGamePostInit(function() {
+		AddGamePostInit(function() {
 			log("AddGamePostInit");
 
 
 			
 		});
 
-		untyped AddPlayerPostInit(function(inst:EntityScript) {
+		AddPlayerPostInit(function(inst:EntityScript) {
 			log("AddPlayerPostInit");
 
 			// TODO: move into api class doc blocks
@@ -160,8 +161,8 @@ class Main
 				inst.ListenForEvent("bleuCheeseDirty", function(e:EntityScript, ?data:Dynamic) {
 					var serpent = require("serpent");
 					log("bleu cheese dirtied to "+ bleuCheese.value());
-					log(__lua__('serpent.block')(e));
-					log(__lua__('serpent.block')(data));
+					log(untyped __lua__('serpent.block')(e));
+					log(untyped __lua__('serpent.block')(data));
 				});
 			// }
 			if (TheNet.GetIsServer()) {
