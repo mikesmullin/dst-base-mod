@@ -1,5 +1,8 @@
 package dst.widgets;
 
+/**
+ * This widget is used to display an image, and as such in many other widgets.
+ */
 extern class Image extends Widget
 {
 	public function new(? atlas: Dynamic, ? tex: Dynamic, ? default_tex: Dynamic);

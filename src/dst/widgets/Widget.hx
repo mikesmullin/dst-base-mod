@@ -10,26 +10,72 @@ import dst.ExplicitLuaClass;
  *
  * Base class extended by anything displayed
  * on the screen in the foreground GUI.
+ *
+ * It yields core functions, focus and child systems,
+ * and an entity for the uianim component.
  */
 extern class Widget extends ExplicitLuaClass
 {
 	@:selfCall
 	public function new(name: String);
 	
+	/**
+	 * The parent widget, if available.
+	 */
+	public var parent: Widget;
+
+	/**
+	 * All widgets added to this one as a child are referenced here.
+	 */
 	public var children: Array<Widget>;
+
+	/**
+	 * Holds a list of callbacks, not really used externally.
+	 */
 	public var callbacks: Array<Function>;
+
+
 	public var name: String; // default: "widget"
+
+	/**
+	 * An EntityScript for the uianim component, positioning and other stuff.
+	 */
 	public var inst: WidgetEntity; // default: CreateEntity()
+
+	/**
+	 * Whether the widget is enabled.
+	 * You can break the focus flow using this.
+	 */
 	public var enabled: Bool; // default: true
+
+	/**
+	 * Whether the widget is visible.
+	 */
 	public var shown: Bool; // default: true
+
+	/**
+	 * Whether the mouse hovers over this widget.
+	 */
 	public var focus: Bool; // default: false
+
+	/**
+	 * Whether this widget is the absolute target of the mouse.
+	 */
 	public var focus_target: Bool; // default: false
 	public var can_fade_alpha: Bool; // default: true
 
+	/**
+	 * Not really used externally.
+	 */
 	public var focus_flow: Array<{}>; // default: {}
+
+	/**
+	 * Not really used externally.
+	 */
 	public var focus_flow_args: Array<{}>; // default: {}
 
-	public function IsDeepestFocus(): Dynamic;
+
+	public function IsDeepestFocus(): Bool;
 	public function OnMouseButton(button: Dynamic, down: Dynamic, x: Dynamic, y: Dynamic): Dynamic;
 	public function MoveToBack(): Dynamic;
 	public function MoveToFront(): Dynamic;
