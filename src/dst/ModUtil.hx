@@ -2,7 +2,12 @@ package dst;
 
 import haxe.Constraints.Function;
 
-@:native("_G")
+/**
+ * These are added to the mod sandbox as globals,
+ * but not `GLOBAL` or `_G`. Since we need some object
+ * to act as our class, can use `env` here.
+ */
+@:native("env")
 extern class ModUtilExterns // Externs
 {
 	/**

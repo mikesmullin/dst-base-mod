@@ -125,7 +125,7 @@ Main.main = function()
   inst:ListenForEvent("onremove",function(self1,data1) 
     haxe.Log.trace("MikesPlugin: " .. "event onremove",_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Utils.hx",lineNumber=14,className="Utils",methodName="log"}));
   end,inst);
-  _G.AddSimPostInit(function() 
+  env.AddSimPostInit(function() 
     haxe.Log.trace("MikesPlugin: " .. "AddSimPostInit",_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Utils.hx",lineNumber=14,className="Utils",methodName="log"}));
     if (nil == _G.TheWorld) then 
       do return end;
@@ -156,10 +156,10 @@ Main.main = function()
       haxe.Log.trace("MikesPlugin: " .. "main() starting up...",_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Utils.hx",lineNumber=14,className="Utils",methodName="log"}));
     end,_G.TheWorld);
   end);
-  _G.AddGamePostInit(function() 
+  env.AddGamePostInit(function() 
     haxe.Log.trace("MikesPlugin: " .. "AddGamePostInit",_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Utils.hx",lineNumber=14,className="Utils",methodName="log"}));
   end);
-  _G.AddPlayerPostInit(function(inst1) 
+  env.AddPlayerPostInit(function(inst1) 
     haxe.Log.trace("MikesPlugin: " .. "AddPlayerPostInit",_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Utils.hx",lineNumber=14,className="Utils",methodName="log"}));
     local bleuCheese = nil;
     bleuCheese = _G.net_bool(inst1.GUID,"bleucheese","bleuCheesedirty");
