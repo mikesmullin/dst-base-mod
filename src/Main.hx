@@ -48,7 +48,7 @@ class Main
 
 		// need an entity to subscribe an event listener
 		var inst = CreateEntity();
-		inst.ListenForEventOnce("entitywake", function(self, ?data) {
+		inst.ListenForEvent("entitywake", function(self, ?data) {
 			log("event entitywake");
 		}, inst);
 

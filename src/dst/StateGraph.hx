@@ -80,7 +80,7 @@ extern class StateGraphInstance extends ExplicitLuaClass
 
 	public function GetTimeInState(): Float;
 	public function PlayRandomAnim(anims: Dynamic, loop: Dynamic): Void;
-	public function PushEvent(event: string, data: Dynamic): Void;
+	public function PushEvent(event: String, data: lua.Table<Dynamic,Dynamic>): Void;
 	public function IsListeningForEvent(event: string): Bool;
 	public function PreviewAction(bufferedAction: BufferedAction): Bool;
 	public function StartAction(bufferedAction: BufferedAction): Bool;

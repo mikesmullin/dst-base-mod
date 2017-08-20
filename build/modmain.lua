@@ -67,8 +67,6 @@ local Array = _hx_e()
 local Main = _hx_e()
 local String = _hx_e()
 local Std = _hx_e()
-local dst = {}
-dst.EventHelper = _hx_e()
 local haxe = {}
 haxe.Log = _hx_e()
 haxe.io = {}
@@ -121,7 +119,7 @@ Main.main = function()
   _G.PRINT_SOURCE = true;
   _G.DISABLE_MOD_WARNING = true;
   local inst = _G.CreateEntity();
-  dst.EventHelper.ListenForEventOnce(inst,"entitywake",function(_self,data) 
+  inst:ListenForEvent("entitywake",function(_self,data) 
     haxe.Log.trace("MikesPlugin: " .. "event entitywake",_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Utils.hx",lineNumber=14,className="Utils",methodName="log"}));
   end,inst);
   inst:ListenForEvent("onremove",function(self1,data1) 
@@ -225,18 +223,6 @@ String.prototype = _hx_a(
 Std.new = {}
 Std.string = function(s) 
   do return lua.Boot.__string_rec(s) end;
-end
-
-dst.EventHelper.new = {}
-dst.EventHelper.ListenForEventOnce = function(inst,event,fn,emitter) 
-  local once = nil;
-  once = function(inst2,data) 
-    inst:RemoveEventCallback(event,once,emitter);
-    fn(inst2,data);
-    do return end;
-  end;
-  local once1 = once;
-  inst:ListenForEvent(event,once1,emitter);
 end
 
 haxe.Log.new = {}

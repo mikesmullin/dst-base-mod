@@ -68,7 +68,7 @@ extern class Brain extends ExplicitLuaClass
 	public function Start(): Void;
 	public function OnUpdate(): Void;
 	public function Stop(): Void;
-	public function PushEvent(event: Dynamic, data: Dynamic): Void;
+	public function PushEvent(event: String, data: lua.Table<Dynamic,Dynamic>): Void;
 	
 	/**
 	 * Serialize this object to console-friendly string.
