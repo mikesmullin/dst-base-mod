@@ -6,6 +6,8 @@ import dst.compiled.Entity;
 import dst.types.GUID;
 import dst.Prefabs.Prefab;
 import dst.Actions.Action;
+import dst.types.Component;
+import dst.types.Tag;
 
 /**
  * data/scripts/entityscript.lua
@@ -206,18 +208,3 @@ private extern class SaveRecordTuple {
 	};
 	var references: Dynamic;
 }
-
-
-/**
- * Components are ordinary Class types.
- *
- * Its unfortunate that they don't share a type,
- * so we're using this one.
- */
-typedef Component = ExplicitLuaClass;
-
-/**
- * Tags are used heavily to describe
- * traits shared by types.
- */
-typedef Tag = String;

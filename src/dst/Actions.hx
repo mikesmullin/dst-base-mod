@@ -135,6 +135,13 @@ extern class Action extends ExplicitLuaClass
 	 * Default: null
 	 */
 	public var mod_name: Null<String>;
+
+	/**
+	 * Optionally override the result returned by
+	 * BufferedAction:GetActionString() for this action.
+	 * Default: null
+	 */
+	public var stroverridefn: BufferedAction -> String;
 }
 
 typedef ActionFunction = BufferedAction -> Bool; // act

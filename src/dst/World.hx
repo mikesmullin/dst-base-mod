@@ -1,6 +1,6 @@
 package dst;
 
-import dst.EntityScript.Tag;
+import dst.types.Tag;
 import dst.Prefabs.Prefab;
 import dst.Prefabs.Asset;
 
