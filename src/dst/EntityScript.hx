@@ -8,6 +8,9 @@ import dst.Prefabs.Prefab;
 import dst.Actions.Action;
 import dst.types.Component;
 import dst.types.Tag;
+import dst.compiled.NetVars.NetByteArray;
+import dst.compiled.NetVars.NetByte;
+import dst.compiled.NetVars.NetSmallByteArray;
 
 /**
  * data/scripts/entityscript.lua
@@ -32,11 +35,9 @@ extern class EntityScript extends ExplicitLuaClass
 	/**
 	 * EntityScript hasMany Components.
 	 */
-	public var components: Array<{}>;
-	public var StopUpdatingComponents: {};
-
-
-	public var lower_components_shadow: Array<{}>;
+	public var components: lua.Table<Int,Component>;
+	public var StopUpdatingComponents: lua.Table<Component,Component>;
+	public var lower_components_shadow: lua.Table<String,Bool>;
 	public var GUID: dst.types.GUID; // default provided by compiled engine
 	public var spawntime: Int; // elapsed tick time (not wall time)
 	public var persists: Bool; // default: true
@@ -56,9 +57,65 @@ extern class EntityScript extends ExplicitLuaClass
 	public var pendingtasks: Array<{}>; // default: nil
 	public var children: Array<{}>; // default: nil
 
-	public var actionreplica: {}; // default: nil
-	public var replica: {}; // default: Replica(self)
+	/**
+	 * Component Replicas
+	 *
+	 * Adding components to entities is straight-forward,
+	 * for example:
+	 *
+	 * ```
+	 * 	var e = CreateEntity();
+	 * 	e.AddComponent("named");
+	 * 	assert(e.components.named == require("components/named"));
+	 * ```
+	 *
+	 * By default all components are designed to operate locally.
+	 * For example, if the following line were evaluated only by
+	 * the client, it would not change the value for the same
+	 * component on the same entity on any other simulator on the
+	 * network:
+	 *
+	 * ```
+	 * 	e.components.named.SetName("SecretBilly");
+	 * ```
+	 *
+	 * For every component that requires network synchronization,
+	 * a components/*_replica.lua is created. The name is also
+	 * registered via EntityReplica.AddReplicableComponent().
+	 *
+	 * While the original component and replica component may
+	 * share the same interface, the replica's conventional role
+	 * is to sync its data so all machines in the network receive
+	 * the same values, using NetVars and RPC.
 
+	 * For example, if the server evaluates the following code,
+	 * all clients with a copy of the same entity will receive
+	 * the same changes to their component values, as well:
+	 *
+	 * ```
+	 * 	// component names listed in REPLICATABLE_COMPONENTS list
+	 * 	// automatically have their replica components added to 
+	 * 	// the entity during the AddComponent() step above.
+	 * 	assert(e.replica.named == require("components/named_replica"));
+	 * 	e.replica.named.SetName("EverybodyKnowsBilly");
+	 * ```
+	 *
+	 * The named component is a real example, so read its source
+	 * for more detailed examples.
+	 */
+	public var replica: Replica; // default: Replica(self)
+
+	/**
+	 * Action replicas map directly to NetVar instances.
+	 */
+	public var actionreplica: { // default: nil
+		actioncomponents: NetByteArray,
+		inherentactions: NetByteArray,
+		inherentsceneaction: NetByte,
+		inherentscenealtaction: NetByte,
+
+		modactioncomponents: lua.Table<String, NetSmallByteArray>
+	};
 
 	public function GetSaveRecord(): SaveRecordTuple;
 
@@ -86,10 +143,10 @@ extern class EntityScript extends ExplicitLuaClass
 	public function HasTag(tag: Tag): Bool;
 
 	// require("entityreplica")
-	public function ValidateReplicaComponent(name: String, cmp: Component): Bool;
-	public function ReplicateComponent(name: String): Void;
-	public function UnreplicateEntity(name: String): Void;
-	public function PrereplicateEntity(name: String): Void;
+	public function ValidateReplicaComponent(name: REPLICATABLE_COMPONENTS, cmp: Component): Bool;
+	public function ReplicateComponent(name: REPLICATABLE_COMPONENTS): Void;
+	public function UnreplicateEntity(name: REPLICATABLE_COMPONENTS): Void;
+	public function PrereplicateEntity(name: REPLICATABLE_COMPONENTS): Void;
 	public function ReplicateEntity(): Void;
 
 	// require("componentactions")
@@ -207,4 +264,47 @@ private extern class SaveRecordTuple {
 		?data: Dynamic
 	};
 	var references: Dynamic;
+}
+
+/**
+ * Replica components container with overridden accessor.
+ */
+private extern class Replica extends ExplicitLuaClass
+{
+	@:selfCall
+	public function new (inst: EntityScript);
+
+	public var inst: EntityScript;
+
+	/**
+	 * This holds all the override values.
+	 */
+	public var _: {};
+}
+
+/**
+ * This is the default list.
+ * Mods can add to it dynamically at runtime
+ * by calling EntityReplica.AddReplicableComponent().
+ */
+@:enum
+abstract REPLICATABLE_COMPONENTS(String)
+{
+	var builder = "builder";
+	var combat = "combat";
+	var container = "container";
+	var equippable = "equippable";
+	var fishingrod = "fishingrod";
+	var follower = "follower";
+	var health = "health";
+	var hunger = "hunger";
+	var inventory = "inventory";
+	var inventoryitem = "inventoryitem";
+	var moisture = "moisture";
+	var named = "named";
+	var rider = "rider";
+	var sanity = "sanity";
+	var sheltered = "sheltered";
+	var stackable = "stackable";
+	var writeable = "writeable";
 }
