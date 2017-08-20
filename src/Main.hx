@@ -21,6 +21,8 @@ import dst.EntityScript;
 // import dst.Fonts.*;
 // import dst.Constants.*;
 
+using dst.EntityScript.EventHelper;
+
 class Main
 {
 	public static function main()
@@ -46,11 +48,11 @@ class Main
 
 		// need an entity to subscribe an event listener
 		var inst = CreateEntity();
-		inst.ListenForEvent("entitywake", function(self, data) {
+		inst.ListenForEventOnce("entitywake", function(self, ?data) {
 			log("event entitywake");
 		}, inst);
 
-		inst.ListenForEvent("onremove", function(self, data) {
+		inst.ListenForEvent("onremove", function(self, ?data) {
 			log("event onremove");
 		}, inst);
 
@@ -92,7 +94,7 @@ class Main
 
 			// TODO: note list of all possible events somewhere
 			// TODO: note in this event's description: only fires when player comes to life (not game resume)
-			inst.ListenForEvent("ms_newplayercharacterspawned", function(self, data) {
+			inst.ListenForEvent("ms_newplayercharacterspawned", function(self, ?data) {
 				log("event ms_newplayercharacterspawned");
 
 				if (!InGamePlay()) return;
@@ -155,7 +157,7 @@ class Main
 			// if (TheNet.GetIsClient()) {
 
 				// TODO: document requirements: this event will not fire unless inst is like network enabled entity or something
-				inst.ListenForEvent("bleuCheeseDirty", function(e:EntityScript, data:Dynamic) {
+				inst.ListenForEvent("bleuCheeseDirty", function(e:EntityScript, ?data:Dynamic) {
 					var serpent = require("serpent");
 					log("bleu cheese dirtied to "+ bleuCheese.value());
 					log(__lua__('serpent.block')(e));

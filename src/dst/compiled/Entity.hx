@@ -24,6 +24,9 @@ extern class Entity
 	public function AddImage(): Dynamic;
 	public function AddImageWidget(): Dynamic;
 	public function AddLabel(): Dynamic;
+	/**
+	 * Enables .Light property of EntityScript
+	 */
 	public function AddLight(): Dynamic;
 	public function AddLightWatcher(): Dynamic;
 	public function AddMap(): Dynamic;

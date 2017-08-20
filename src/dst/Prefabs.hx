@@ -1,11 +1,14 @@
 package dst;
 
-import haxe.Constraints.Function;
-
 private typedef PrefabFunction = Void -> EntityScript;
 
 /**
  * data/scripts/prefabs.lua
+ *
+ * Prefab defines an entity in the game.
+ * This is where all the components are set up and configured.
+ * A Prefab also contains some local functions
+ * which are used as callbacks for the components.
  */
 @:native("_G.Prefab")
 extern class Prefab extends ExplicitLuaClass
@@ -25,6 +28,9 @@ extern class Prefab extends ExplicitLuaClass
 	public var force_path_search: Bool;
 }
 
+/**
+ * Represents an art file on the disk.
+ */
 @:native("_G.Asset")
 extern class Asset extends ExplicitLuaClass
 {

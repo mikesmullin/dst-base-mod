@@ -11,6 +11,7 @@ import dst.types.Tag;
 import dst.compiled.NetVars.NetByteArray;
 import dst.compiled.NetVars.NetByte;
 import dst.compiled.NetVars.NetSmallByteArray;
+import dst.compiled.Light;
 
 /**
  * data/scripts/entityscript.lua
@@ -117,6 +118,11 @@ extern class EntityScript extends ExplicitLuaClass
 		modactioncomponents: lua.Table<String, NetSmallByteArray>
 	};
 
+	/**
+	 * Call `inst.entity.AddLight()` before invoking this property.
+	 */
+	public var Light: Light;
+
 	public function GetSaveRecord(): SaveRecordTuple;
 
 	public function Hide(): Void;
@@ -186,10 +192,31 @@ extern class EntityScript extends ExplicitLuaClass
 
 	public function AddListener(t: Dynamic, event: Dynamic, inst: Dynamic, fn: Dynamic): Void;
 
-	public function ListenForEvent(event: String, fn: Function, ?emitter: EntityScript): Void;
-	public function RemoveEventCallback(event: String, fn: Function, ?emitter: EntityScript): Void;
+	/**
+	 * This function is used to listen for a set event and fire a function when it’s pushed.
+	 * Optionally, a different entity can be set as a third parameter.
+	 * Then that entity has to push the event, rather than the entity used to call
+	 * ListenForEvent in the first place (notice that you could add the listener from the
+	 * source entity straight away, but then removing the first entity won’t remove the
+	 * event listener).
+	 */
+	public function ListenForEvent(event: String, fn: EventCallback, ?emitter: EntityScript): Void;
+
+
+	/**
+	 * This function removes an event listener. It requires both the event name and the function,
+	 * and can also accept a different entity as the third parameter, if used in the original
+	 * ListenForEvent.
+	 */
+	public function RemoveEventCallback(event: String, fn: EventCallback, ?emitter: EntityScript): Void;
+
 	public function RemoveAllEventCallbacks(): Void;
-	public function PushEvent(event: Dynamic, data: Dynamic): Dynamic;
+
+	/**
+	 * This function is used to push an event.
+	 * Optionally, a table with arbitrary information can be added.
+	 */
+	public function PushEvent(event: String, data: lua.Table<Dynamic,Dynamic>): Void;
 
 	public function WatchWorldState(_var: Dynamic, fn: Dynamic): Dynamic;
 	public function StopWatchingWorldState(_var: Dynamic, fn: Dynamic): Dynamic;
@@ -307,4 +334,26 @@ abstract REPLICATABLE_COMPONENTS(String)
 	var sheltered = "sheltered";
 	var stackable = "stackable";
 	var writeable = "writeable";
+}
+
+typedef EventCallback = EntityScript -> ?lua.Table<Dynamic,Dynamic> -> Void;
+
+/**
+ * Usage:
+ *   using dst.EntityScript.EventHelper;
+ */
+class EventHelper
+{
+	/**
+	 * Makes it easy to listen for an event just once.
+	 */
+	static public function ListenForEventOnce(inst: EntityScript, event: String, fn: EventCallback, ?emitter: EntityScript): Void
+	{
+		function once(inst2: EntityScript, ?data: lua.Table<Dynamic,Dynamic>): Void {
+			inst.RemoveEventCallback(event, once, emitter);
+			return fn(inst2, data);
+		}
+			
+		inst.ListenForEvent(event, once, emitter);
+	}
 }
