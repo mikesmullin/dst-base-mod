@@ -1,14 +1,17 @@
 package dst.types;
 
 /**
- * Components are ordinary Class types.
- *
- * Every Prefab consists of components.
- * Components define what can be done.
+ * Components belong to prefabs.
  * You will see components called "workable" or "pickable".
  * If a Prefab is pickable, i.e. a flower, it will define
  * a “pickable” component in it's setup method.
+ * 
  * Components often have callback functions, i.e. "SetOnPickedFn".
  * These need to be set by the prefab when they initialize themselves.
+ *
+ * Components are ExplicitLuaClass types; there is no unifying interface
+ * or parent type; which means implementation are inconsistent. Therefore
+ * we recommend looking for usage examples in existing code before assuming
+ * you know how to use it from the component class definition alone.
  */
 typedef Component = ExplicitLuaClass;

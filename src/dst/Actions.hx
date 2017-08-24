@@ -7,6 +7,15 @@ import haxe.Constraints.Function;
  *
  * Defines an [inter]action usable by entities.
  *
+ * Not only a kind of global enum, but
+ * also defines a global function implementation
+ * that could generally apply to any entity;
+ * deferring to invoking callbacks on the entity
+ * for anything parts that might vary or be too specific.
+ * Entities expecting compatibility with this action
+ * therefore are obligated to either implement said callbacks
+ * or attach a Component or StateGraph that does.
+ *
  * Used heavily throughout the game.
  */
 @:native("_G.Action")
