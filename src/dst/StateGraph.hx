@@ -1,8 +1,12 @@
 package dst;
 
 import haxe.Constraints.Function;
+import haxe.ds.Either;
 import dst.Actions.Action;
-import dst.types.Tag;
+import dst.types.TagName;
+import dst.types.EventName;
+import dst.types.StateName;
+import dst.types.StateGraphInstanceName;
 
 /**
  * data/scripts/stategraph.lua
@@ -40,14 +44,18 @@ extern class StateGraphExterns // Externs
 @:native("_G.StateGraph")
 extern class StateGraph extends ExplicitLuaClass
 {
+	/**
+	 * @param name - Must match a Lua script in the data/scripts/stategraphs/ directory. (e.g. "SGbee")
+	 */
 	@:selfCall
-	public function new(name: String, states: lua.Table<Int,State>,
-		events:lua.Table<Int,EventHandler>, defaultstate: State,
+	public function new(name: StateGraphInstanceName, states: lua.Table<Int,State>,
+		events:lua.Table<Int,EventHandler>, defaultstate: StateName,
 		actionhandlers: lua.Table<Action,ActionHandler>);
 
 	public var defline: String;
-	public var name: String;
-	public var defaultstate: State;
+
+	public var name: StateGraphInstanceName;
+	public var defaultstate: StateName;
 
 	public var actionhandlers: lua.Table<Action,ActionHandler>;
 	public var events: lua.Table<Int,EventHandler>;
@@ -66,32 +74,32 @@ extern class StateGraphInstance extends ExplicitLuaClass
 	public function new(stategraph: StateGraph, inst: EntityScript);
 
 	public var sg: StateGraph;
-	public var currentstate: State; // default: nil
+	public var currentstate: StateName; // default: nil
 	public var timeinstate: Int; // default: 0
 	public var lastupdatetime: Int; // default: 0
 	public var timelineindex: Null<Int>; // default: nil
-	public var prevstate: State; // default: nil
+	public var prevstate: StateName; // default: nil
 	public var bufferedevents: lua.Table<Int,EventHandler>; // default: {}
 	public var inst: EntityScript; // default: inst
 	public var statemem: lua.Table<Int,Dynamic>; // default: {}
 	public var mem: lua.Table<Int,Dynamic>; // default: {}
 	public var statestarttime: Int; // default: 0	
-	public var tags: lua.Table<Int,Tag>;
+	public var tags: lua.Table<Int,TagName>;
 
 	public function GetTimeInState(): Float;
 	public function PlayRandomAnim(anims: Dynamic, loop: Dynamic): Void;
-	public function PushEvent(event: String, data: lua.Table<Dynamic,Dynamic>): Void;
-	public function IsListeningForEvent(event: string): Bool;
+	public function PushEvent(event: EventName, data: lua.Table<Dynamic,Dynamic>): Void;
+	public function IsListeningForEvent(event: EventName): Bool;
 	public function PreviewAction(bufferedAction: BufferedAction): Bool;
 	public function StartAction(bufferedAction: BufferedAction): Bool;
 	public function HandleEvents(): Void;
 	public function ClearBufferedEvents(): Void;
 	public function InNewState(): Bool;
-	public function HasState(name: String): Bool;
-	public function GoToState(name: String, params: Dynamic): Bool;
-	public function AddStateTag(tag: Tag): Void;
-	public function RemoveStateTag(tag: Tag): Void;
-	public function HasStateTag(tag: Tag): Bool;
+	public function HasState(name: StateName): Bool;
+	public function GoToState(name: StateName, params: Dynamic): Bool;
+	public function AddStateTag(tag: TagName): Void;
+	public function RemoveStateTag(tag: TagName): Void;
+	public function HasStateTag(tag: TagName): Bool;
 	public function SetTimeout(time: Float): Void;
 	public function UpdateState(dt: Float): Void;
 	public function Start(): Void;
@@ -137,26 +145,44 @@ extern class StateGraphWrangler extends StateGraphWrangler2
 	public function Update(current_tick: Int): Void;
 }
 
+typedef DestinationStateCallback = EntityScript -> BufferedAction -> StateName;
+typedef ConditionCallback = EntityScript -> Bool;
+
+/**
+ * 
+ */
 @:native("_G.ActionHandler")
 extern class ActionHandler extends ExplicitLuaClass
 {
 	@:selfCall
-	public function new(action: Action, state: State, condition: Dynamic);
+	public function new(action: Action, state: Either<StateName,DestinationStateCallback>, condition: ConditionCallback);
 
 	public var action: Action;
-	public var deststate: EntityScript -> State;
-	public var condition: Dynamic;
+	public var deststate: DestinationStateCallback;
+	public var condition: ConditionCallback;
 }
 
+typedef EventHandlerFunction = EntityScript -> Void;
+
+/**
+ * 
+ */
 @:native("_G.EventHandler")
 extern class EventHandler extends ExplicitLuaClass
 {
+	/**
+	 * EventHandlers are passed to new StateGraphs.
+	 * They implement specific logic which components demand.
+	 *
+	 * @param name - Name of the event for use with PushEvent. (e.g., "locomote")
+	 * @param fn - Callback function when event is triggered.
+	 */
 	@:selfCall
-	public function new(name: String, fn: Function);
+	public function new(name: EventName, fn: EventHandlerFunction);
 
 	public var defline: String;
-	public var name: String;
-	public var fn: Function;
+	public var name: EventName;
+	public var fn: EventHandlerFunction;
 }
 
 @:native("_G.TimeEvent")
@@ -175,7 +201,7 @@ extern class State extends ExplicitLuaClass
 {
 	@:selfCall
 	public function new(args: {
-		name: String,
+		name: StateName,
 		?onenter: Function,
 		?onexit: Function,
 		?onupdate: Function,
@@ -183,16 +209,16 @@ extern class State extends ExplicitLuaClass
 	});
 
 	public var defline: String;
-	public var name: String;
+	public var name: StateName;
 	public var onenter: Function;
 	public var onexit: Function;
 	public var onupdate: Function;
 	public var ontimeout: Function;
 
-	public var tags: lua.Table<Int,Tag>;
+	public var tags: lua.Table<Int,TagName>;
 	public var events: lua.Table<Int,EventHandler>;
 	public var timeline: lua.Table<Int,TimeEvent>;
 
-	public function HandleEvent(sg: StateGraph, name: String,
+	public function HandleEvent(sg: StateGraph, name: StateName,
 		data: Dynamic): Bool;
 }

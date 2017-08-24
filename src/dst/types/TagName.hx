@@ -11,5 +11,9 @@ package dst.types;
  * You will often see tags to indicate certain things for certain
  * components or creatures (e.g. Chester’s Eyebone), but also for
  * general differences (e.g. “wall”, “fire”).
+ *
+ * The names of tags are always references to indexes
+ * so its important that you provide them consciously
+ * as they are case-sensitive strings.
  */
-typedef Tag = String;
+typedef TagName = String;

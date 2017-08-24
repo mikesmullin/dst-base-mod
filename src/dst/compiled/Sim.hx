@@ -1,5 +1,7 @@
 package dst.compiled;
 
+import dst.types.TagName;
+
 @:native("_G.Sim")
 extern class Sim
 {
@@ -25,8 +27,18 @@ extern class Sim
 	public function DumpMemInfo(): Dynamic;
 	public function DumpMemoryStats(): Dynamic;
 	public function ErasePersistentString(): Dynamic;
-	public function FindEntities(): Dynamic;
-	public function FindFirstEntityWithTag(): Dynamic;
+
+	/**
+	 * Will only return top 30.
+	 */
+	public function FindEntities(x: Float, y: Float, z: Float,
+		radius: Float, /* filterFn: IInst -> Bool, maxCount: Int, */
+		?andTags: lua.Table<Int, TagName>,
+		?notTags: lua.Table<Int, TagName>,
+		?orTags: lua.Table<Int, TagName>): lua.Table<Int, EntityScript>;
+
+	public function FindFirstEntityWithTag(name: TagName): EntityScript;
+
 	public function ForceAbort(): Dynamic;
 	public function GenerateNewWorld(): Dynamic;
 	public function GetAnalogControl(): Dynamic;

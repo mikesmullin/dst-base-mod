@@ -7,7 +7,7 @@ import dst.types.GUID;
 import dst.Prefabs.Prefab;
 import dst.Actions.Action;
 import dst.types.Component;
-import dst.types.Tag;
+import dst.types.TagName;
 import dst.compiled.NetVars.NetByteArray;
 import dst.compiled.NetVars.NetByte;
 import dst.compiled.NetVars.NetSmallByteArray;
@@ -144,9 +144,9 @@ extern class EntityScript extends ExplicitLuaClass
 	public function StopWallUpdatingComponent(cmp: Component): Void;
 	public function GetComponentName(cmp: Component): Void;
 
-	public function AddTag(tag: Tag): Void;
-	public function RemoveTag(tag: Tag): Void;
-	public function HasTag(tag: Tag): Bool;
+	public function AddTag(tag: TagName): Void;
+	public function RemoveTag(tag: TagName): Void;
+	public function HasTag(tag: TagName): Bool;
 
 	// require("entityreplica")
 	public function ValidateReplicaComponent(name: REPLICATABLE_COMPONENTS, cmp: Component): Bool;

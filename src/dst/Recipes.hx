@@ -1,7 +1,7 @@
 package dst;
 
 import haxe.Constraints.Function;
-import dst.types.Tag;
+import dst.types.TagName;
 
 /**
  * data/scripts/recipes.lua
@@ -81,7 +81,7 @@ extern class Recipe extends ExplicitLuaClass
 
 	public var numtogive: Int; // default: 1
 
-	public var builder_tag: Tag; // default: nil
+	public var builder_tag: TagName; // default: nil
 
 	public function SetModRPCID(): Void;
 }

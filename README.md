@@ -111,3 +111,19 @@ opening asset files:
 
 - packaging mod from steam: use Steam tools launcher (default radio selection)
 
+
+
+
+## useful functions
+
+```lua
+-- print stack trace
+-- cuz debug.traceback() is treated like an error and is less informative
+print(debugstack());
+
+-- list anything you'd want to know about an EntityScript instance
+print(TheInput:GetWorldEntityUnderMouse():GetDebugString())
+
+-- dump any table you like (e.g. debug.getinfo which also dumps info about given variables or functions)
+dumptable(debug.getinfo(somefunction))
+```

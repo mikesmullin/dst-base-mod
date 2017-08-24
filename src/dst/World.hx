@@ -1,6 +1,6 @@
 package dst;
 
-import dst.types.Tag;
+import dst.types.TagName;
 import dst.Prefabs.Prefab;
 import dst.Prefabs.Asset;
 
@@ -14,7 +14,7 @@ extern class WorldExterns { // Externs
 		customAssets: Array<Asset>,
 		common_postinit: Dynamic,
 		master_postinit: Dynamic,
-		tags: Array<Tag>
+		tags: Array<TagName>
 		): World;
 }
 
@@ -27,6 +27,6 @@ extern class World extends EntityScript
 	public var ismastersim: Bool;
 
 	public var ismastershard: Bool;
-	
+
 	// TODO: finish
 }

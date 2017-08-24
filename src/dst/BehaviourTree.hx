@@ -42,7 +42,10 @@ extern abstract BehaviourNodeState(String) {
 extern class BehaviourTree extends ExplicitLuaClass
 {
 	@:selfCall
-	public function new(inst: EntityScript, root: Dynamic);
+	public function new(inst: EntityScript, root: BehaviourNode);
+
+	public var inst: EntityScript;
+	public var root: BehaviourNode;
 
 	public function ForceUpdate(): Void;
 	public function Update(): Void;
