@@ -6,8 +6,8 @@ class Logger
 	public static function log(s:String, ?pos:haxe.PosInfos):Void
 	{
 		#if debug
-      // this special prefix appears highlighted
-      // when viewed with LogExpert.exe
+			// this special prefix appears highlighted
+			// when viewed with LogExpert.exe
 			dst.DebugPrint.nolineprint(pos.fileName +":"+ pos.lineNumber +": "+ LOG_PREFIX + s);
 		#end
 	}
