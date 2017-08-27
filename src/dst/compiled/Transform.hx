@@ -1,5 +1,7 @@
 package dst.compiled;
 
+import dst.Vector3.Vector3Tuple;
+
 @:native("_G.Transform")
 extern class Transform
 {
@@ -8,7 +10,9 @@ extern class Transform
 	public function GetPredictionPosition(): Dynamic;
 	public function GetRotation(): Dynamic;
 	public function GetScale(): Dynamic;
-	public function GetWorldPosition(): Dynamic;
+
+	public function GetWorldPosition(): Vector3Tuple;
+
 	public function SetEightFaced(): Dynamic;
 	public function SetFourFaced(): Dynamic;
 	public function SetFromProxy(): Dynamic;

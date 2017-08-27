@@ -16,4 +16,4 @@ package dst.types;
  * so its important that you provide them consciously
  * as they are case-sensitive strings.
  */
-abstract TagName(String){}
+typedef TagName = String;

@@ -2,7 +2,7 @@ package dst;
 
 import haxe.Constraints.Function;
 import haxe.ds.StringMap;
-import Utils.DynamicObject;
+import utils.DynamicObject;
 
 /**
  * data/scripts/class.lua
@@ -69,5 +69,21 @@ extern class ExplicitLuaClass
 	 * Refuses to print more frequently than ClassTrackingInterval.
 	 */
 	static public function HandleClassInstanceTracking(): Void;
+
+	/**
+	 * Used by Lua automatically.
+	 * But Haxe gets in the way.
+	 */
+	public function __tostring(): String {
+		return "";
+	}
+
+	/**
+	 * Used by Haxe automatically.
+	 */
+	inline public function toString(): String
+	{
+		return this.__tostring();
+	}
 
 }

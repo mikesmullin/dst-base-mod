@@ -14,7 +14,7 @@ extern class Physics
 	public function GetMass(): Dynamic;
 	public function GetMotorSpeed(): Dynamic;
 	public function GetMotorVel(): Dynamic;
-	public function GetRadius(): Dynamic;
+	public function GetRadius(): Float;
 	public function GetVelocity(): Dynamic;
 	public function IsActive(): Dynamic;
 	public function IsPassable(): Dynamic;

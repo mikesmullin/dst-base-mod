@@ -50,7 +50,7 @@ extern class BufferedAction extends ExplicitLuaClass
 	/**
 	 * Serialize this object to console-friendly string.
 	 */
-	public function __tostring(): String;
+	override public function __tostring(): String;
 }
 
 private typedef OnSuccessOrOnFailFunction = Void -> Void;

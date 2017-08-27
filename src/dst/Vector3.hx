@@ -90,7 +90,7 @@ extern class Vector3 extends ExplicitLuaClass
 	/**
 	 * @return Tuple3 of x, y, and z.
 	 */
-	public function Get(): VectorTuple;
+	public function Get(): Vector3Tuple;
 
 	/**
 	 * Whether this class is a Vector3 type.
@@ -110,14 +110,14 @@ extern class Vector3 extends ExplicitLuaClass
 	/**
 	 * Serialize this object to console-friendly string.
 	 */
-	public function __tostring(): String;
+	override public function __tostring(): String;
 }
 
 @:native("_G.Point")
 typedef Point = Vector3;
 
 @:multiReturn
-private extern class VectorTuple {
+extern class Vector3Tuple {
 	var x: Float;
 	var y: Float;
 	var z: Float;

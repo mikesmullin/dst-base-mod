@@ -68,11 +68,13 @@ local Main = _hx_e()
 local String = _hx_e()
 local Std = _hx_e()
 local haxe = {}
-haxe.Log = _hx_e()
 haxe.io = {}
 haxe.io.Eof = _hx_e()
 local lua = {}
 lua.Boot = _hx_e()
+local utils = {}
+utils.Logger = _hx_e()
+utils.Lua = _hx_e()
 
 local _hx_bind, _hx_bit, _hx_staticToInstance, _hx_funcToField, _hx_maxn, _hx_print, _hx_apply_self, _hx_box_mr, _hx_bit_clamp, _hx_table, _hx_bit_raw
 
@@ -113,77 +115,195 @@ Array.prototype = _hx_a(
 
 Main.new = {}
 Main.main = function() 
-  haxe.Log.trace("MikesPlugin: " .. "debug mode is enabled.",_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Utils.hx",lineNumber=14,className="Utils",methodName="log"}));
+  utils.Logger.log("debug mode is enabled.",_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Main.hx",lineNumber=20,className="Main",methodName="main"}));
   _G.CHEATS_ENABLED = true;
   _G.require("debugtools");
   _G.PRINT_SOURCE = true;
   _G.DISABLE_MOD_WARNING = true;
-  local inst = _G.CreateEntity();
-  inst:ListenForEvent("entitywake",function(_self,data) 
-    haxe.Log.trace("MikesPlugin: " .. "event entitywake",_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Utils.hx",lineNumber=14,className="Utils",methodName="log"}));
-  end,inst);
-  inst:ListenForEvent("onremove",function(self1,data1) 
-    haxe.Log.trace("MikesPlugin: " .. "event onremove",_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Utils.hx",lineNumber=14,className="Utils",methodName="log"}));
-  end,inst);
-  env.AddSimPostInit(function() 
-    haxe.Log.trace("MikesPlugin: " .. "AddSimPostInit",_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Utils.hx",lineNumber=14,className="Utils",methodName="log"}));
-    if (nil == _G.TheWorld) then 
-      do return end;
+  local ValidateAttackTarget = function(combat,target,force_attack,x,z,has_weapon,reach) 
+    if (not combat:CanTarget(target)) then 
+      do return false end;
     end;
-    haxe.Log.trace("MikesPlugin: " .. "and TheWorld",_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Utils.hx",lineNumber=14,className="Utils",methodName="log"}));
-    if (_G.TheNet:GetIsServer()) then 
-      haxe.Log.trace("MikesPlugin: " .. "I'm a server.",_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Utils.hx",lineNumber=14,className="Utils",methodName="log"}));
-    end;
-    if (_G.TheNet:GetIsClient()) then 
-      haxe.Log.trace("MikesPlugin: " .. "I'm a client.",_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Utils.hx",lineNumber=14,className="Utils",methodName="log"}));
-    end;
-    if (_G.TheNet:IsDedicated()) then 
-      haxe.Log.trace("MikesPlugin: " .. "I'm a dedicated server.",_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Utils.hx",lineNumber=14,className="Utils",methodName="log"}));
-    else
-      haxe.Log.trace("MikesPlugin: " .. "I'm NOT a dedicated server.",_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Utils.hx",lineNumber=14,className="Utils",methodName="log"}));
-    end;
-    if (_G.TheWorld.ismastersim) then 
-      haxe.Log.trace("MikesPlugin: " .. "I'm a master simulator.",_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Utils.hx",lineNumber=14,className="Utils",methodName="log"}));
-    else
-      haxe.Log.trace("MikesPlugin: " .. "I'm NOT a master simulator.",_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Utils.hx",lineNumber=14,className="Utils",methodName="log"}));
-    end;
-    inst:ListenForEvent("ms_newplayercharacterspawned",function(self2,data2) 
-      haxe.Log.trace("MikesPlugin: " .. "event ms_newplayercharacterspawned",_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Utils.hx",lineNumber=14,className="Utils",methodName="log"}));
-      if (not _G.InGamePlay()) then 
-        do return end;
+    local targetcombat = target.replica.combat;
+    if (nil ~= targetcombat) then 
+      if (combat:IsAlly(target)) then 
+        do return false end;
+      else
+        if (not ((force_attack or combat:IsRecentTarget(target)) or (targetcombat:GetTarget() == combat.inst))) then 
+          if (not (target:HasTag("hostile") or ((has_weapon and target:HasTag("monster")) and not target:HasTag("player")))) then 
+            do return false end;
+          end;
+          local follower = target.replica.follower;
+          if (nil ~= follower) then 
+            local leader = follower:GetLeader();
+            if (((nil ~= leader) and leader:HasTag("player")) and (leader.replica.combat:GetTarget() ~= combat.inst)) then 
+              do return false end;
+            end;
+          end;
+        end;
       end;
-      haxe.Log.trace("MikesPlugin: " .. "and InGamePlay()",_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Utils.hx",lineNumber=14,className="Utils",methodName="log"}));
-      haxe.Log.trace("MikesPlugin: " .. "main() starting up...",_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Utils.hx",lineNumber=14,className="Utils",methodName="log"}));
-    end,_G.TheWorld);
-  end);
-  env.AddGamePostInit(function() 
-    haxe.Log.trace("MikesPlugin: " .. "AddGamePostInit",_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Utils.hx",lineNumber=14,className="Utils",methodName="log"}));
-  end);
-  env.AddPlayerPostInit(function(inst1) 
-    haxe.Log.trace("MikesPlugin: " .. "AddPlayerPostInit",_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Utils.hx",lineNumber=14,className="Utils",methodName="log"}));
-    local bleuCheese = nil;
-    bleuCheese = _G.net_bool(inst1.GUID,"bleucheese","bleuCheesedirty");
-    inst1:ListenForEvent("bleuCheeseDirty",function(e,data3) 
-      local serpent = _G.require("serpent");
-      local s = "bleu cheese dirtied to " .. Std.string(bleuCheese:value());
-      haxe.Log.trace("MikesPlugin: " .. s,_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Utils.hx",lineNumber=14,className="Utils",methodName="log"}));
-      local s1 = serpent.block(e);
-      haxe.Log.trace("MikesPlugin: " .. s1,_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Utils.hx",lineNumber=14,className="Utils",methodName="log"}));
-      local s2 = serpent.block(data3);
-      haxe.Log.trace("MikesPlugin: " .. s2,_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Utils.hx",lineNumber=14,className="Utils",methodName="log"}));
-    end);
-    if (_G.TheNet:GetIsServer()) then 
-      bleuCheese:set(false);
     end;
-    if (_G.TheNet:GetIsServer()) then 
-      inst1:DoTaskInTime(5,function() 
-        bleuCheese:set(true);
-      end);
-    end;
-    inst1:DoTaskInTime(6,function() 
-      local s3 = "bleuCheese is " .. Std.string(bleuCheese:value());
-      haxe.Log.trace("MikesPlugin: " .. s3,_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Utils.hx",lineNumber=14,className="Utils",methodName="log"}));
-    end);
+    local reach1 = (function() 
+      local _hx_1
+      if (target.Physics ~= nil) then 
+      _hx_1 = reach + target.Physics:GetRadius(); else 
+      _hx_1 = reach; end
+      return _hx_1
+    end )();
+    do return target:GetDistanceSqToPoint(x,0,z) <= (reach1 * reach1) end;
+  end;
+  env.AddClassPostConstruct("components/playercontroller",function(_self) 
+    _self.GetAttackTarget = function(self,force_attack1,force_target,isretarget) 
+      _G.nolineprint("--");
+      utils.Logger.log("PlayerController:GetAttackTarget()",_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Main.hx",lineNumber=107,className="Main",methodName="main"}));
+      utils.Logger.log("  " .. ((function() 
+        local _hx_2
+        if (force_attack1) then 
+        _hx_2 = "force_attack TRUE"; else 
+        _hx_2 = "force_attack FALSE"; end
+        return _hx_2
+      end )()),_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Main.hx",lineNumber=108,className="Main",methodName="main"}));
+      utils.Logger.log("  " .. ((function() 
+        local _hx_3
+        if (nil ~= force_target) then 
+        _hx_3 = "force_target " .. force_target.prefab; else 
+        _hx_3 = "force_target NULL"; end
+        return _hx_3
+      end )()),_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Main.hx",lineNumber=109,className="Main",methodName="main"}));
+      utils.Logger.log("  " .. ((function() 
+        local _hx_4
+        if (isretarget) then 
+        _hx_4 = "isretarget TRUE"; else 
+        _hx_4 = "isretarget FALSE"; end
+        return _hx_4
+      end )()),_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Main.hx",lineNumber=110,className="Main",methodName="main"}));
+      _G.nolineprint(_G.debugstack());
+      utils.Logger.log("",_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Main.hx",lineNumber=113,className="Main",methodName="main"}));
+      if (_self.inst:HasTag("playerghost") or _self.inst.replica.inventory:IsHeavyLifting()) then 
+        do return nil end;
+      end;
+      utils.Logger.log("",_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Main.hx",lineNumber=120,className="Main",methodName="main"}));
+      local combat1 = _self.inst.replica.combat;
+      if (nil == combat1) then 
+        do return nil end;
+      end;
+      utils.Logger.log("",_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Main.hx",lineNumber=124,className="Main",methodName="main"}));
+      if (nil ~= _self.inst.sg) then 
+        if (_self.inst.sg:HasStateTag("attack")) then 
+          do return nil end;
+        else
+          if (_self.inst:HasTag("attack")) then 
+            do return nil end;
+          end;
+        end;
+      end;
+      local _hx_5_coords_x, _hx_5_coords_y, _hx_5_coords_z = _self.inst.Transform:GetWorldPosition();
+      local attackrange = combat1:GetAttackRangeWithWeapon();
+      local rad = (function() 
+        local _hx_6
+        if (_self.directwalking) then 
+        _hx_6 = attackrange; else 
+        _hx_6 = attackrange + 6; end
+        return _hx_6
+      end )();
+      local reach2 = (_self.inst.Physics:GetRadius() + rad) + 0.1;
+      local has_weapon1 = _self.inst:HasTag("beaver");
+      if (not has_weapon1) then 
+        local inventory = _self.inst.replica.inventory;
+        local tool = (function() 
+          local _hx_7
+          if (nil ~= inventory) then 
+          _hx_7 = inventory:GetEquippedItem(_G.EQUIPSLOTS.HANDS); else 
+          _hx_7 = nil; end
+          return _hx_7
+        end )();
+        if (nil ~= tool) then 
+          local inventoryitem = tool.replica.inventoryitem;
+          if (nil ~= inventoryitem) then 
+            has_weapon1 = inventoryitem:IsWeapon();
+          else
+            has_weapon1 = false;
+          end;
+        end;
+      end;
+      utils.Logger.log("",_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Main.hx",lineNumber=153,className="Main",methodName="main"}));
+      if (((((isretarget and combat1:CanHitTarget(force_target)) and (nil ~= force_target.replica.health)) and not force_target.replica.health:IsDead()) and _G.CanEntitySeeTarget(_self.inst,force_target)) and ValidateAttackTarget(combat1,force_target,force_attack1,_hx_5_coords_x,_hx_5_coords_z,has_weapon1,reach2)) then 
+        do return force_target end;
+      end;
+      if (nil ~= force_target) then 
+        utils.Logger.log("",_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Main.hx",lineNumber=173,className="Main",methodName="main"}));
+        if (ValidateAttackTarget(combat1,force_target,force_attack1,_hx_5_coords_x,_hx_5_coords_z,has_weapon1,reach2)) then 
+          do return force_target end;
+        else
+          do return nil end;
+        end;
+      end;
+      utils.Logger.log("",_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Main.hx",lineNumber=187,className="Main",methodName="main"}));
+      local nearby_ents = _G.TheSim:FindEntities(_hx_5_coords_x,_hx_5_coords_y,_hx_5_coords_z,rad + 5,_hx_tab_array({[0]="_combat" }, 1),_hx_tab_array({[0]="INLIMBO" }, 1));
+      local nearest_dist = _G.math.huge;
+      isretarget = false;
+      force_target = nil;
+      utils.Logger.log("",_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Main.hx",lineNumber=199,className="Main",methodName="main"}));
+      local pair = utils.Lua.ipairs(nearby_ents);
+      while (pair:hasNext()) do 
+        local pair1 = pair:next();
+        local nearbyEntity = pair1.value;
+        utils.Logger.log("",_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Main.hx",lineNumber=204,className="Main",methodName="main"}));
+        if (ValidateAttackTarget(combat1,nearbyEntity,force_attack1,_hx_5_coords_x,_hx_5_coords_z,has_weapon1,reach2) and _G.CanEntitySeeTarget(_self.inst,nearbyEntity)) then 
+          utils.Logger.log("",_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Main.hx",lineNumber=216,className="Main",methodName="main"}));
+          local dsq = _self.inst:GetDistanceSqToInst(nearbyEntity);
+          local dist;
+          if (dsq <= 0) then 
+            dist = 0;
+          else
+            if (nearbyEntity.Physics ~= nil) then 
+              dist = _G.math.max(0,_G.math.sqrt(dsq) - nearbyEntity.Physics:GetRadius());
+            else
+              dist = _G.math.sqrt(dsq);
+            end;
+          end;
+          if (not isretarget and combat1:IsRecentTarget(nearbyEntity)) then 
+            if (dist < (attackrange + .1)) then 
+              utils.Logger.log("",_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Main.hx",lineNumber=234,className="Main",methodName="main"}));
+              do return nearbyEntity end;
+            end;
+            isretarget = true;
+          end;
+          if (dist < nearest_dist) then 
+            nearest_dist = dist;
+            force_target = nearbyEntity;
+          end;
+        else
+          if (not isretarget and combat1:IsRecentTarget(nearbyEntity)) then 
+            isretarget = true;
+          end;
+        end;
+        end;
+      utils.Logger.log("",_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Main.hx",lineNumber=251,className="Main",methodName="main"}));
+      do return force_target end
+     end;
+  end);
+  env.AddClassPostConstruct("components/combat_replica",function(combat2) 
+    local oldIsAlly = _hx_bind(combat2,combat2.IsAlly);
+    combat2.IsAlly = function(self,target1) 
+      utils.Logger.log("combat replica IsAlly()",_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Main.hx",lineNumber=290,className="Main",methodName="main"}));
+      local ally = oldIsAlly(target1);
+      if (ally) then 
+        do return ally end;
+      end;
+      local weapon = combat2:GetWeapon();
+      if ((nil ~= weapon) and weapon:HasTag("icestaff")) then 
+        if ((nil ~= target1.components.freezable) and target1.components.freezable:IsFrozen()) then 
+          ally = true;
+        else
+          ally = false;
+        end;
+      end;
+      do return ally end
+     end;
+  end);
+  env.AddPlayerPostInit(function(player) 
+    utils.Logger.log("AddPlayerPostInit",_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Main.hx",lineNumber=318,className="Main",methodName="main"}));
   end);
 end
 
@@ -223,23 +343,6 @@ String.prototype = _hx_a(
 Std.new = {}
 Std.string = function(s) 
   do return lua.Boot.__string_rec(s) end;
-end
-
-haxe.Log.new = {}
-haxe.Log.trace = function(v,infos) 
-  local str = nil;
-  if (infos ~= nil) then 
-    str = infos.fileName .. ":" .. infos.lineNumber .. ": " .. Std.string(v);
-    if (infos.customParams ~= nil) then 
-      str = str .. ("," .. infos.customParams:join(","));
-    end;
-  else
-    str = v;
-  end;
-  if (str == nil) then 
-    str = "null";
-  end;
-  _hx_print(str);
 end
 
 haxe.io.Eof.new = {}
@@ -392,6 +495,23 @@ lua.Boot.fieldIterator = function(o)
     do return cur_val ~= nil end;
   end}) end;
 end
+
+utils.Logger.new = {}
+utils.Logger.log = function(s,pos) 
+  _G.nolineprint(pos.fileName .. ":" .. pos.lineNumber .. ": " .. "MikesPlugin: " .. s);
+end
+
+utils.Lua.new = {}
+utils.Lua.ipairs = function(table) 
+  local i = 1;
+  do return _hx_o({__fields__={next=true,hasNext=true},next=function(self) 
+    local i1 = i;
+    i = i + 1;
+    do return _hx_o({__fields__={index=true,value=true},index=i1,value=table[i - 1]}) end;
+  end,hasNext=function(self) 
+    do return nil ~= table[i] end;
+  end}) end;
+end
 local _hx_string_mt = _G.getmetatable('');
 String.__oldindex = _hx_string_mt.__index;
 _hx_string_mt.__index = String.__index;
@@ -404,7 +524,20 @@ local _hx_static_init = function()
   
 end
 
-_hx_print = print or (function() end)
+_hx_bind = function(o,m)
+  if m == nil then return nil end;
+  local f;
+  if o._hx__closures == nil then
+    _G.rawset(o, '_hx__closures', {});
+  else 
+    f = o._hx__closures[m];
+  end
+  if (f == nil) then
+    f = function(...) return m(o, ...) end;
+    o._hx__closures[m] = f;
+  end
+  return f;
+end
 _hx_static_init();
 Main.main()
 return _hx_exports

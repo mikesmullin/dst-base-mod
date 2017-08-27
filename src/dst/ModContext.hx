@@ -1,6 +1,8 @@
 package dst;
 
+#if macro
 import sys.io.File;
+#end
 
 class ModContext
 {
@@ -28,10 +30,14 @@ class ModContext
 		// your application exists or escapes outside of the mod
 		// sandbox context.
 
+		// TODO: This actually has a minor problem where if build
+		// fails it [redundantly] prepends this to the output every
+		// time. There is likely a better way. I'll explore later
+		// since it works well enough for now.
 		haxe.macro.Context.onAfterGenerate(function() {
 			var mainFile = haxe.macro.Compiler.getOutput();
 			var compilerOutput = File.getContent(mainFile);
-			File.saveContent(mainFile, 
+			File.saveContent(mainFile,
 				"local _G = GLOBAL\n" +
 				"local pcall = _G.pcall\n"+
 				"local getmetatable = _G.getmetatable\n"+

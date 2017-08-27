@@ -8,7 +8,7 @@ import haxe.Constraints.Function;
  * to act as our class, can use `env` here.
  */
 @:native("env")
-extern class ModUtilExterns // Externs
+extern class ModUtil // Externs
 {
 	/**
 	 * After TheSim has finished building the world.
@@ -32,8 +32,24 @@ extern class ModUtilExterns // Externs
 	 */
 	public static function AddPlayerPostInit(fn: Function): Void;
 
-	public static function AddGlobalClassPostConstruct(pkg: String, classname: String, fn: Function): Void;
-	public static function AddClassPostConstruct(classname: String, fn: Function): Void;
+	/**
+	 * Overrides the class constructor to include a call to the fn provided.
+	 * Allows you to do whatever you want to the class before its constructor returns.
+	 * Used by mods to override classes defined outside of the mod.
+	 */
+	public static function AddClassPostConstruct<T:ExplicitLuaClass>(classname: String, fn: T -> Void): Void;
+
+	/**
+	 * Identical to AddClassPostConstruct except it
+	 * operates on classname from the global _G namespace after requiring pkg.
+	 * If it cannot be found, then it forwards pkg to AddClassPostConstruct.
+	 */
+	public static function AddGlobalClassPostConstruct(pkg: String, classname: String, fn: ExplicitLuaClass -> Void): Void;
+
+	/**
+	 * Whether the current server has Player-vs-Player enabled.
+	 */
+	public static function GetServerPVP(): Bool;
 
 	// TODO: finish
 }

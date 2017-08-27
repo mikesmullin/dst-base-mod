@@ -1,7 +1,6 @@
 package dst;
 
 import haxe.extern.Rest;
-import haxe.Constraints.Function;
 import dst.compiled.Entity;
 import dst.types.GUID;
 import dst.Prefabs.Prefab;
@@ -11,7 +10,7 @@ import dst.types.TagName;
 import dst.compiled.NetVars.NetByteArray;
 import dst.compiled.NetVars.NetByte;
 import dst.compiled.NetVars.NetSmallByteArray;
-import dst.compiled.Light;
+import dst.StateGraph.StateGraphInstance;
 
 /**
  * data/scripts/entityscript.lua
@@ -36,7 +35,14 @@ extern class EntityScript extends ExplicitLuaClass
 	/**
 	 * EntityScript hasMany Components.
 	 */
-	public var components: lua.Table<Int,Component>;
+	public var components: {
+		?combat: dst.components.Combat,
+		?weapon: dst.components.Weapon,
+		?finiteuses: dst.components.FiniteUses,
+		?freezable: dst.components.Frozen
+		// TODO: add the rest here
+	};
+
 	public var StopUpdatingComponents: lua.Table<Component,Component>;
 	public var lower_components_shadow: lua.Table<String,Bool>;
 	public var GUID: dst.types.GUID; // default provided by compiled engine
@@ -44,6 +50,11 @@ extern class EntityScript extends ExplicitLuaClass
 	public var persists: Bool; // default: true
 	public var inlimbo: Bool; // default: false
 	public var name: Null<String>; // default: nil
+
+	public var prefab: String; // prefab name
+	public var Transform: dst.compiled.Transform;
+	public var sg: StateGraphInstance;
+	public var Physics: dst.compiled.Physics;
 
 	public var data: {}; // default: nil
 	public var listeners: Array<{}>; // default: nil
@@ -104,7 +115,13 @@ extern class EntityScript extends ExplicitLuaClass
 	 * The named component is a real example, so read its source
 	 * for more detailed examples.
 	 */
-	public var replica: Replica; // default: Replica(self)
+	public var replica: {
+		?combat: dst.components.CombatReplica,
+		?health: dst.components.HealthReplica,
+		?inventory: dst.components.InventoryReplica,
+		?inventoryitem: dst.components.InventoryItemReplica,
+		?follower: dst.components.FollowerReplica
+	};
 
 	/**
 	 * Action replicas map directly to NetVar instances.
@@ -121,7 +138,7 @@ extern class EntityScript extends ExplicitLuaClass
 	/**
 	 * Call `inst.entity.AddLight()` before invoking this property.
 	 */
-	public var Light: Light;
+	public var Light: dst.compiled.Light;
 
 	public function GetSaveRecord(): SaveRecordTuple;
 
@@ -228,7 +245,7 @@ extern class EntityScript extends ExplicitLuaClass
 	public function GetPositionAdjacentTo(target: Dynamic, distance: Dynamic): Dynamic;
 	public function ForceFacePoint(x: Dynamic, y: Dynamic, z: Dynamic): Dynamic;
 	public function FacePoint(x: Dynamic, y: Dynamic, z: Dynamic): Dynamic;
-	public function GetDistanceSqToInst(inst: Dynamic): Dynamic;
+	public function GetDistanceSqToInst(inst: EntityScript): Float;
 	public function IsNear(otherinst: Dynamic, dist: Dynamic): Dynamic;
 	public function GetDistanceSqToPoint(x: Dynamic, y: Dynamic, z: Dynamic): Dynamic;
 	public function IsNearPlayer(range: Dynamic, isalive: Dynamic): Dynamic;
@@ -273,7 +290,7 @@ extern class EntityScript extends ExplicitLuaClass
 	/**
 	 * Serialize this object to console-friendly string.
 	 */
-	public function __tostring(): String;
+	override public function __tostring(): String;
 }
 
 @:multiReturn
@@ -291,22 +308,6 @@ private extern class SaveRecordTuple {
 		?data: Dynamic
 	};
 	var references: Dynamic;
-}
-
-/**
- * Replica components container with overridden accessor.
- */
-private extern class Replica extends ExplicitLuaClass
-{
-	@:selfCall
-	public function new (inst: EntityScript);
-
-	public var inst: EntityScript;
-
-	/**
-	 * This holds all the override values.
-	 */
-	public var _: {};
 }
 
 /**
@@ -357,3 +358,4 @@ class EventHelper
 		inst.ListenForEvent(event, once, emitter);
 	}
 }
+

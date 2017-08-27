@@ -73,5 +73,5 @@ extern class Brain extends ExplicitLuaClass
 	/**
 	 * Serialize this object to console-friendly string.
 	 */
-	public function __tostring(): String;
+	override public function __tostring(): String;
 }

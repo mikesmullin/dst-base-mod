@@ -1385,3 +1385,12 @@ abstract DST_CHARACTERLIST(String)
 // PUBLIC_BETA = #BETA_INFO
 
 // }
+
+@:native("_G.EQUIPSLOTS")
+@:enum
+extern abstract EQUIPSLOTS(String)
+{
+	var HANDS;
+	var HEAD;
+	var BODY;
+}

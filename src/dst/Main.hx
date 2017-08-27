@@ -1,6 +1,6 @@
 package dst;
 
-import Utils.DynamicObject;
+import utils.DynamicObject;
 import dst.compiled.Entity;
 
 /**
