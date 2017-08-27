@@ -1,6 +1,7 @@
 package dst;
 
 import haxe.Constraints.Function;
+import dst.Strings.STRING;
 
 /**
  * data/scripts/actions.lua
@@ -40,6 +41,14 @@ extern class Action extends ExplicitLuaClass
 	});
 
 	/**
+	 * The name of this action.
+	 * Same as the key name in the ACTIONS table.
+	 * (e.g., ACTIONS.EAT.id == "EAT")
+	 * Defined automatically by a for...loop in data/scripts/actions.lua.
+	 */
+	public var id(get,never): String;
+
+	/**
 	 * Whether this action should take precedence
 	 * when racing other enqueued actions.
 	 * Default: 0
@@ -61,19 +70,46 @@ extern class Action extends ExplicitLuaClass
 	public var fn: ActionFunction;
 
 	/**
-	 * External validation function responsible for determining
-	 * if now is an acceptable time to perform this action
-	 * using a custom, often very specific, set of checks.
+	 * Every action that can be chosen needs a 1-3 word label
+	 * which the player sees when performing that action is an option.
+	 * (e.g, When the player is holding a hambat, and the mouse is
+	 * over a mole, the label displayed above the mole is "Attack".
+	 * But when the player is holding a hammer, then the label changes
+	 * to "Whack", signifying that a different action used to capture
+	 * the mole alive is available.)
 	 *
-	 * There is only room for one of these functions but you
-	 * can still chain them by keeping a reference to the old
-	 * function before overriding it, and then calling the
-	 * old function as if it were `super()`.
+	 * In the above example, the same action has different labels in
+	 * different scenarios, which is why this field is a function.
+	 *
+	 * These string names are defined by data/scripts/strings.lua,
+	 * and are also localized, so you should provide the string constant
+	 * name here, not a literal string value, and it should be one that
+	 * is already defined and localized.
+	 *
+	 * This is optional because its not the only way to specify an
+	 * action label. The first and most authoritative definition is
+	 * the Action.id string, and strfn is only used in the event
+	 * that key does not exist in the STRINGS table.
+
+	 * The BufferedAction.doer can also implement
+	 * `EntityScript.ActionStringOverride(:BufferedAction):String`
+	 * which is used to override a strfn definition. (ie. Currently only
+	 * used by Woodie's character to convert ACTIONS.EAT into ACTIONS.GNAW)
 	 *
 	 * Default: null
-	 * @return Whether action should be performed now.
 	 */
-	public var strfn: Null<ActionFunction>;
+	@:optional
+	public var strfn: Null<ActionStringFunction>;
+
+	/**
+	 * Same as strfn, but only used by ACTIONS.DRAW.
+	 * Don't use this. Use .strfn instead.
+	 * Default: null
+	 */
+	@:optional
+	@:deprecated
+	public var stroverridefn: BufferedAction -> String;
+
 
 	/**
 	 * Whether action must wait for server acknowledgement.
@@ -144,16 +180,10 @@ extern class Action extends ExplicitLuaClass
 	 * Default: null
 	 */
 	public var mod_name: Null<String>;
-
-	/**
-	 * Optionally override the result returned by
-	 * BufferedAction:GetActionString() for this action.
-	 * Default: null
-	 */
-	public var stroverridefn: BufferedAction -> String;
 }
 
 typedef ActionFunction = BufferedAction -> Bool; // act
+typedef ActionStringFunction = BufferedAction -> STRING; // act
 typedef RangeCheckFunction = EntityScript -> EntityScript; // doer, target
 
 /**

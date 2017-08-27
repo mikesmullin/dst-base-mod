@@ -3,32 +3,11 @@ package;
 import lua.Lua.*;
 import Utils.*;
 
-// TODO: simplify to dst.* ?
-import dst.compiled.Globals.*;
-import dst.compiled.*;
-// import dst.types.*;
-
-// import dst.Config.*;
-import dst.DebugPrint.*;
-// import dst.ExplicitLuaClass.*;
-import dst.Main.*;
-import dst.MainFunctions.*;
-import dst.ModContext;
-import dst.EntityScript;
-// import dst.Strict.*;
-// import dst.Vector3;
-// import dst.Vector3.Point;
-// import dst.Fonts.*;
-// import dst.Constants.*;
-import dst.ModUtil.ModUtilExterns.*;
-
-using dst.EntityScript.EventHelper;
-
 class Main
 {
 	public static function main()
 	{
-		ModContext.injectLocalToGlobalAliases();
+		dst.ModContext.injectLocalToGlobalAliases();
 
 		#if debug
 			log("debug mode is enabled.");
@@ -37,18 +16,21 @@ class Main
 			// - Shift-Right: jumps from main menu into the first save slot.
 			// - 0: jump to caves.
 
-			CHEATS_ENABLED = true;
+			dst.Main.CHEATS_ENABLED = true;
 			require("debugtools");
-			PRINT_SOURCE = true;
-			DISABLE_MOD_WARNING = true;
+			dst.DebugPrint.PRINT_SOURCE = true;
+			dst.Main.DISABLE_MOD_WARNING = true;
 
 			// NOTICE: You can/should also set from inside mods/modsettings.lua:
 			// ForceEnableMod("base") // replace "base" with mod name
 			// EnableModDebugPrint()
 		#end
 
+
+
+
 		// need an entity to subscribe an event listener
-		var inst = CreateEntity();
+		var inst = dst.MainFunctions.CreateEntity();
 		inst.ListenForEvent("entitywake", function(self, ?data) {
 			log("event entitywake");
 		}, inst);
@@ -63,28 +45,28 @@ class Main
 
 
 
-		AddSimPostInit(function() {
+		dst.ModUtil.ModUtilExterns.AddSimPostInit(function() {
 			log("AddSimPostInit");
 
-			if (null == TheWorld) return;
+			if (null == dst.Main.TheWorld) return;
 			log("and TheWorld");
 
-			if (TheNet.GetIsServer()) {
+			if (dst.compiled.Globals.TheNet.GetIsServer()) {
 				log("I'm a server.");
 			}
 
-			if (TheNet.GetIsClient()) {
+			if (dst.compiled.Globals.TheNet.GetIsClient()) {
 				log("I'm a client.");
 			}
 
-			if (TheNet.IsDedicated()) {
+			if (dst.compiled.Globals.TheNet.IsDedicated()) {
 				log("I'm a dedicated server.");
 			}
 			else {
 				log("I'm NOT a dedicated server.");
 			}
 
-			if (TheWorld.ismastersim) {
+			if (dst.Main.TheWorld.ismastersim) {
 				log("I'm a master simulator.");
 			}
 			else {
@@ -98,7 +80,7 @@ class Main
 			inst.ListenForEvent("ms_newplayercharacterspawned", function(self, ?data) {
 				log("event ms_newplayercharacterspawned");
 
-				if (!InGamePlay()) return;
+				if (!dst.MainFunctions.InGamePlay()) return;
 				log("and InGamePlay()");
 
 				// var debuggee = require('vscode_debuggee');
@@ -130,18 +112,18 @@ class Main
 				// debuggee.disable();
 				// log("debuggee off");
 
-			}, TheWorld);
+			}, dst.Main.TheWorld);
 			// inst:ListenForEvent("rez_player", OnRezPlayer)
 		});
 
-		AddGamePostInit(function() {
+		dst.ModUtil.ModUtilExterns.AddGamePostInit(function() {
 			log("AddGamePostInit");
 
 
 			
 		});
 
-		AddPlayerPostInit(function(inst:EntityScript) {
+		dst.ModUtil.ModUtilExterns.AddPlayerPostInit(function(inst:dst.EntityScript) {
 			log("AddPlayerPostInit");
 
 			// TODO: move into api class doc blocks
@@ -154,25 +136,25 @@ class Main
 
 			// TODO: split Entity into EntityScript and Entity types since inst.GetGUID() is invalid
 			var bleuCheese = null;
-			bleuCheese = new NetVars.NetBool(inst.GUID, "bleucheese", "bleuCheesedirty");
+			bleuCheese = new dst.compiled.NetVars.NetBool(inst.GUID, "bleucheese", "bleuCheesedirty");
 			// if (TheNet.GetIsClient()) {
 
 				// TODO: document requirements: this event will not fire unless inst is like network enabled entity or something
-				inst.ListenForEvent("bleuCheeseDirty", function(e:EntityScript, ?data:Dynamic) {
+				inst.ListenForEvent("bleuCheeseDirty", function(e:dst.EntityScript, ?data:Dynamic) {
 					var serpent = require("serpent");
 					log("bleu cheese dirtied to "+ bleuCheese.value());
 					log(untyped __lua__('serpent.block')(e));
 					log(untyped __lua__('serpent.block')(data));
 				});
 			// }
-			if (TheNet.GetIsServer()) {
+			if (dst.compiled.Globals.TheNet.GetIsServer()) {
 				bleuCheese.set(false);
 			}
 			// log("bleuCheese is "+ bleuCheese.value());
 
 
 
-			if (TheNet.GetIsServer()) {
+			if (dst.compiled.Globals.TheNet.GetIsServer()) {
 				inst.DoTaskInTime(5, function() {
 					bleuCheese.set(true);
 				});

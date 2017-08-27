@@ -6,4 +6,4 @@ package dst.types;
  * (e.g. "SGbee") so its important that you provide them consciously
  * as they are case-sensitive strings.
  */
-typedef StateGraphInstanceName = String;
+abstract StateGraphInstanceName(String){}

@@ -11,4 +11,4 @@ package dst.types;
  * across networked server and clients, or between
  * Lua memory and compiled memory.
  */
-typedef GUID = Int;
+abstract GUID(Int){}

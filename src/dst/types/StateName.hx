@@ -5,4 +5,4 @@ package dst.types;
  * so its important that you provide them consciously
  * as they are case-sensitive strings.
  */
-typedef StateName = String;
+abstract StateName(String){}

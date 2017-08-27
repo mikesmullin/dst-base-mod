@@ -9,4 +9,4 @@ package dst.types;
  * you need is relatively reliable value comparison,
  * not reading the string back out later.
  */
-typedef Hash = Int;
+abstract Hash(Int){}

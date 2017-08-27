@@ -100,7 +100,7 @@ extern class Main // Externs
 	/**
 	 * Whether in-game or somewhere else (e.g., Title screen)
 	 *
-	 * Use Main.InGamePlay() instead.
+	 * Use MainFunctions.InGamePlay() instead.
 	 */
 	 @:deprecated
 	static private var inGamePlay: Bool; // false by default

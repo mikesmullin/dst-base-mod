@@ -14,4 +14,4 @@ package dst.types;
  * we recommend looking for usage examples in existing code before assuming
  * you know how to use it from the component class definition alone.
  */
-typedef Component = ExplicitLuaClass;
+abstract Component(ExplicitLuaClass){}
