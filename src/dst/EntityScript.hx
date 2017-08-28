@@ -36,10 +36,11 @@ extern class EntityScript extends ExplicitLuaClass
 	 * EntityScript hasMany Components.
 	 */
 	public var components: {
+		?burnable: dst.components.Burnable,
 		?combat: dst.components.Combat,
-		?weapon: dst.components.Weapon,
 		?finiteuses: dst.components.FiniteUses,
-		?freezable: dst.components.Frozen
+		?freezable: dst.components.Frozen,
+		?weapon: dst.components.Weapon,
 		// TODO: add the rest here
 	};
 
@@ -117,10 +118,10 @@ extern class EntityScript extends ExplicitLuaClass
 	 */
 	public var replica: {
 		?combat: dst.components.CombatReplica,
+		?follower: dst.components.FollowerReplica,
 		?health: dst.components.HealthReplica,
 		?inventory: dst.components.InventoryReplica,
 		?inventoryitem: dst.components.InventoryItemReplica,
-		?follower: dst.components.FollowerReplica
 	};
 
 	/**

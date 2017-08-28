@@ -28,5 +28,10 @@ extern class MainFunctions // Externs
 	 */
 	static public function SpawnPrefab(name: String, skin: String, skin_id: String, creator: String): EntityScript;
 
+	static public function GetTickTime(): Float;
+	static public function GetTime(): Float;
+	static public function GetTick(): Float;
+	static public function GetTimeReal(): Float;
+
 	// TODO: finish this
 }

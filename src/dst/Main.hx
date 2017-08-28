@@ -24,7 +24,19 @@ extern class Main // Externs
 	static public var MAIN(default, never): Int; // 1
 
 	static public var ENCODE_SAVES: Bool; // BRANCH ~= "dev" true
+
+	/**
+	 * If enabled during startup, same as `require("debugkeys")`.
+	 *
+	 * Sample in-game DST Debug Key map:
+	 * - ctl+s: save game
+	 * - ctl+r: restore last save
+	 * - g: c_godmode()
+	 * - numpad_plus: give full hunger, sanity, health
+	 * - ctl+a: give all recipes
+	 */
 	static public var CHEATS_ENABLED: Bool; // BRANCH == "dev" false
+
 	static public var SOUNDDEBUG_ENABLED: Bool; // false
 	static public var WORLDSTATEDEBUG_ENABLED: Bool; // false
 	static public var DEBUG_MENU_ENABLED: Bool; // BRANCH == "dev" false

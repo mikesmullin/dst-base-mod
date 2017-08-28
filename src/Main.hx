@@ -1,94 +1,36 @@
 package;
 
-import utils.Logger.*;
+import utils.Console;
+import utils.Console.lit;
+import utils.Console.inn;
 import dst.EntityScript;
 import dst.types.TagName;
 import utils.Lua.ipairs;
 
+/**
+ * List of tags used by this file;
+ * strongly typed to avoid typos and facilitate reuse.
+ * Temporary location until a global list of all possible tags exists.
+ */
 @:enum
-abstract Weapon(TagName) to TagName {
-	var icestaff = "icestaff";
+private abstract UsedTags(TagName) to TagName {
+	var _COMBAT = cast "_combat";
+	var ATTACK = cast "attack";
+	var BEAVER = cast "beaver";
+	var FIRESTAFF = cast "firestaff";
+	var HOSTILE = cast "hostile";
+	var ICESTAFF = cast "icestaff";
+	var INLIMBO = cast "INLIMBO";
+	var MONSTER = cast "monster";
+	var PLAYER = cast "player";
+	var PLAYERGHOST = cast "playerghost";
 }
 
 class Main
 {
 	public static function main()
 	{
-		dst.ModContext.injectLocalToGlobalAliases();
-
-		#if debug
-			log("debug mode is enabled.");
-			// enable Debug Keys feature
-			// - CTRL-R:  jumps from in game to the main menu and reloads all your scripts.
-			// - Shift-Right: jumps from main menu into the first save slot.
-			// - 0: jump to caves.
-
-			dst.Main.CHEATS_ENABLED = true;
-			lua.Lua.require("debugtools");
-			dst.DebugPrint.PRINT_SOURCE = true;
-			dst.Main.DISABLE_MOD_WARNING = true;
-
-			// NOTICE: You can/should also set from inside mods/modsettings.lua:
-			// ForceEnableMod("base") // replace "base" with mod name
-			// EnableModDebugPrint()
-		#end
-
-		// this is overridden because its used but local only so out of scope
-		// unless we redefine it
-		function ValidateAttackTarget(
-			combat:dst.components.CombatReplica,
-			target:EntityScript,
-			force_attack:Bool,
-			x:Float,
-			z:Float,
-			has_weapon:Bool,
-			reach:Float
-		):Bool
-		{
-			if (!combat.CanTarget(target))
-			{
-				return false;
-			}
-
-			// no combat if light/extinguish target
-			var targetcombat = target.replica.combat;
-			if (null != targetcombat)
-			{
-				if (combat.IsAlly(target))
-				{
-					return false;
-				}
-				else if (!(force_attack ||
-					combat.IsRecentTarget(target) ||
-					targetcombat.GetTarget() == combat.inst))
-				{
-					// must use force attack non-hostile creatures
-					if (!(target.HasTag("hostile") ||
-						(has_weapon && target.HasTag("monster") && !target.HasTag("player"))))
-					{
-						return false;
-					}
-					// must use force attack on players' followers
-					var follower = target.replica.follower;
-					if (null != follower)
-					{
-						var leader = follower.GetLeader();
-						if (null != leader &&
-							leader.HasTag("player") &&
-							leader.replica.combat.GetTarget() != combat.inst)
-						{
-							return false;
-						}
-					}
-				}
-			}
-
-			// Now we ensure the target is in range
-			// light/extinguish targets may not have physics
-			var reach:Float = (target.Physics != null) ? reach + target.Physics.GetRadius() : reach;
-			return target.GetDistanceSqToPoint(x, 0, z) <= reach * reach;
-		}
-
+		utils.Debug.setup();
 
 		dst.ModUtil.AddClassPostConstruct("components/playercontroller", function(self:dst.components.PlayerController)
 		{
@@ -97,182 +39,217 @@ class Main
 			// in future DST releases will be lost until this mod is updated
 			// or deactivated.
 			// var oldGetAttackTarget = self.GetAttackTarget;
-			self.GetAttackTarget = function(
-				force_attack:Bool,
-				force_target:EntityScript,
-				isretarget:Bool
-			):EntityScript
-			{
-				dst.DebugPrint.nolineprint("--");
-				log("PlayerController:GetAttackTarget()");
-				log("  "+ (force_attack ? 'force_attack TRUE' : 'force_attack FALSE'));
-				log("  "+ (null != force_target ? 'force_target '+ force_target.prefab : 'force_target NULL'));
-				log("  "+ (isretarget ? 'isretarget TRUE' : 'isretarget FALSE'));
-				dst.DebugPrint.nolineprint(dst.DebugTools.debugstack());
 
-				log("");
-				if (self.inst.HasTag("playerghost") ||
-					self.inst.replica.inventory.IsHeavyLifting())
-				{
+			/**
+			 * @returns the nearest entity player can attack,
+			 * or a previously attacked entity until its dead.
+			 *
+			 * @param force - Without specific intent from player, some targets are ignored.
+			 * @param target - The entity to attack.
+			 * @param retry - Whether target is among two most recent victims of player's attacks.
+			 *   Implies target has been previously validated for attack. Facilitates faster
+			 *   repeat hits, primarily by skipping the valid nearby entities search.
+			 */
+			self.GetAttackTarget = function(force:Bool, target:EntityScript, retry:Bool):EntityScript
+			{
+				// debug traces
+				Console.println("--");
+				Console.log("PlayerController:GetAttackTarget()");
+
+				// Console.log("  "+ (force ? 'force TRUE' : 'force FALSE'));
+				// Console.trace("  "+ (null != target ? 'target '+ target.prefab : 'target NULL'));
+				// if (null != target) Console.println(target.GetDebugString());
+				// Console.trace("  "+ (retry ? 'retry TRUE' : 'retry FALSE'));
+
+				// validation;
+				// eliminate most common possibilities first.
+				// leave most expensive analysis for last.
+
+				var player:EntityScript = lit("player is %s", self.inst, function(p) return p.prefab, "null");
+				
+				if (
+					lit("player is %s", function() return player.HasTag(PLAYERGHOST), "dead", "alive") ||
+					lit("player is %s encumbered", function() return player.replica.inventory.IsHeavyLifting(), "VERY", "NOT") ||
+					lit("player has %s combat ability", null == player.replica.combat, "NO", "the") ||
+					lit("player attack animation %s playing",
+						(lit("player has %s stategraph instance", null != player.sg, "a", "NO") && (
+							lit("current state %s ATTACK", function() return player.sg.HasStateTag(ATTACK), "IS", "is not") ||
+							lit("entity %s ATTACK tag (rendundant?)", function() return player.HasTag(ATTACK), "HAS", "has no")))
+							, "IS", "is not")
+				) {
+					// abort before proximity search
 					return null;
 				}
-
-				log("");
-				var combat = self.inst.replica.combat;
-				if (null == combat) return null;
-
-				log("");
-				if (null != self.inst.sg)
-				{
-					if (self.inst.sg.HasStateTag("attack")) {
-						return null;
-					}
-					else if (self.inst.HasTag("attack")) {
-						return null;
-					}
-				}
-
-				var coords = self.inst.Transform.GetWorldPosition();
-				var attackrange = combat.GetAttackRangeWithWeapon();
-				var rad = self.directwalking ? attackrange : (attackrange + 6);
-				var reach = self.inst.Physics.GetRadius() + rad + 0.1;
-
-				// Beaver teeth counts as having a weapon
-				var has_weapon = self.inst.HasTag("beaver");
-				if (!has_weapon)
-				{
-						var inventory = self.inst.replica.inventory;
-						var tool = null != inventory ? inventory.GetEquippedItem(HANDS) : null;
-						if (null != tool)
-						{
-								var inventoryitem = tool.replica.inventoryitem;
-								has_weapon = null != inventoryitem && inventoryitem.IsWeapon();
+	
+				var playerCoords = player.Transform.GetWorldPosition();
+				var attackRange:Float = player.replica.combat.GetAttackRangeWithWeapon();
+				var walkingRange:Float = self.directwalking ? attackRange : (attackRange + 6);
+				var playerReach:Float = player.Physics.GetRadius() + walkingRange + 0.1;
+				var playerItemInHand = lit("playerItemInHand is %s",
+					inn(player.replica.inventory, (function(inventory) return inventory.GetEquippedItem(HANDS))),
+					function(item) return item.prefab, "NULL");
+				var playerHasWeapon:Bool = lit("playerHasWeapon is %s", function() {
+					if (player.HasTag(BEAVER)) return true; // beaver's gnaw is a weapon
+					if (null != playerItemInHand) {
+						var inventoryItem = playerItemInHand.replica.inventoryitem;
+						if (null != inventoryItem) {
+							if (inventoryItem.IsWeapon()) {
+								return true;
+							}
 						}
-				}
+					}
+					return false;
+				}, "true", "FALSE");
 
-				log("");
-				if (isretarget &&
-					combat.CanHitTarget(force_target) &&
-					null != force_target.replica.health &&
-					!force_target.replica.health.IsDead() &&
-					dst.SimUtil.CanEntitySeeTarget(self.inst, force_target) &&
-					ValidateAttackTarget(
-						combat,
-						force_target,
-						force_attack,
-						coords.x,
-						coords.z,
-						has_weapon,
-						reach)
-				) {
-					return force_target;
-				}
-
-				if (null != force_target)
+				/**
+				 * @returns true to proceed attacking, false to cancel attack.
+				 */ 
+				function ValidAttackTarget():Bool
 				{
-					log("");
-					return ValidateAttackTarget(
-						combat,
-						force_target,
-						force_attack,
-						coords.x,
-						coords.z,
-						has_weapon,
-						reach) ? force_target : null;
-				}
+					return (
+						lit("target is %s", null != target, (function(_) return target.prefab), "IS NULL") &&
+						lit("target %s combat ability", null != target.replica.combat, "has", "HAS NO") &&
 
-				// To deal with entity collision boxes we need to pad the radius.
-				// Only include combat targets for auto-targetting, not light/extinguish
-				// See entityreplica.lua (re: "_combat" tag)
-				log("");
-				var nearby_ents = dst.compiled.Globals.TheSim.FindEntities(
-					coords.x,
-					coords.y,
-					coords.z,
-					rad + 5,
-					cast ["_combat"],
-					cast ["INLIMBO"]);
-				var nearest_dist = lua.Math.huge;
-				isretarget = false; // reusing variable for flagging when we've found recent target
-				force_target = null; // reusing variable for our nearest target
+						(
+							!( // not
+								lit("retry is %s", retry, "true", "false") || // target is same as last time, or
+								lit("target %s same as two times ago", player.replica.combat.IsRecentTarget(target), "is", "IS NOT")
+							) &&
 
-				log("");
-				for (pair in ipairs(nearby_ents))
-				{
-					var nearbyEntity = pair.value;
-					
-					log("");
-					if (ValidateAttackTarget(
-							combat,
-							nearbyEntity,
-							force_attack,
-							coords.x,
-							coords.z,
-							has_weapon,
-							reach
+							// target not recognized;
+							// treat as new target;
+							// one-time per-nearby-target validation
+							!( // reasons to reject:
+								lit("target %s", null == target.replica.health, "was never alive", "has health meter") ||
+								(lit("player %s applying force", !force, "is not", "is") && // no force
+									lit("target %s attacking player", function() return target.replica.combat.GetTarget() != player, "is not", "is") &&
+									(lit("target %s hostile", function() return !target.HasTag(HOSTILE), "is not", "is") ||
+										lit("target %s allied to player", function() return player.replica.combat.IsAlly(target), "is", "is not") ||
+										// player should think twice
+										(
+											lit("player %s weapon", !playerHasWeapon, "has no", "has a") &&
+											lit("target %s a monster", function() return target.HasTag(MONSTER), "is", "is not") // (e.g., ewecus, walrus)
+										) ||
+										lit("target %s another player", function() return target.HasTag(PLAYER), "is", "is not") ||
+										(lit("target %s a follower", null != target.replica.follower, "is", "is not") && // target is a follower...
+											lit("...and they have %s leader", function() return null != target.replica.follower.GetLeader(), "a", "NO") && // and their leader...
+											lit("...their leader %s a player", function() return target.replica.follower.GetLeader().HasTag(PLAYER), "is", "is not") && // is another player...
+											lit("...and that leader %s attacking our player", function() return target.replica.follower.GetLeader().replica.combat.GetTarget() != player, "is not", "is")) // and that player is not attacking our player
+									)
+								)
+							)
 						) &&
-						dst.SimUtil.CanEntitySeeTarget(self.inst, nearbyEntity))
+
+						// per-attack validation;
+						// happens every Update frame (keep checks low-latency)
+						// happens to all targets incl. previously validated targets
+						!( // reasons to reject:
+							lit("target %s be attacked", function() return !player.replica.combat.CanTarget(target), "CANNOT", "can") ||
+							lit("target %s outside range or invulnerable", function() return !player.replica.combat.CanHitTarget(target), "IS", "is not") || // (e.g., fire, freeze)
+							lit("target %s died", function() return target.replica.health.IsDead(), "has", "has not") ||
+							lit("player %s see target (expensive?)", function() return !dst.SimUtil.CanEntitySeeTarget(player, target), "CANNOT", "can") ||
+							// target is outside reach
+					    lit("player distance to target %s within reach", function() return target.GetDistanceSqToPoint(playerCoords.x, 0, playerCoords.z) >
+								lua.Math.pow(playerReach + ((null == target.Physics) ? 0 :
+									target.Physics.GetRadius()), 2), function(f) return "("+f+" units) is", "is not")
+						)
+					);
+				}
+				
+				// if target provided
+				// do light re-validation
+				Console.log("testing target that was passed in...");
+				if (ValidAttackTarget())
+				{
+					return target; // ok to reuse
+				}
+				
+				// otherwise, ignore it
+				target = null;
+				retry = false;
+
+				// and find a new target
+				Console.log("searching for nearby entity to target...");
+				var nearestDist = lua.Math.huge;
+				var nearbyEntities = lit("found %s nearby entities", function() return
+					dst.compiled.Globals.TheSim.FindEntities(
+						playerCoords.x,
+						playerCoords.y,
+						playerCoords.z,
+						walkingRange + 5,
+						cast [_COMBAT],
+						cast [INLIMBO]),
+					"some", "0");
+
+				// TODO: ORDER BY desired prefabs, nearest proximity
+				// TODO: select first valid target from that list
+				for (pair in ipairs(nearbyEntities))
+				{
+					target = pair.value;
+					if (target == player) continue;
+					
+					lit("iterating nearby entity %s", target, null == target ? "?" : target.prefab, "BUT GOT NULL");
+					if (ValidAttackTarget())
 					{
-						log("");
-						var dsq = self.inst.GetDistanceSqToInst(nearbyEntity);
-						var dist: Float;
+						Console.log("");
+						var dsq = player.GetDistanceSqToInst(target);
+						var dist:Float;
 						if (dsq <= 0)
 						{
 							dist = 0;
 						}
-						else if (nearbyEntity.Physics != null)
+						else if (null != target.Physics)
 						{
-							dist = lua.Math.max(0, lua.Math.sqrt(dsq) - nearbyEntity.Physics.GetRadius());
+							dist = lua.Math.max(0, lua.Math.sqrt(dsq) - target.Physics.GetRadius());
 						}
 						else {
 							dist = lua.Math.sqrt(dsq);
 						}
-						if (!isretarget && combat.IsRecentTarget(nearbyEntity))
+						if (!retry && player.replica.combat.IsRecentTarget(target))
 						{
-							if (dist < attackrange + .1)
+							if (dist < attackRange + .1)
 							{
-								log("");
-								return nearbyEntity;
+								Console.log("");
+								return target;
 							}
-							isretarget = true;
+							retry = true;
 						}
-						if (dist < nearest_dist)
+						if (dist < nearestDist)
 						{
-							nearest_dist = dist;
-							force_target = nearbyEntity;
+							nearestDist = dist;
 						}
 					}
-					else if (!isretarget && combat.IsRecentTarget(nearbyEntity))
+					else if (!retry && player.replica.combat.IsRecentTarget(target))
 					{
-						isretarget = true;
+						retry = true;
 					}
 				}
 
-				log("");
-				return force_target;
+				Console.log("");
+				return target;
 
 
 				// var target:EntityScript = null;
-				// log('check 1');
-				// log('no specific target ... will find one');
+				// Console.log('check 1');
+				// Console.log('no specific target ... will find one');
 				// // then our prioritization depends on weapon in hand
 				// var weapon = combat.GetWeapon();
 				// if (null != weapon && weapon.HasTag(icestaff))
 				// {
-				// 	log('has ice staff');
+				// 	Console.log('has ice staff');
 
-				// 	log('would prioritize walrus here');
+				// 	Console.log('would prioritize walrus here');
 				// 	// target = ???
 
 				// 	// if (null != target.components.freezable &&
 				// 	// 	target.components.freezable.IsFrozen())
 				// 	// {
-				// 	// 	log('target is frozen');
+				// 	// 	Console.log('target is frozen');
 				// 	// 	// no point in re-freezing
 				// 	// 	ally = true;
 				// 	// }
 				// 	// else {
-				// 	// 	log('target is not frozen');
+				// 	// 	Console.log('target is not frozen');
 				// 	// 	ally = false;
 				// 	// }
 				// 	// }
@@ -287,17 +264,16 @@ class Main
 			var oldIsAlly = combat.IsAlly;
 			combat.IsAlly = function(target:EntityScript): Bool
 			{
-				log("combat replica IsAlly()");
+				Console.log("combat replica IsAlly()");
 
 				var ally = oldIsAlly(target);
 				if (ally) {
 					return ally;
 				}
 
-
 				var weapon = combat.GetWeapon();
 				
-				if (null != weapon && weapon.HasTag(icestaff))
+				if (null != weapon && weapon.HasTag(ICESTAFF))
 				{
 					if (null != target.components.freezable &&
 						target.components.freezable.IsFrozen())
@@ -313,15 +289,6 @@ class Main
 				return ally;
 			};
 		});
-
-		dst.ModUtil.AddPlayerPostInit(function(player:EntityScript) {
-			log("AddPlayerPostInit");
-
-			// player.components.combat.GetWeapon().components.weapon.damage = 9999;
-
-		});
 		
 	}
 }
-
-class B {}
