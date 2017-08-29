@@ -6,6 +6,7 @@ import utils.Console.inn;
 import dst.EntityScript;
 import dst.types.TagName;
 import utils.Lua.ipairs;
+import lua.Table;
 
 /**
  * List of tags used by this file;
@@ -101,12 +102,16 @@ class Main
 					return false;
 				}, "true", "FALSE");
 
+				// build a table of special interest tags pointing to nearby entities
+				var nearestDist:Null<Float> = null;
+				var interests:Map<String,EntityScript> = new Map();
+
 				/**
 				 * @returns true to proceed attacking, false to cancel attack.
 				 */ 
 				function ValidAttackTarget(target:EntityScript):Bool
 				{
-					return (
+					var valid:Bool = (
 						lit("target is %s", null != target, (function(_) return target.prefab), "NULL") &&
 						lit("target %s combat ability", null != target.replica.combat, "has", "HAS NO") &&
 
@@ -151,21 +156,61 @@ class Main
 							(false && lit("target %s be hit", function() return !player.replica.combat.CanHitTarget(target), "CANNOT", "can")) || // (e.g., fire, freeze)
 							lit("target %s died", function() return target.replica.health.IsDead(), "has", "has not") ||
 							lit("player %s see target (expensive?)", function() return !dst.SimUtil.CanEntitySeeTarget(player, target), "CANNOT", "can") ||
-							// target is outside reach
-							// TODO: deduplicate this calculation by doing it on validation only or returning the value by sharing outside dist var
-					    lit("player distance to target %s outside reach "+
-							
-							"distance between target and player "+
-							(target.GetDistanceSqToPoint(playerCoords.x, 0, playerCoords.z)) + " > " + 
-							"area radius player can reach within "+
-							lua.Math.pow(playerReach + ((null == target.Physics) ? 0 :
-									target.Physics.GetRadius()), 2)
-							
-							, function() return target.GetDistanceSqToPoint(playerCoords.x, 0, playerCoords.z) >
-								lua.Math.pow(playerReach + ((null == target.Physics) ? 0 :
-									target.Physics.GetRadius()), 2), "is", "is not")
+
+							// custom; awww yeah boi!
+
+							(null != playerItemInHand && (
+							// don't double-freeze folks, its a waste
+								(playerItemInHand.prefab == "icestaff" &&
+									null != target.components.freezable &&
+									target.components.freezable.IsFrozen()) ||
+
+								// don't double-flame folks, its a waste
+								(playerItemInHand.prefab == "firestaff" &&
+									null != target.components.burnable &&
+									target.components.burnable.IsBurning())
+							))
+
 						)
 					);
+
+					if (!valid) return false;
+
+					// target is outside reach
+					var targetDistToPlayer = (target.GetDistanceSqToPoint(playerCoords.x, 0, playerCoords.z));
+					var playerReachPlusTargetRadius = lua.Math.pow(playerReach +
+						((null == target.Physics) ? 0 :	target.Physics.GetRadius()), 2);
+						
+					valid = valid && !lit("target %s outside reach; "+
+						"targetDistToPlayer "+ targetDistToPlayer +" > "+
+						"playerReachPlusTargetRadius "+ playerReachPlusTargetRadius,
+						targetDistToPlayer > playerReachPlusTargetRadius, "is", "is not");
+
+					if (!valid) return false;
+
+					if (null == nearestDist || nearestDist > targetDistToPlayer) {
+						nearestDist = targetDistToPlayer;
+						interests.set("nearest", target);
+					}
+
+					/**
+					 * Remember nearest entity per interest
+					 */
+					function nepi(s:String)
+					{
+						if (
+							!interests.exists(s) ||
+							targetDistToPlayer < interests.get(s)
+								.GetDistanceSqToPoint(playerCoords.x, 0, playerCoords.z))
+						{
+							interests.set(s, target);
+						}
+					}
+					nepi(target.prefab); // by prefab name
+					// special case for attacking spiders
+					if ("spider" == target.prefab && target.HasTag(ATTACK)) nepi("spider_attack");
+
+					return true;
 				}
 				
 				// if target provided
@@ -193,10 +238,7 @@ class Main
 				}, function(t) return Std.string(utils.Lua.count(t)), "0");
 
 
-				// in one pass:
-				// return immediately if any high priority scenarios
-				// otherwise, return the nearest valid entity
-				var nearestDist = lua.Math.huge;
+				// NOTICE: only one pass necessary!
 				for (pair in ipairs(nearbyEntities))
 				{
 					var entity = pair.value;
@@ -205,95 +247,60 @@ class Main
 					lit("  ===> iterating nearby entity %s", entity, null == entity ? "?" : entity.prefab, "BUT GOT NULL");
 					if (ValidAttackTarget(entity))
 					{
+						
+					}
+				}
 
-						var dsq = lit("distance squared to entity is %s", player.GetDistanceSqToInst(entity), function(p) return ""+p, "falsy wtf?");
-						var dist:Float;
-						if (dsq <= 0)
+				/**
+				 * Set target to first matching key from interests.
+				 * @returns if a match was found.
+				 */
+				function nearby(a:Array<String>):Bool
+				{
+					for (k in a)
+					{
+						var v = interests[k];
+						if (null != v)
 						{
-							dist = 0;
-						}
-						else if (null != entity.Physics)
-						{
-							dist = lua.Math.max(0, lua.Math.sqrt(dsq) - entity.Physics.GetRadius());
-						}
-						else {
-							dist = lua.Math.sqrt(dsq);
-						}
-
-						if (dist < nearestDist)
-						{
-							nearestDist = dist;
-							target = entity;
+							target = v;
+							return true;
 						}
 					}
+					return false;
+				}
 
-					// TODO: that other code was saying that if one of the targets within range ive hit before
-					// and its valid. then attack it again regardless of whether its closer
+				/**
+				 * @returns true if one of the listed prefab names
+				 * is currently the item in the player's hand.
+				 */
+				function weap(prefabNames:Array<String>):Bool
+				{
+					if (null == playerItemInHand) return false;
+					for (name in prefabNames)
+					{
+						if (name == playerItemInHand.prefab)
+						{
+							return true;
+						}
+					}
+					return false;
+				}
+
+				// now decide which special interest to attack
+				if (!(
+					(weap(["icestaff"]) && nearby(["walrus", "canary", "robin_winter", "robin", "crow"])) ||
+					(weap(["blowdart_pipe"]) && nearby(["icehound", "hound", "firehound"])) ||
+					(weap(["boomerang"]) && nearby(["deerclops", "bearger", "walrus", "canary", "robin_winter", "robin", "crow"])) ||
+					nearby(["spider_attack"])
+				))
+				{
+					target = interests["nearest"];
 				}
 
 				// if (null != target) Console.log(target.GetDebugString());
-				lit("the nearest valid target was %s", target, function(t) return t.prefab +" at "+ nearestDist, "null");
+				lit("the best target was %s", target, function(t) return t.prefab +" at "+ nearestDist, "null");
 				return target;
 
-
-				// var target:EntityScript = null;
-				// Console.log('check 1');
-				// Console.log('no specific target ... will find one');
-				// // then our prioritization depends on weapon in hand
-				// var weapon = combat.GetWeapon();
-				// if (null != weapon && weapon.HasTag(icestaff))
-				// {
-				// 	Console.log('has ice staff');
-
-				// 	Console.log('would prioritize walrus here');
-				// 	// target = ???
-
-				// 	// if (null != target.components.freezable &&
-				// 	// 	target.components.freezable.IsFrozen())
-				// 	// {
-				// 	// 	Console.log('target is frozen');
-				// 	// 	// no point in re-freezing
-				// 	// 	ally = true;
-				// 	// }
-				// 	// else {
-				// 	// 	Console.log('target is not frozen');
-				// 	// 	ally = false;
-				// 	// }
-				// 	// }
-				// }
-				
-				// return target;
-			};
-		});
-
-		dst.ModUtil.AddClassPostConstruct("components/combat_replica", function(combat:dst.components.CombatReplica)
-		{
-			var oldIsAlly = combat.IsAlly;
-			combat.IsAlly = function(target:EntityScript): Bool
-			{
-				Console.log("combat replica IsAlly()");
-
-				var ally = oldIsAlly(target);
-				if (ally) {
-					return ally;
-				}
-
-				var weapon = combat.GetWeapon();
-				
-				if (null != weapon && weapon.HasTag(ICESTAFF))
-				{
-					if (null != target.components.freezable &&
-						target.components.freezable.IsFrozen())
-					{
-						// no point in re-freezing
-						ally = true;
-					}
-					else {
-						ally = false;
-					}
-				}
-
-				return ally;
 			};
 		});
 		

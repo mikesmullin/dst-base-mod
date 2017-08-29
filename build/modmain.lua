@@ -65,30 +65,24 @@ Enum = _hx_e();
 
 local Array = _hx_e()
 local Main = _hx_e()
-local Math = _hx_e()
 local String = _hx_e()
 local Std = _hx_e()
-local StringTools = _hx_e()
-local ValueType = _hx_e()
-local Type = _hx_e()
 local haxe = {}
+haxe.IMap = _hx_e()
 haxe.ds = {}
 haxe.ds.Either = _hx_e()
+haxe.ds.StringMap = _hx_e()
 haxe.io = {}
 haxe.io.Eof = _hx_e()
 local lua = {}
 lua.Boot = _hx_e()
-lua.UserData = _hx_e()
-lua.Thread = _hx_e()
 local utils = {}
-utils.Console = _hx_e()
 utils.Debug = _hx_e()
 utils.Lua = _hx_e()
 
 local _hx_bind, _hx_bit, _hx_staticToInstance, _hx_funcToField, _hx_maxn, _hx_print, _hx_apply_self, _hx_box_mr, _hx_bit_clamp, _hx_table, _hx_bit_raw
 
 Array.new = {}
-Array.__name__ = true
 Array.prototype = _hx_a(
   'join', function(self,sep) 
     local tbl = ({});
@@ -121,29 +115,124 @@ Array.prototype = _hx_a(
       do return _gthis[cur_length - 1] end;
     end}) end
   end
-  ,'__class__',  Array
 )
 
 Main.new = {}
-Main.__name__ = true
 Main.main = function() 
   utils.Debug.setup();
   env.AddClassPostConstruct("components/playercontroller",function(_self) 
     _self.GetAttackTarget = function(self,force,target,retry) 
-      utils.Console.println("--");
-      utils.Console.log("PlayerController:GetAttackTarget()",_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Main.hx",lineNumber=57,className="Main",methodName="main"}));
-      local player = utils.Console.lit("player is %s",haxe.ds.Either.Right(_self.inst),haxe.ds.Either.Left(function(p) 
+      local value = haxe.ds.Either.Right(_self.inst);
+      local truthyRepl = haxe.ds.Either.Left(function(p) 
         do return p.prefab end;
-      end),"null",nil,_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Main.hx",lineNumber=68,className="Main",methodName="main"}));
-      if (((utils.Console.lit("player is %s",haxe.ds.Either.Left(function() 
+      end);
+      local player;
+      local value1 = value[1];
+      if (value1) == 0 then 
+        local fn = value[2];
+        player = fn();
+      elseif (value1) == 1 then 
+        local v = value[2];
+        player = v; end;
+      local tmp;
+      local tmp1;
+      local tmp2;
+      local value2 = haxe.ds.Either.Left(function() 
         do return player:HasTag("playerghost") end;
-      end),haxe.ds.Either.Right("dead"),"alive",nil,_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Main.hx",lineNumber=71,className="Main",methodName="main"})) or utils.Console.lit("player is %s encumbered",haxe.ds.Either.Left(function() 
-        do return player.replica.inventory:IsHeavyLifting() end;
-      end),haxe.ds.Either.Right("VERY"),"NOT",nil,_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Main.hx",lineNumber=72,className="Main",methodName="main"}))) or utils.Console.lit("player has %s combat ability",haxe.ds.Either.Right(nil == player.replica.combat),haxe.ds.Either.Right("NO"),"the",nil,_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Main.hx",lineNumber=73,className="Main",methodName="main"}))) or utils.Console.lit("player attack animation %s playing",haxe.ds.Either.Right(utils.Console.lit("player has %s stategraph instance",haxe.ds.Either.Right(nil ~= player.sg),haxe.ds.Either.Right("a"),"NO",nil,_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Main.hx",lineNumber=75,className="Main",methodName="main"})) and (utils.Console.lit("current state %s ATTACK",haxe.ds.Either.Left(function() 
-        do return player.sg:HasStateTag("attack") end;
-      end),haxe.ds.Either.Right("IS"),"is not",nil,_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Main.hx",lineNumber=76,className="Main",methodName="main"})) or utils.Console.lit("entity %s ATTACK tag (rendundant?)",haxe.ds.Either.Left(function() 
-        do return player:HasTag("attack") end;
-      end),haxe.ds.Either.Right("HAS"),"has no",nil,_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Main.hx",lineNumber=77,className="Main",methodName="main"})))),haxe.ds.Either.Right("IS"),"is not",nil,_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Main.hx",lineNumber=74,className="Main",methodName="main"}))) then 
+      end);
+      local truthyRepl1 = haxe.ds.Either.Right("dead");
+      local tmp3;
+      local value3 = value2[1];
+      if (value3) == 0 then 
+        local fn1 = value2[2];
+        tmp3 = fn1();
+      elseif (value3) == 1 then 
+        local v1 = value2[2];
+        tmp3 = v1; end;
+      if (not tmp3) then 
+        local value4 = haxe.ds.Either.Left(function() 
+          do return player.replica.inventory:IsHeavyLifting() end;
+        end);
+        local truthyRepl2 = haxe.ds.Either.Right("VERY");
+        local value5 = value4[1];
+        if (value5) == 0 then 
+          local fn2 = value4[2];
+          tmp2 = fn2();
+        elseif (value5) == 1 then 
+          local v2 = value4[2];
+          tmp2 = v2; end;
+      else
+        tmp2 = true;
+      end;
+      if (not tmp2) then 
+        local value6 = haxe.ds.Either.Right(nil == player.replica.combat);
+        local truthyRepl3 = haxe.ds.Either.Right("NO");
+        local value7 = value6[1];
+        if (value7) == 0 then 
+          local fn3 = value6[2];
+          tmp1 = fn3();
+        elseif (value7) == 1 then 
+          local v3 = value6[2];
+          tmp1 = v3; end;
+      else
+        tmp1 = true;
+      end;
+      if (not tmp1) then 
+        local b;
+        local value8 = haxe.ds.Either.Right(nil ~= player.sg);
+        local truthyRepl4 = haxe.ds.Either.Right("a");
+        local b1;
+        local value9 = value8[1];
+        if (value9) == 0 then 
+          local fn4 = value8[2];
+          b1 = fn4();
+        elseif (value9) == 1 then 
+          local v4 = value8[2];
+          b1 = v4; end;
+        if (b1) then 
+          local value10 = haxe.ds.Either.Left(function() 
+            do return player.sg:HasStateTag("attack") end;
+          end);
+          local truthyRepl5 = haxe.ds.Either.Right("IS");
+          local b2;
+          local value11 = value10[1];
+          if (value11) == 0 then 
+            local fn5 = value10[2];
+            b2 = fn5();
+          elseif (value11) == 1 then 
+            local v5 = value10[2];
+            b2 = v5; end;
+          if (not b2) then 
+            local value12 = haxe.ds.Either.Left(function() 
+              do return player:HasTag("attack") end;
+            end);
+            local truthyRepl6 = haxe.ds.Either.Right("HAS");
+            local value13 = value12[1];
+            if (value13) == 0 then 
+              local fn6 = value12[2];
+              b = fn6();
+            elseif (value13) == 1 then 
+              local v6 = value12[2];
+              b = v6; end;
+          else
+            b = true;
+          end;
+        else
+          b = false;
+        end;
+        local value14 = haxe.ds.Either.Right(b);
+        local truthyRepl7 = haxe.ds.Either.Right("IS");
+        local value15 = value14[1];
+        if (value15) == 0 then 
+          local fn7 = value14[2];
+          tmp = fn7();
+        elseif (value15) == 1 then 
+          local v7 = value14[2];
+          tmp = v7; end;
+      else
+        tmp = true;
+      end;
+      if (tmp) then 
         do return nil end;
       end;
       local _hx_1_playerCoords_x, _hx_1_playerCoords_y, _hx_1_playerCoords_z = player.Transform:GetWorldPosition();
@@ -156,17 +245,26 @@ Main.main = function()
         return _hx_2
       end )();
       local playerReach = (player.Physics:GetRadius() + walkingRange) + 0.1;
-      local v = player.replica.inventory;
-      local playerItemInHand = utils.Console.lit("playerItemInHand is %s",haxe.ds.Either.Right((function() 
+      local v8 = player.replica.inventory;
+      local value16 = haxe.ds.Either.Right((function() 
         local _hx_3
-        if (nil == v) then 
+        if (nil == v8) then 
         _hx_3 = nil; else 
-        _hx_3 = v:GetEquippedItem(_G.EQUIPSLOTS.HANDS); end
+        _hx_3 = v8:GetEquippedItem(_G.EQUIPSLOTS.HANDS); end
         return _hx_3
-      end )()),haxe.ds.Either.Left(function(item) 
+      end )());
+      local truthyRepl8 = haxe.ds.Either.Left(function(item) 
         do return item.prefab end;
-      end),"NULL",nil,_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Main.hx",lineNumber=88,className="Main",methodName="main"}));
-      local playerHasWeapon = utils.Console.lit("playerHasWeapon is %s",haxe.ds.Either.Left(function() 
+      end);
+      local playerItemInHand;
+      local value17 = value16[1];
+      if (value17) == 0 then 
+        local fn8 = value16[2];
+        playerItemInHand = fn8();
+      elseif (value17) == 1 then 
+        local v9 = value16[2];
+        playerItemInHand = v9; end;
+      local value18 = haxe.ds.Either.Left(function() 
         if (player:HasTag("beaver")) then 
           do return true end;
         end;
@@ -179,75 +277,400 @@ Main.main = function()
           end;
         end;
         do return false end;
-      end),haxe.ds.Either.Right("true"),"FALSE",nil,_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Main.hx",lineNumber=91,className="Main",methodName="main"}));
+      end);
+      local truthyRepl9 = haxe.ds.Either.Right("true");
+      local playerHasWeapon;
+      local value19 = value18[1];
+      if (value19) == 0 then 
+        local fn9 = value18[2];
+        playerHasWeapon = fn9();
+      elseif (value19) == 1 then 
+        local v10 = value18[2];
+        playerHasWeapon = v10; end;
+      local nearestDist = nil;
+      local interests = haxe.ds.StringMap.new();
       local ValidAttackTarget = function(target1) 
-        if ((utils.Console.lit("target is %s",haxe.ds.Either.Right(nil ~= target1),haxe.ds.Either.Left(function(_) 
+        local valid;
+        local valid1;
+        local valid2;
+        local value20 = haxe.ds.Either.Right(nil ~= target1);
+        local truthyRepl10 = haxe.ds.Either.Left(function(_) 
           do return target1.prefab end;
-        end),"NULL",nil,_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Main.hx",lineNumber=110,className="Main",methodName="main"})) and utils.Console.lit("target %s combat ability",haxe.ds.Either.Right(nil ~= target1.replica.combat),haxe.ds.Either.Right("has"),"HAS NO",nil,_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Main.hx",lineNumber=111,className="Main",methodName="main"}))) and ((utils.Console.lit("retry is %s",haxe.ds.Either.Right(retry),haxe.ds.Either.Right("true"),"false",nil,_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Main.hx",lineNumber=115,className="Main",methodName="main"})) or utils.Console.lit("target %s same as two times ago",haxe.ds.Either.Right(player.replica.combat:IsRecentTarget(target1)),haxe.ds.Either.Right("is"),"IS NOT",nil,_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Main.hx",lineNumber=116,className="Main",methodName="main"}))) or not (utils.Console.lit("target %s",haxe.ds.Either.Right(nil == target1.replica.health),haxe.ds.Either.Right("was never alive"),"has health meter",nil,_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Main.hx",lineNumber=123,className="Main",methodName="main"})) or ((utils.Console.lit("player %s applying force",haxe.ds.Either.Right(not force),haxe.ds.Either.Right("is not"),"is",nil,_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Main.hx",lineNumber=124,className="Main",methodName="main"})) and utils.Console.lit("target %s attacking player",haxe.ds.Either.Left(function() 
-          do return target1.replica.combat:GetTarget() ~= player end;
-        end),haxe.ds.Either.Right("is not"),"is",nil,_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Main.hx",lineNumber=125,className="Main",methodName="main"}))) and ((((utils.Console.lit("target %s hostile",haxe.ds.Either.Left(function() 
-          do return not target1:HasTag("hostile") end;
-        end),haxe.ds.Either.Right("is not"),"is",nil,_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Main.hx",lineNumber=126,className="Main",methodName="main"})) or utils.Console.lit("target %s allied to player",haxe.ds.Either.Left(function() 
-          do return player.replica.combat:IsAlly(target1) end;
-        end),haxe.ds.Either.Right("is"),"is not",nil,_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Main.hx",lineNumber=127,className="Main",methodName="main"}))) or (utils.Console.lit("player %s weapon",haxe.ds.Either.Right(not playerHasWeapon),haxe.ds.Either.Right("has no"),"has a",nil,_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Main.hx",lineNumber=130,className="Main",methodName="main"})) and utils.Console.lit("target %s a monster",haxe.ds.Either.Left(function() 
-          do return target1:HasTag("monster") end;
-        end),haxe.ds.Either.Right("is"),"is not",nil,_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Main.hx",lineNumber=131,className="Main",methodName="main"})))) or utils.Console.lit("target %s another player",haxe.ds.Either.Left(function() 
-          do return target1:HasTag("player") end;
-        end),haxe.ds.Either.Right("is"),"is not",nil,_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Main.hx",lineNumber=133,className="Main",methodName="main"}))) or (((utils.Console.lit("target %s a follower",haxe.ds.Either.Right(nil ~= target1.replica.follower),haxe.ds.Either.Right("is"),"is not",nil,_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Main.hx",lineNumber=134,className="Main",methodName="main"})) and utils.Console.lit("...and they have %s leader",haxe.ds.Either.Left(function() 
-          do return nil ~= target1.replica.follower:GetLeader() end;
-        end),haxe.ds.Either.Right("a"),"NO",nil,_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Main.hx",lineNumber=135,className="Main",methodName="main"}))) and utils.Console.lit("...their leader %s a player",haxe.ds.Either.Left(function() 
-          do return target1.replica.follower:GetLeader():HasTag("player") end;
-        end),haxe.ds.Either.Right("is"),"is not",nil,_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Main.hx",lineNumber=136,className="Main",methodName="main"}))) and utils.Console.lit("...and that leader %s attacking our player",haxe.ds.Either.Left(function() 
-          do return target1.replica.follower:GetLeader().replica.combat:GetTarget() ~= player end;
-        end),haxe.ds.Either.Right("is not"),"is",nil,_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Main.hx",lineNumber=137,className="Main",methodName="main"})))))))) then 
-          local ValidAttackTarget1;
-          if (not ((utils.Console.lit("target %s be targeted",haxe.ds.Either.Left(function() 
-            do return not player.replica.combat:CanTarget(target1) end;
-          end),haxe.ds.Either.Right("CANNOT"),"can",nil,_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Main.hx",lineNumber=148,className="Main",methodName="main"})) or utils.Console.lit("target %s died",haxe.ds.Either.Left(function() 
-            do return target1.replica.health:IsDead() end;
-          end),haxe.ds.Either.Right("has"),"has not",nil,_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Main.hx",lineNumber=150,className="Main",methodName="main"}))) or utils.Console.lit("player %s see target (expensive?)",haxe.ds.Either.Left(function() 
-            do return not _G.CanEntitySeeTarget(player,target1) end;
-          end),haxe.ds.Either.Right("CANNOT"),"can",nil,_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Main.hx",lineNumber=151,className="Main",methodName="main"})))) then 
-            local ValidAttackTarget2 = "player distance to target %s outside reach " .. "distance between target and player " .. Std.string(target1:GetDistanceSqToPoint(_hx_1_playerCoords_x,0,_hx_1_playerCoords_z)) .. " > " .. "area radius player can reach within ";
-            local ValidAttackTarget3 = (function() 
-              local _hx_4
-              if (nil == target1.Physics) then 
-              _hx_4 = 0; else 
-              _hx_4 = target1.Physics:GetRadius(); end
-              return _hx_4
-            end )();
-            ValidAttackTarget1 = utils.Console.lit(ValidAttackTarget2 .. _G.math.pow(playerReach + ValidAttackTarget3,2),haxe.ds.Either.Left(function() 
-              local ValidAttackTarget4 = target1:GetDistanceSqToPoint(_hx_1_playerCoords_x,0,_hx_1_playerCoords_z);
-              local ValidAttackTarget5 = (function() 
-                local _hx_5
-                if (nil == target1.Physics) then 
-                _hx_5 = 0; else 
-                _hx_5 = target1.Physics:GetRadius(); end
-                return _hx_5
-              end )();
-              do return ValidAttackTarget4 > _G.math.pow(playerReach + ValidAttackTarget5,2) end;
-            end),haxe.ds.Either.Right("is"),"is not",nil,_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Main.hx",lineNumber=153,className="Main",methodName="main"}));
-          else
-            ValidAttackTarget1 = true;
-          end;
-          do return not ValidAttackTarget1 end;
+        end);
+        local valid3;
+        local value21 = value20[1];
+        if (value21) == 0 then 
+          local fn10 = value20[2];
+          valid3 = fn10();
+        elseif (value21) == 1 then 
+          local v11 = value20[2];
+          valid3 = v11; end;
+        if (valid3) then 
+          local value22 = haxe.ds.Either.Right(nil ~= target1.replica.combat);
+          local truthyRepl11 = haxe.ds.Either.Right("has");
+          local value23 = value22[1];
+          if (value23) == 0 then 
+            local fn11 = value22[2];
+            valid2 = fn11();
+          elseif (value23) == 1 then 
+            local v12 = value22[2];
+            valid2 = v12; end;
         else
+          valid2 = false;
+        end;
+        if (valid2) then 
+          local valid4;
+          local value24 = haxe.ds.Either.Right(retry);
+          local truthyRepl12 = haxe.ds.Either.Right("true");
+          local valid5;
+          local value25 = value24[1];
+          if (value25) == 0 then 
+            local fn12 = value24[2];
+            valid5 = fn12();
+          elseif (value25) == 1 then 
+            local v13 = value24[2];
+            valid5 = v13; end;
+          if (not valid5) then 
+            local value26 = haxe.ds.Either.Right(player.replica.combat:IsRecentTarget(target1));
+            local truthyRepl13 = haxe.ds.Either.Right("is");
+            local value27 = value26[1];
+            if (value27) == 0 then 
+              local fn13 = value26[2];
+              valid4 = fn13();
+            elseif (value27) == 1 then 
+              local v14 = value26[2];
+              valid4 = v14; end;
+          else
+            valid4 = true;
+          end;
+          if (not valid4) then 
+            local valid6;
+            local value28 = haxe.ds.Either.Right(nil == target1.replica.health);
+            local truthyRepl14 = haxe.ds.Either.Right("was never alive");
+            local valid7;
+            local value29 = value28[1];
+            if (value29) == 0 then 
+              local fn14 = value28[2];
+              valid7 = fn14();
+            elseif (value29) == 1 then 
+              local v15 = value28[2];
+              valid7 = v15; end;
+            if (not valid7) then 
+              local valid8;
+              local value30 = haxe.ds.Either.Right(not force);
+              local truthyRepl15 = haxe.ds.Either.Right("is not");
+              local valid9;
+              local value31 = value30[1];
+              if (value31) == 0 then 
+                local fn15 = value30[2];
+                valid9 = fn15();
+              elseif (value31) == 1 then 
+                local v16 = value30[2];
+                valid9 = v16; end;
+              if (valid9) then 
+                local value32 = haxe.ds.Either.Left(function() 
+                  do return target1.replica.combat:GetTarget() ~= player end;
+                end);
+                local truthyRepl16 = haxe.ds.Either.Right("is not");
+                local value33 = value32[1];
+                if (value33) == 0 then 
+                  local fn16 = value32[2];
+                  valid8 = fn16();
+                elseif (value33) == 1 then 
+                  local v17 = value32[2];
+                  valid8 = v17; end;
+              else
+                valid8 = false;
+              end;
+              if (valid8) then 
+                local valid10;
+                local valid11;
+                local valid12;
+                local value34 = haxe.ds.Either.Left(function() 
+                  do return not target1:HasTag("hostile") end;
+                end);
+                local truthyRepl17 = haxe.ds.Either.Right("is not");
+                local valid13;
+                local value35 = value34[1];
+                if (value35) == 0 then 
+                  local fn17 = value34[2];
+                  valid13 = fn17();
+                elseif (value35) == 1 then 
+                  local v18 = value34[2];
+                  valid13 = v18; end;
+                if (not valid13) then 
+                  local value36 = haxe.ds.Either.Left(function() 
+                    do return player.replica.combat:IsAlly(target1) end;
+                  end);
+                  local truthyRepl18 = haxe.ds.Either.Right("is");
+                  local value37 = value36[1];
+                  if (value37) == 0 then 
+                    local fn18 = value36[2];
+                    valid12 = fn18();
+                  elseif (value37) == 1 then 
+                    local v19 = value36[2];
+                    valid12 = v19; end;
+                else
+                  valid12 = true;
+                end;
+                if (not valid12) then 
+                  local value38 = haxe.ds.Either.Right(not playerHasWeapon);
+                  local truthyRepl19 = haxe.ds.Either.Right("has no");
+                  local valid14;
+                  local value39 = value38[1];
+                  if (value39) == 0 then 
+                    local fn19 = value38[2];
+                    valid14 = fn19();
+                  elseif (value39) == 1 then 
+                    local v20 = value38[2];
+                    valid14 = v20; end;
+                  if (valid14) then 
+                    local value40 = haxe.ds.Either.Left(function() 
+                      do return target1:HasTag("monster") end;
+                    end);
+                    local truthyRepl20 = haxe.ds.Either.Right("is");
+                    local value41 = value40[1];
+                    if (value41) == 0 then 
+                      local fn20 = value40[2];
+                      valid11 = fn20();
+                    elseif (value41) == 1 then 
+                      local v21 = value40[2];
+                      valid11 = v21; end;
+                  else
+                    valid11 = false;
+                  end;
+                else
+                  valid11 = true;
+                end;
+                if (not valid11) then 
+                  local value42 = haxe.ds.Either.Left(function() 
+                    do return target1:HasTag("player") end;
+                  end);
+                  local truthyRepl21 = haxe.ds.Either.Right("is");
+                  local value43 = value42[1];
+                  if (value43) == 0 then 
+                    local fn21 = value42[2];
+                    valid10 = fn21();
+                  elseif (value43) == 1 then 
+                    local v22 = value42[2];
+                    valid10 = v22; end;
+                else
+                  valid10 = true;
+                end;
+                if (not valid10) then 
+                  local valid15;
+                  local valid16;
+                  local value44 = haxe.ds.Either.Right(nil ~= target1.replica.follower);
+                  local truthyRepl22 = haxe.ds.Either.Right("is");
+                  local valid17;
+                  local value45 = value44[1];
+                  if (value45) == 0 then 
+                    local fn22 = value44[2];
+                    valid17 = fn22();
+                  elseif (value45) == 1 then 
+                    local v23 = value44[2];
+                    valid17 = v23; end;
+                  if (valid17) then 
+                    local value46 = haxe.ds.Either.Left(function() 
+                      do return nil ~= target1.replica.follower:GetLeader() end;
+                    end);
+                    local truthyRepl23 = haxe.ds.Either.Right("a");
+                    local value47 = value46[1];
+                    if (value47) == 0 then 
+                      local fn23 = value46[2];
+                      valid16 = fn23();
+                    elseif (value47) == 1 then 
+                      local v24 = value46[2];
+                      valid16 = v24; end;
+                  else
+                    valid16 = false;
+                  end;
+                  if (valid16) then 
+                    local value48 = haxe.ds.Either.Left(function() 
+                      do return target1.replica.follower:GetLeader():HasTag("player") end;
+                    end);
+                    local truthyRepl24 = haxe.ds.Either.Right("is");
+                    local value49 = value48[1];
+                    if (value49) == 0 then 
+                      local fn24 = value48[2];
+                      valid15 = fn24();
+                    elseif (value49) == 1 then 
+                      local v25 = value48[2];
+                      valid15 = v25; end;
+                  else
+                    valid15 = false;
+                  end;
+                  if (valid15) then 
+                    local value50 = haxe.ds.Either.Left(function() 
+                      do return target1.replica.follower:GetLeader().replica.combat:GetTarget() ~= player end;
+                    end);
+                    local truthyRepl25 = haxe.ds.Either.Right("is not");
+                    local value51 = value50[1];
+                    if (value51) == 0 then 
+                      local fn25 = value50[2];
+                      valid6 = fn25();
+                    elseif (value51) == 1 then 
+                      local v26 = value50[2];
+                      valid6 = v26; end;
+                  else
+                    valid6 = false;
+                  end;
+                else
+                  valid6 = true;
+                end;
+              else
+                valid6 = false;
+              end;
+            else
+              valid6 = true;
+            end;
+            valid1 = not valid6;
+          else
+            valid1 = true;
+          end;
+        else
+          valid1 = false;
+        end;
+        if (valid1) then 
+          local valid18;
+          local valid19;
+          local valid20;
+          local value52 = haxe.ds.Either.Left(function() 
+            do return not player.replica.combat:CanTarget(target1) end;
+          end);
+          local truthyRepl26 = haxe.ds.Either.Right("CANNOT");
+          local valid21;
+          local value53 = value52[1];
+          if (value53) == 0 then 
+            local fn26 = value52[2];
+            valid21 = fn26();
+          elseif (value53) == 1 then 
+            local v27 = value52[2];
+            valid21 = v27; end;
+          if (not valid21) then 
+            local value54 = haxe.ds.Either.Left(function() 
+              do return target1.replica.health:IsDead() end;
+            end);
+            local truthyRepl27 = haxe.ds.Either.Right("has");
+            local value55 = value54[1];
+            if (value55) == 0 then 
+              local fn27 = value54[2];
+              valid20 = fn27();
+            elseif (value55) == 1 then 
+              local v28 = value54[2];
+              valid20 = v28; end;
+          else
+            valid20 = true;
+          end;
+          if (not valid20) then 
+            local value56 = haxe.ds.Either.Left(function() 
+              do return not _G.CanEntitySeeTarget(player,target1) end;
+            end);
+            local truthyRepl28 = haxe.ds.Either.Right("CANNOT");
+            local value57 = value56[1];
+            if (value57) == 0 then 
+              local fn28 = value56[2];
+              valid19 = fn28();
+            elseif (value57) == 1 then 
+              local v29 = value56[2];
+              valid19 = v29; end;
+          else
+            valid19 = true;
+          end;
+          if (not valid19) then 
+            if (nil ~= playerItemInHand) then 
+              if (not (((playerItemInHand.prefab == "icestaff") and (nil ~= target1.components.freezable)) and target1.components.freezable:IsFrozen())) then 
+                if ((playerItemInHand.prefab == "firestaff") and (nil ~= target1.components.burnable)) then 
+                  valid18 = target1.components.burnable:IsBurning();
+                else
+                  valid18 = false;
+                end;
+              else
+                valid18 = true;
+              end;
+            else
+              valid18 = false;
+            end;
+          else
+            valid18 = true;
+          end;
+          valid = not valid18;
+        else
+          valid = false;
+        end;
+        if (not valid) then 
           do return false end;
         end;
+        local targetDistToPlayer = target1:GetDistanceSqToPoint(_hx_1_playerCoords_x,0,_hx_1_playerCoords_z);
+        local playerReachPlusTargetRadius = (function() 
+          local _hx_4
+          if (nil == target1.Physics) then 
+          _hx_4 = 0; else 
+          _hx_4 = target1.Physics:GetRadius(); end
+          return _hx_4
+        end )();
+        local playerReachPlusTargetRadius1 = _G.math.pow(playerReach + playerReachPlusTargetRadius,2);
+        if (valid) then 
+          local value58 = haxe.ds.Either.Right(targetDistToPlayer > playerReachPlusTargetRadius1);
+          local truthyRepl29 = haxe.ds.Either.Right("is");
+          local valid22;
+          local value59 = value58[1];
+          if (value59) == 0 then 
+            local fn29 = value58[2];
+            valid22 = fn29();
+          elseif (value59) == 1 then 
+            local v30 = value58[2];
+            valid22 = v30; end;
+          valid = not valid22;
+        else
+          valid = false;
+        end;
+        if (not valid) then 
+          do return false end;
+        end;
+        if ((nil == nearestDist) or (nearestDist > targetDistToPlayer)) then 
+          nearestDist = targetDistToPlayer;
+          interests.v["nearest"] = target1;
+          interests.k["nearest"] = true;
+        end;
+        local nepi = function(s) 
+          local nepi1;
+          if (not (not (interests.k[s] or false))) then 
+            local nepi2 = interests.v[s]:GetDistanceSqToPoint(_hx_1_playerCoords_x,0,_hx_1_playerCoords_z);
+            nepi1 = targetDistToPlayer < nepi2;
+          else
+            nepi1 = true;
+          end;
+          if (nepi1) then 
+            interests.v[s] = target1;
+            interests.k[s] = true;
+          end;
+        end;
+        nepi(target1.prefab);
+        if (("spider" == target1.prefab) and target1:HasTag("attack")) then 
+          nepi("spider_attack");
+        end;
+        do return true end;
       end;
-      utils.Console.log("testing target that was passed in...",_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Main.hx",lineNumber=170,className="Main",methodName="main"}));
       if (ValidAttackTarget(target)) then 
         do return target end;
       end;
       target = nil;
       retry = false;
-      utils.Console.log("searching for nearby entity to target...",_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Main.hx",lineNumber=181,className="Main",methodName="main"}));
-      local nearbyEntities = utils.Console.lit("found %s nearby entities",haxe.ds.Either.Left(function() 
+      local value60 = haxe.ds.Either.Left(function() 
         do return _G.TheSim:FindEntities(_hx_1_playerCoords_x,_hx_1_playerCoords_y,_hx_1_playerCoords_z,walkingRange + 5,_hx_tab_array({[0]="_combat" }, 1),_hx_tab_array({[0]="INLIMBO" }, 1)) end;
-      end),haxe.ds.Either.Left(function(t) 
+      end);
+      local truthyRepl30 = haxe.ds.Either.Left(function(t) 
         do return Std.string(utils.Lua.count(t)) end;
-      end),"0",nil,_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Main.hx",lineNumber=182,className="Main",methodName="main"}));
-      local nearestDist = _G.math.huge;
+      end);
+      local nearbyEntities;
+      local value61 = value60[1];
+      if (value61) == 0 then 
+        local fn30 = value60[2];
+        nearbyEntities = fn30();
+      elseif (value61) == 1 then 
+        local v31 = value60[2];
+        nearbyEntities = v31; end;
       local pair = utils.Lua.ipairs(nearbyEntities);
       local _hx_break_0 = false;
       while (pair:hasNext()) do 
@@ -257,71 +680,71 @@ Main.main = function()
         if (entity == player) then 
           break;
         end;
-        utils.Console.lit("  ===> iterating nearby entity %s",haxe.ds.Either.Right(entity),(function() 
-          local _hx_6
+        local value62 = haxe.ds.Either.Right(entity);
+        local truthyRepl31 = (function() 
+          local _hx_5
           if (nil == entity) then 
-          _hx_6 = haxe.ds.Either.Right("?"); else 
-          _hx_6 = haxe.ds.Either.Right(entity.prefab); end
-          return _hx_6
-        end )(),"BUT GOT NULL",nil,_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Main.hx",lineNumber=202,className="Main",methodName="main"}));
-        if (ValidAttackTarget(entity)) then 
-          local dsq = utils.Console.lit("distance squared to entity is %s",haxe.ds.Either.Right(player:GetDistanceSqToInst(entity)),haxe.ds.Either.Left(function(p1) 
-            do return "" .. p1 end;
-          end),"falsy wtf?",nil,_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Main.hx",lineNumber=206,className="Main",methodName="main"}));
-          local dist;
-          if (dsq <= 0) then 
-            dist = 0;
-          else
-            if (nil ~= entity.Physics) then 
-              dist = _G.math.max(0,_G.math.sqrt(dsq) - entity.Physics:GetRadius());
-            else
-              dist = _G.math.sqrt(dsq);
-            end;
-          end;
-          if (dist < nearestDist) then 
-            nearestDist = dist;
-            target = entity;
-          end;
-        end;
+          _hx_5 = haxe.ds.Either.Right("?"); else 
+          _hx_5 = haxe.ds.Either.Right(entity.prefab); end
+          return _hx_5
+        end )();
+        local value63 = value62[1];
+        if (value63) == 0 then 
+          local fn31 = value62[2];
+          fn31();
+        elseif (value63) == 1 then 
+          local v32 = value62[2]; end;
+        local tmp4 = ValidAttackTarget(entity);
         
       until true
       if _hx_break_1 then _hx_break_1 = false; break; end
       end;
-      utils.Console.lit("the nearest valid target was %s",haxe.ds.Either.Right(target),haxe.ds.Either.Left(function(t1) 
+      local nearby = function(a) 
+        local _g = 0;
+        while (_g < a.length) do 
+          local k = a[_g];
+          _g = _g + 1;
+          local v33 = interests.v[k];
+          if (nil ~= v33) then 
+            target = v33;
+            do return true end;
+          end;
+          end;
+        do return false end;
+      end;
+      local weap = function(prefabNames) 
+        if (nil == playerItemInHand) then 
+          do return false end;
+        end;
+        local _g1 = 0;
+        while (_g1 < prefabNames.length) do 
+          local name = prefabNames[_g1];
+          _g1 = _g1 + 1;
+          if (name == playerItemInHand.prefab) then 
+            do return true end;
+          end;
+          end;
+        do return false end;
+      end;
+      if (not ((((weap(_hx_tab_array({[0]="icestaff" }, 1)) and nearby(_hx_tab_array({[0]="walrus", "canary", "robin_winter", "robin", "crow" }, 5))) or (weap(_hx_tab_array({[0]="blowdart_pipe" }, 1)) and nearby(_hx_tab_array({[0]="icehound", "hound", "firehound" }, 3)))) or (weap(_hx_tab_array({[0]="boomerang" }, 1)) and nearby(_hx_tab_array({[0]="deerclops", "bearger", "walrus", "canary", "robin_winter", "robin", "crow" }, 7)))) or nearby(_hx_tab_array({[0]="spider_attack" }, 1)))) then 
+        target = interests.v["nearest"];
+      end;
+      local value64 = haxe.ds.Either.Right(target);
+      local truthyRepl32 = haxe.ds.Either.Left(function(t1) 
         do return t1.prefab .. " at " .. nearestDist end;
-      end),"null",nil,_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Main.hx",lineNumber=232,className="Main",methodName="main"}));
+      end);
+      local value65 = value64[1];
+      if (value65) == 0 then 
+        local fn32 = value64[2];
+        fn32();
+      elseif (value65) == 1 then 
+        local v34 = value64[2]; end;
       do return target end
      end;
   end);
-  env.AddClassPostConstruct("components/combat_replica",function(combat) 
-    local oldIsAlly = _hx_bind(combat,combat.IsAlly);
-    combat.IsAlly = function(self,target2) 
-      utils.Console.log("combat replica IsAlly()",_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Main.hx",lineNumber=271,className="Main",methodName="main"}));
-      local ally = oldIsAlly(target2);
-      if (ally) then 
-        do return ally end;
-      end;
-      local weapon = combat:GetWeapon();
-      if ((nil ~= weapon) and weapon:HasTag("icestaff")) then 
-        if ((nil ~= target2.components.freezable) and target2.components.freezable:IsFrozen()) then 
-          ally = true;
-        else
-          ally = false;
-        end;
-      end;
-      do return ally end
-     end;
-  end);
-end
-
-Math.new = {}
-Math.__name__ = true
-Math.isNaN = function(f) 
-  do return f ~= f end;
 end
 
 String.new = {}
-String.__name__ = true
 String.__index = function(s,k) 
   if (k == "length") then 
     do return _G.string.len(s) end;
@@ -349,218 +772,40 @@ String.fromCharCode = function(code)
   do return _G.string.char(code) end;
 end
 String.prototype = _hx_a(
-  'split', function(self,delimiter) 
-    local idx = 1;
-    local ret = _hx_tab_array({ }, 0);
-    local delim_offset = (function() 
-      local _hx_1
-      if (delimiter.length > 0) then 
-      _hx_1 = delimiter.length; else 
-      _hx_1 = 1; end
-      return _hx_1
-    end )();
-    while (idx ~= nil) do 
-      local newidx = 0;
-      if (delimiter.length > 0) then 
-        newidx = _G.string.find(self,delimiter,idx,true);
-      else
-        if (idx >= self.length) then 
-          newidx = nil;
-        else
-          newidx = idx + 1;
-        end;
-      end;
-      if (newidx ~= nil) then 
-        local match = _G.string.sub(self,idx,newidx - 1);
-        ret:push(match);
-        idx = newidx + delimiter.length;
-      else
-        ret:push(_G.string.sub(self,idx,_G.string.len(self)));
-        idx = nil;
-      end;
-      end;
-    do return ret end
-  end,
   'toString', function(self) 
     do return self end
   end
-  ,'__class__',  String
 )
 
 Std.new = {}
-Std.__name__ = true
 Std.string = function(s) 
   do return lua.Boot.__string_rec(s) end;
 end
-Std.int = function(x) 
-  if (not ((x > -_G.math.huge) and (x < _G.math.huge)) or Math.isNaN(x)) then 
-    do return 0 end;
-  else
-    do return _hx_bit_clamp(x) end;
-  end;
-end
 
-StringTools.new = {}
-StringTools.__name__ = true
-StringTools.replace = function(s,sub,by) 
-  do return s:split(sub):join(by) end;
-end
-_hxClasses["ValueType"] = { __ename__ = true, __constructs__ = _hx_tab_array({[0]="TNull","TInt","TFloat","TBool","TObject","TFunction","TClass","TEnum","TUnknown"},9)}
-ValueType = _hxClasses["ValueType"];
-ValueType.TNull = _hx_tab_array({[0]="TNull",0,__enum__ = ValueType},2)
+haxe.IMap.new = {}
 
-ValueType.TInt = _hx_tab_array({[0]="TInt",1,__enum__ = ValueType},2)
-
-ValueType.TFloat = _hx_tab_array({[0]="TFloat",2,__enum__ = ValueType},2)
-
-ValueType.TBool = _hx_tab_array({[0]="TBool",3,__enum__ = ValueType},2)
-
-ValueType.TObject = _hx_tab_array({[0]="TObject",4,__enum__ = ValueType},2)
-
-ValueType.TFunction = _hx_tab_array({[0]="TFunction",5,__enum__ = ValueType},2)
-
-ValueType.TClass = function(c) local _x = _hx_tab_array({[0]="TClass",6,c,__enum__=ValueType}, 3); return _x; end 
-ValueType.TEnum = function(e) local _x = _hx_tab_array({[0]="TEnum",7,e,__enum__=ValueType}, 3); return _x; end 
-ValueType.TUnknown = _hx_tab_array({[0]="TUnknown",8,__enum__ = ValueType},2)
-
-
-Type.new = {}
-Type.__name__ = true
-Type.typeof = function(v) 
-  local _g = _G.type(v);
-  local _g1 = _g;
-  if (_g1) == "boolean" then 
-    do return ValueType.TBool end;
-  elseif (_g1) == "function" then 
-    if ((function() 
-      local _hx_1
-      if (_G.type(v) ~= "table") then 
-      _hx_1 = false; else 
-      _hx_1 = v.__name__; end
-      return _hx_1
-    end )() or (function() 
-      local _hx_2
-      if (_G.type(v) ~= "table") then 
-      _hx_2 = false; else 
-      _hx_2 = v.__ename__; end
-      return _hx_2
-    end )()) then 
-      do return ValueType.TObject end;
-    end;
-    do return ValueType.TFunction end;
-  elseif (_g1) == "nil" then 
-    do return ValueType.TNull end;
-  elseif (_g1) == "number" then 
-    if (_G.math.ceil(v) == (_G.math.fmod(v, 2147483648.0))) then 
-      do return ValueType.TInt end;
-    end;
-    do return ValueType.TFloat end;
-  elseif (_g1) == "string" then 
-    do return ValueType.TClass(String) end;
-  elseif (_g1) == "table" then 
-    local e = v.__enum__;
-    if (e ~= nil) then 
-      do return ValueType.TEnum(e) end;
-    end;
-    local c;
-    if (lua.Boot.__instanceof(v,Array)) then 
-      c = Array;
-    else
-      local cl = v.__class__;
-      if (cl ~= nil) then 
-        c = cl;
-      else
-        c = nil;
-      end;
-    end;
-    if (c ~= nil) then 
-      do return ValueType.TClass(c) end;
-    end;
-    do return ValueType.TObject end;else
-  do return ValueType.TUnknown end; end;
-end
-_hxClasses["haxe.ds.Either"] = { __ename__ = true, __constructs__ = _hx_tab_array({[0]="Left","Right"},2)}
-haxe.ds.Either = _hxClasses["haxe.ds.Either"];
 haxe.ds.Either.Left = function(v) local _x = _hx_tab_array({[0]="Left",0,v,__enum__=haxe.ds.Either}, 3); return _x; end 
 haxe.ds.Either.Right = function(v) local _x = _hx_tab_array({[0]="Right",1,v,__enum__=haxe.ds.Either}, 3); return _x; end 
 
+haxe.ds.StringMap.new = function() 
+  local self = _hx_new()
+  haxe.ds.StringMap.super(self)
+  return self
+end
+haxe.ds.StringMap.super = function(self) 
+  self.v = {}
+  self.k = {}
+end
+haxe.ds.StringMap.__interfaces__ = {haxe.IMap}
+
 haxe.io.Eof.new = {}
-haxe.io.Eof.__name__ = true
 haxe.io.Eof.prototype = _hx_a(
   'toString', function(self) 
     do return "Eof" end
   end
-  ,'__class__',  haxe.io.Eof
 )
 
 lua.Boot.new = {}
-lua.Boot.__name__ = true
-lua.Boot.getClass = function(o) 
-  if (lua.Boot.__instanceof(o,Array)) then 
-    do return Array end;
-  else
-    local cl = o.__class__;
-    if (cl ~= nil) then 
-      do return cl end;
-    else
-      do return nil end;
-    end;
-  end;
-end
-lua.Boot.__instanceof = function(o,cl) 
-  if (cl == nil) then 
-    do return false end;
-  end;
-  local cl1 = cl;
-  if (cl1) == Array then 
-    do return lua.Boot.isArray(o) end;
-  elseif (cl1) == Bool then 
-    do return _G.type(o) == "boolean" end;
-  elseif (cl1) == Dynamic then 
-    do return true end;
-  elseif (cl1) == Float then 
-    do return _G.type(o) == "number" end;
-  elseif (cl1) == Int then 
-    if (_G.type(o) == "number") then 
-      do return _hx_bit_clamp(o) == o end;
-    else
-      do return false end;
-    end;
-  elseif (cl1) == String then 
-    do return _G.type(o) == "string" end;
-  elseif (cl1) == _G.table then 
-    do return _G.type(o) == "table" end;
-  elseif (cl1) == lua.Thread then 
-    do return _G.type(o) == "thread" end;
-  elseif (cl1) == lua.UserData then 
-    do return _G.type(o) == "userdata" end;else
-  if (((o ~= nil) and (_G.type(o) == "table")) and (_G.type(cl) == "table")) then 
-    if (lua.Boot.extendsOrImplements(lua.Boot.getClass(o),cl)) then 
-      do return true end;
-    end;
-    if ((function() 
-      local _hx_1
-      if (cl == Class) then 
-      _hx_1 = o.__name__ ~= nil; else 
-      _hx_1 = false; end
-      return _hx_1
-    end )()) then 
-      do return true end;
-    end;
-    if ((function() 
-      local _hx_2
-      if (cl == Enum) then 
-      _hx_2 = o.__ename__ ~= nil; else 
-      _hx_2 = false; end
-      return _hx_2
-    end )()) then 
-      do return true end;
-    end;
-    do return o.__enum__ == cl end;
-  else
-    do return false end;
-  end; end;
-end
 lua.Boot.isArray = function(o) 
   if (_G.type(o) == "table") then 
     if ((o.__enum__ == nil) and (_G.getmetatable(o) ~= nil)) then 
@@ -679,29 +924,6 @@ lua.Boot.__string_rec = function(o,s)
     do return "<userdata>" end;else
   _G.error("Unknown Lua type",0); end;
 end
-lua.Boot.extendsOrImplements = function(cl1,cl2) 
-  if ((cl1 == nil) or (cl2 == nil)) then 
-    do return false end;
-  else
-    if (cl1 == cl2) then 
-      do return true end;
-    else
-      if (cl1.__interfaces__ ~= nil) then 
-        local intf = cl1.__interfaces__;
-        local _g1 = 1;
-        local _g = _hx_table.maxn(intf) + 1;
-        while (_g1 < _g) do 
-          _g1 = _g1 + 1;
-          local i = _g1 - 1;
-          if (lua.Boot.extendsOrImplements(intf[i],cl2)) then 
-            do return true end;
-          end;
-          end;
-      end;
-    end;
-  end;
-  do return lua.Boot.extendsOrImplements(cl1.__super__,cl2) end;
-end
 lua.Boot.fieldIterator = function(o) 
   local tbl = (function() 
     local _hx_1
@@ -727,89 +949,11 @@ lua.Boot.fieldIterator = function(o)
   end}) end;
 end
 
-lua.UserData.new = {}
-lua.UserData.__name__ = true
-
-lua.Thread.new = {}
-lua.Thread.__name__ = true
-
-utils.Console.new = {}
-utils.Console.__name__ = true
-utils.Console.println = function(s) 
-  _G.nolineprint(s);
-end
-utils.Console.log = function(s,pos) 
-  utils.Console.println(pos.fileName .. ":" .. pos.lineNumber .. ": " .. "Mod: " .. s);
-end
-utils.Console.lit = function(msg,value,truthyRepl,falsyRepl,expected,pos) 
-  local _value;
-  local deltaTime = nil;
-  local value1 = value[1];
-  if (value1) == 0 then 
-    local fn = value[2];
-    local started = _G.GetTime();
-    _value = fn();
-    local ended = _G.GetTime();
-    deltaTime = Std.int((ended - started) * 1000) / 1000;
-  elseif (value1) == 1 then 
-    local v = value[2];
-    _value = v; end;
-  local isTruthy;
-  local _g = Type.typeof(_value);
-  local _g1 = _g[1];
-  if (_g1) == 0 then 
-    isTruthy = false;
-  elseif (_g1) == 1 or (_g1) == 2 then 
-    isTruthy = 0 ~= _value;
-  elseif (_g1) == 3 then 
-    isTruthy = _value;
-  elseif (_g1) == 4 or (_g1) == 5 or (_g1) == 6 or (_g1) == 7 or (_g1) == 8 then 
-    isTruthy = nil ~= _value; end;
-  if (not ((nil ~= expected) and (_value == expected))) then 
-    if (nil == expected) then 
-      isTruthy = isTruthy;
-    else
-      isTruthy = false;
-    end;
-  else
-    isTruthy = true;
-  end;
-  local replacement = "";
-  if (isTruthy) then 
-    local truthyRepl1 = truthyRepl[1];
-    if (truthyRepl1) == 0 then 
-      local fn1 = truthyRepl[2];
-      replacement = fn1(_value);
-    elseif (truthyRepl1) == 1 then 
-      local s = truthyRepl[2];
-      replacement = s; end;
-  else
-    if (nil ~= falsyRepl) then 
-      replacement = falsyRepl;
-    end;
-  end;
-  utils.Console.log(StringTools.replace(msg,"%s",replacement) .. ((function() 
-    local _hx_1
-    if (nil == deltaTime) then 
-    _hx_1 = ""; else 
-    _hx_1 = " (" .. deltaTime .. "ms)"; end
-    return _hx_1
-  end )()),pos);
-  do return _value end;
-end
-
 utils.Debug.new = {}
-utils.Debug.__name__ = true
 utils.Debug.setup = function() 
-  utils.Console.log("debug build",_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Debug.hx",lineNumber=20,className="utils.Debug",methodName="setup"}));
-  _G.CHEATS_ENABLED = true;
-  _G.require("debugtools");
-  _G.PRINT_SOURCE = true;
-  _G.DISABLE_MOD_WARNING = true;
 end
 
 utils.Lua.new = {}
-utils.Lua.__name__ = true
 utils.Lua.ipairs = function(table) 
   local i = 1;
   do return _hx_o({__fields__={next=true,hasNext=true},next=function(self) 
@@ -830,25 +974,6 @@ utils.Lua.count = function(table)
     end;
   do return i - 2 end;
 end
-_hx_bit_clamp = function(v) 
-  if v <= 2147483647 and v >= -2147483648 then
-    if v > 0 then return _G.math.floor(v)
-    else return _G.math.ceil(v)
-    end
-  end
-  if v > 2251798999999999 then v = v*2 end;
-  if (v ~= v or math.abs(v) == _G.math.huge) then return nil end
-  return _hx_bit.band(v, 2147483647 ) - math.abs(_hx_bit.band(v, 2147483648))
-end
-pcall(require, 'bit')
-if bit then
-  _hx_bit = bit
-elseif bit32 then
-  local _hx_bit_raw = bit32
-  _hx_bit = setmetatable({}, { __index = _hx_bit_raw });
-  _hx_bit.bnot = function(...) return _hx_bit_clamp(_hx_bit_raw.bnot(...)) end;
-  _hx_bit.bxor = function(...) return _hx_bit_clamp(_hx_bit_raw.bxor(...)) end;
-end
 local _hx_string_mt = _G.getmetatable('');
 String.__oldindex = _hx_string_mt.__index;
 _hx_string_mt.__index = String.__index;
@@ -859,37 +984,8 @@ _hx_array_mt.__index = Array.prototype
 local _hx_static_init = function()
   lua.Boot.hiddenFields = {__id__=true, hx__closures=true, super=true, prototype=true, __fields__=true, __ifields__=true, __class__=true, __properties__=true}
   
-  String.prototype.__class__ = String;
-  String.__name__ = true;
-  Array.__name__ = true;
 end
 
-_hx_bind = function(o,m)
-  if m == nil then return nil end;
-  local f;
-  if o._hx__closures == nil then
-    _G.rawset(o, '_hx__closures', {});
-  else 
-    f = o._hx__closures[m];
-  end
-  if (f == nil) then
-    f = function(...) return m(o, ...) end;
-    o._hx__closures[m] = f;
-  end
-  return f;
-end
-_hx_table = {}
-_hx_table.pack = _G.table.pack or function(...)
-    return {...}
-end
-_hx_table.unpack = _G.table.unpack or _G.unpack
-_hx_table.maxn = _G.table.maxn or function(t)
-  local maxn=0;
-  for i in pairs(t) do
-    maxn=type(i)=='number'and i>maxn and i or maxn
-  end
-  return maxn
-end;
 _hx_static_init();
 Main.main()
 return _hx_exports

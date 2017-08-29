@@ -7,6 +7,15 @@ class Console
 {
   inline public static var LOG_PREFIX = "Mod: ";
 
+	/**
+	 * If not null, return value of fn, else null.
+	 * a.k.a. the "Elvis" operator ?:
+	 */
+	inline public static function inn<T,R>(v:T, fn:T->R):R
+	{
+		return (null == v) ? null : fn(v);
+	}
+
 	#if debug
 
 	public static function println(s:String):Void
@@ -24,16 +33,6 @@ class Console
 		log(s, pos);
 		println(dst.DebugTools.debugstack());
 	}
-
-	/**
-	 * If not null, return value of fn, else null.
-	 * a.k.a. the "Elvis" operator ?:
-	 */
-	inline public static function inn<T,R>(v:T, fn:T->R):R
-	{
-		return (null == v) ? null : fn(v);
-	}
-
 
 	/**
 	 * Log message and return value.
@@ -111,8 +110,15 @@ class Console
 	inline public static function println(s:String):Void {}
 	inline public static function log(s:String, ?pos:haxe.PosInfos):Void {}
 	inline public static function trace(s:String, ?pos:haxe.PosInfos):Void {}
-	inline public static function public static function lit<T>(msg:String, valueFn:Void->T, ?truthyRepl:String, ?falsyRepl:String, ?expected:Dynamic):T {
-		return valueFn(); // pass-through
+	inline public static function lit<T>(msg:String, value:OneOf<Void->T,T>, truthyRepl:OneOf<Dynamic->String,String>, falsyRepl:String, ?expected:Dynamic):T {
+		// pass-through
+		switch (value)
+		{
+			case Left(fn):
+				return fn();
+			case Right(v):
+				return v;
+		}
 	}
 
 	#end

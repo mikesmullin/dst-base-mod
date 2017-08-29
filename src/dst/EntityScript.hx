@@ -248,7 +248,7 @@ extern class EntityScript extends ExplicitLuaClass
 	public function FacePoint(x: Dynamic, y: Dynamic, z: Dynamic): Dynamic;
 	public function GetDistanceSqToInst(inst: EntityScript): Float;
 	public function IsNear(otherinst: Dynamic, dist: Dynamic): Dynamic;
-	public function GetDistanceSqToPoint(x: Dynamic, y: Dynamic, z: Dynamic): Dynamic;
+	public function GetDistanceSqToPoint(x: Float, y: Float, z: Float): Float;
 	public function IsNearPlayer(range: Dynamic, isalive: Dynamic): Dynamic;
 	public function GetNearestPlayer(isalive: Dynamic): Dynamic;
 	public function GetDistanceSqToClosestPlayer(isalive: Dynamic): Dynamic;
