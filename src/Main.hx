@@ -104,7 +104,7 @@ class Main
 				/**
 				 * @returns true to proceed attacking, false to cancel attack.
 				 */ 
-				function ValidAttackTarget():Bool
+				function ValidAttackTarget(target:EntityScript):Bool
 				{
 					return (
 						lit("target is %s", null != target, (function(_) return target.prefab), "IS NULL") &&
@@ -159,7 +159,7 @@ class Main
 				// if target provided
 				// do light re-validation
 				Console.log("testing target that was passed in...");
-				if (ValidAttackTarget())
+				if (ValidAttackTarget(target))
 				{
 					return target; // ok to reuse
 				}
@@ -170,62 +170,57 @@ class Main
 
 				// and find a new target
 				Console.log("searching for nearby entity to target...");
-				var nearestDist = lua.Math.huge;
-				var nearbyEntities = lit("found %s nearby entities", function() return
+				var nearbyEntities = lit("found %s nearby entities", function() { return
 					dst.compiled.Globals.TheSim.FindEntities(
 						playerCoords.x,
 						playerCoords.y,
 						playerCoords.z,
 						walkingRange + 5,
 						cast [_COMBAT],
-						cast [INLIMBO]),
-					"some", "0");
+						cast [INLIMBO]);
+				}, function(t) return Std.string(utils.Lua.count(t)), "0");
 
-				// TODO: ORDER BY desired prefabs, nearest proximity
-				// TODO: select first valid target from that list
+
+				// in one pass:
+				// return immediately if any high priority scenarios
+				// otherwise, return the nearest valid entity
+				var nearestDist = lua.Math.huge;
 				for (pair in ipairs(nearbyEntities))
 				{
-					target = pair.value;
-					if (target == player) continue;
+					var entity = pair.value;
+					if (entity == player) continue;
 					
-					lit("iterating nearby entity %s", target, null == target ? "?" : target.prefab, "BUT GOT NULL");
-					if (ValidAttackTarget())
+					lit("iterating nearby entity %s", entity, null == entity ? "?" : entity.prefab, "BUT GOT NULL");
+					if (ValidAttackTarget(entity))
 					{
-						Console.log("");
-						var dsq = player.GetDistanceSqToInst(target);
+
+						var dsq = lit("distance squared to entity is %s", player.GetDistanceSqToInst(entity), function(p) return ""+p, "falsy wtf?");
 						var dist:Float;
 						if (dsq <= 0)
 						{
 							dist = 0;
 						}
-						else if (null != target.Physics)
+						else if (null != entity.Physics)
 						{
-							dist = lua.Math.max(0, lua.Math.sqrt(dsq) - target.Physics.GetRadius());
+							dist = lua.Math.max(0, lua.Math.sqrt(dsq) - entity.Physics.GetRadius());
 						}
 						else {
 							dist = lua.Math.sqrt(dsq);
 						}
-						if (!retry && player.replica.combat.IsRecentTarget(target))
-						{
-							if (dist < attackRange + .1)
-							{
-								Console.log("");
-								return target;
-							}
-							retry = true;
-						}
+
 						if (dist < nearestDist)
 						{
 							nearestDist = dist;
+							target = entity;
 						}
 					}
-					else if (!retry && player.replica.combat.IsRecentTarget(target))
-					{
-						retry = true;
-					}
+
+					// TODO: that other code was saying that if one of the targets within range ive hit before
+					// and its valid. then attack it again regardless of whether its closer
 				}
 
-				Console.log("");
+				if (null != target) Console.log(target.GetDebugString());
+				lit("the nearest valid target was %s", target, function(t) return t.prefab +" at "+ nearestDist, "null");
 				return target;
 
 

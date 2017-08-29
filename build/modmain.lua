@@ -178,41 +178,41 @@ Main.main = function()
         end;
         do return false end;
       end,nil,nil,"true","FALSE",nil,_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Main.hx",lineNumber=91,className="Main",methodName="main"}));
-      local ValidAttackTarget = function() 
-        if ((utils.Console.lit("target is %s",nil,nil ~= target,function(_) 
-          do return target.prefab end;
-        end,"IS NULL",nil,nil,_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Main.hx",lineNumber=110,className="Main",methodName="main"})) and utils.Console.lit("target %s combat ability",nil,nil ~= target.replica.combat,nil,"has","HAS NO",nil,_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Main.hx",lineNumber=111,className="Main",methodName="main"}))) and (not (utils.Console.lit("retry is %s",nil,retry,nil,"true","false",nil,_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Main.hx",lineNumber=115,className="Main",methodName="main"})) or utils.Console.lit("target %s same as two times ago",nil,player.replica.combat:IsRecentTarget(target),nil,"is","IS NOT",nil,_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Main.hx",lineNumber=116,className="Main",methodName="main"}))) and not (utils.Console.lit("target %s",nil,nil == target.replica.health,nil,"was never alive","has health meter",nil,_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Main.hx",lineNumber=123,className="Main",methodName="main"})) or ((utils.Console.lit("player %s applying force",nil,not force,nil,"is not","is",nil,_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Main.hx",lineNumber=124,className="Main",methodName="main"})) and utils.Console.lit("target %s attacking player",function() 
-          do return target.replica.combat:GetTarget() ~= player end;
+      local ValidAttackTarget = function(target1) 
+        if ((utils.Console.lit("target is %s",nil,nil ~= target1,function(_) 
+          do return target1.prefab end;
+        end,"IS NULL",nil,nil,_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Main.hx",lineNumber=110,className="Main",methodName="main"})) and utils.Console.lit("target %s combat ability",nil,nil ~= target1.replica.combat,nil,"has","HAS NO",nil,_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Main.hx",lineNumber=111,className="Main",methodName="main"}))) and (not (utils.Console.lit("retry is %s",nil,retry,nil,"true","false",nil,_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Main.hx",lineNumber=115,className="Main",methodName="main"})) or utils.Console.lit("target %s same as two times ago",nil,player.replica.combat:IsRecentTarget(target1),nil,"is","IS NOT",nil,_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Main.hx",lineNumber=116,className="Main",methodName="main"}))) and not (utils.Console.lit("target %s",nil,nil == target1.replica.health,nil,"was never alive","has health meter",nil,_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Main.hx",lineNumber=123,className="Main",methodName="main"})) or ((utils.Console.lit("player %s applying force",nil,not force,nil,"is not","is",nil,_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Main.hx",lineNumber=124,className="Main",methodName="main"})) and utils.Console.lit("target %s attacking player",function() 
+          do return target1.replica.combat:GetTarget() ~= player end;
         end,nil,nil,"is not","is",nil,_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Main.hx",lineNumber=125,className="Main",methodName="main"}))) and ((((utils.Console.lit("target %s hostile",function() 
-          do return not target:HasTag("hostile") end;
+          do return not target1:HasTag("hostile") end;
         end,nil,nil,"is not","is",nil,_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Main.hx",lineNumber=126,className="Main",methodName="main"})) or utils.Console.lit("target %s allied to player",function() 
-          do return player.replica.combat:IsAlly(target) end;
+          do return player.replica.combat:IsAlly(target1) end;
         end,nil,nil,"is","is not",nil,_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Main.hx",lineNumber=127,className="Main",methodName="main"}))) or (utils.Console.lit("player %s weapon",nil,not playerHasWeapon,nil,"has no","has a",nil,_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Main.hx",lineNumber=130,className="Main",methodName="main"})) and utils.Console.lit("target %s a monster",function() 
-          do return target:HasTag("monster") end;
+          do return target1:HasTag("monster") end;
         end,nil,nil,"is","is not",nil,_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Main.hx",lineNumber=131,className="Main",methodName="main"})))) or utils.Console.lit("target %s another player",function() 
-          do return target:HasTag("player") end;
-        end,nil,nil,"is","is not",nil,_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Main.hx",lineNumber=133,className="Main",methodName="main"}))) or (((utils.Console.lit("target %s a follower",nil,nil ~= target.replica.follower,nil,"is","is not",nil,_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Main.hx",lineNumber=134,className="Main",methodName="main"})) and utils.Console.lit("...and they have %s leader",function() 
-          do return nil ~= target.replica.follower:GetLeader() end;
+          do return target1:HasTag("player") end;
+        end,nil,nil,"is","is not",nil,_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Main.hx",lineNumber=133,className="Main",methodName="main"}))) or (((utils.Console.lit("target %s a follower",nil,nil ~= target1.replica.follower,nil,"is","is not",nil,_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Main.hx",lineNumber=134,className="Main",methodName="main"})) and utils.Console.lit("...and they have %s leader",function() 
+          do return nil ~= target1.replica.follower:GetLeader() end;
         end,nil,nil,"a","NO",nil,_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Main.hx",lineNumber=135,className="Main",methodName="main"}))) and utils.Console.lit("...their leader %s a player",function() 
-          do return target.replica.follower:GetLeader():HasTag("player") end;
+          do return target1.replica.follower:GetLeader():HasTag("player") end;
         end,nil,nil,"is","is not",nil,_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Main.hx",lineNumber=136,className="Main",methodName="main"}))) and utils.Console.lit("...and that leader %s attacking our player",function() 
-          do return target.replica.follower:GetLeader().replica.combat:GetTarget() ~= player end;
+          do return target1.replica.follower:GetLeader().replica.combat:GetTarget() ~= player end;
         end,nil,nil,"is not","is",nil,_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Main.hx",lineNumber=137,className="Main",methodName="main"})))))))) then 
           do return not ((((utils.Console.lit("target %s be attacked",function() 
-            do return not player.replica.combat:CanTarget(target) end;
+            do return not player.replica.combat:CanTarget(target1) end;
           end,nil,nil,"CANNOT","can",nil,_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Main.hx",lineNumber=147,className="Main",methodName="main"})) or utils.Console.lit("target %s outside range or invulnerable",function() 
-            do return not player.replica.combat:CanHitTarget(target) end;
+            do return not player.replica.combat:CanHitTarget(target1) end;
           end,nil,nil,"IS","is not",nil,_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Main.hx",lineNumber=148,className="Main",methodName="main"}))) or utils.Console.lit("target %s died",function() 
-            do return target.replica.health:IsDead() end;
+            do return target1.replica.health:IsDead() end;
           end,nil,nil,"has","has not",nil,_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Main.hx",lineNumber=149,className="Main",methodName="main"}))) or utils.Console.lit("player %s see target (expensive?)",function() 
-            do return not _G.CanEntitySeeTarget(player,target) end;
+            do return not _G.CanEntitySeeTarget(player,target1) end;
           end,nil,nil,"CANNOT","can",nil,_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Main.hx",lineNumber=150,className="Main",methodName="main"}))) or utils.Console.lit("player distance to target %s within reach",function() 
-            local ValidAttackTarget1 = target:GetDistanceSqToPoint(_hx_1_playerCoords_x,0,_hx_1_playerCoords_z);
+            local ValidAttackTarget1 = target1:GetDistanceSqToPoint(_hx_1_playerCoords_x,0,_hx_1_playerCoords_z);
             local ValidAttackTarget2 = (function() 
               local _hx_4
-              if (nil == target.Physics) then 
+              if (nil == target1.Physics) then 
               _hx_4 = 0; else 
-              _hx_4 = target.Physics:GetRadius(); end
+              _hx_4 = target1.Physics:GetRadius(); end
               return _hx_4
             end )();
             do return ValidAttackTarget1 > _G.math.pow(playerReach + ValidAttackTarget2,2) end;
@@ -224,71 +224,77 @@ Main.main = function()
         end;
       end;
       utils.Console.log("testing target that was passed in...",_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Main.hx",lineNumber=161,className="Main",methodName="main"}));
-      if (ValidAttackTarget()) then 
+      if (ValidAttackTarget(target)) then 
         do return target end;
       end;
       target = nil;
       retry = false;
       utils.Console.log("searching for nearby entity to target...",_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Main.hx",lineNumber=172,className="Main",methodName="main"}));
-      local nearestDist = _G.math.huge;
       local nearbyEntities = utils.Console.lit("found %s nearby entities",function() 
         do return _G.TheSim:FindEntities(_hx_1_playerCoords_x,_hx_1_playerCoords_y,_hx_1_playerCoords_z,walkingRange + 5,_hx_tab_array({[0]="_combat" }, 1),_hx_tab_array({[0]="INLIMBO" }, 1)) end;
-      end,nil,nil,"some","0",nil,_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Main.hx",lineNumber=174,className="Main",methodName="main"}));
+      end,nil,function(t) 
+        do return Std.string(utils.Lua.count(t)) end;
+      end,"0",nil,nil,_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Main.hx",lineNumber=173,className="Main",methodName="main"}));
+      local nearestDist = _G.math.huge;
       local pair = utils.Lua.ipairs(nearbyEntities);
+      local _hx_break_0 = false;
       while (pair:hasNext()) do 
+        repeat 
         local pair1 = pair:next();
-        target = pair1.value;
-        utils.Console.lit("iterating nearby entity %s",nil,target,nil,(function() 
+        local entity = pair1.value;
+        if (entity == player) then 
+          break;
+        end;
+        utils.Console.lit("iterating nearby entity %s",nil,entity,nil,(function() 
           local _hx_5
-          if (nil == target) then 
+          if (nil == entity) then 
           _hx_5 = "?"; else 
-          _hx_5 = target.prefab; end
+          _hx_5 = entity.prefab; end
           return _hx_5
-        end )(),"BUT GOT NULL",nil,_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Main.hx",lineNumber=191,className="Main",methodName="main"}));
-        if (ValidAttackTarget()) then 
-          utils.Console.log("",_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Main.hx",lineNumber=194,className="Main",methodName="main"}));
-          local dsq = player:GetDistanceSqToInst(target);
+        end )(),"BUT GOT NULL",nil,_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Main.hx",lineNumber=193,className="Main",methodName="main"}));
+        if (ValidAttackTarget(entity)) then 
+          local dsq = utils.Console.lit("distance squared to entity is %s",nil,player:GetDistanceSqToInst(entity),function(p1) 
+            do return "" .. p1 end;
+          end,"falsy wtf?",nil,nil,_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Main.hx",lineNumber=197,className="Main",methodName="main"}));
           local dist;
           if (dsq <= 0) then 
             dist = 0;
           else
-            if (nil ~= target.Physics) then 
-              dist = _G.math.max(0,_G.math.sqrt(dsq) - target.Physics:GetRadius());
+            if (nil ~= entity.Physics) then 
+              dist = _G.math.max(0,_G.math.sqrt(dsq) - entity.Physics:GetRadius());
             else
               dist = _G.math.sqrt(dsq);
             end;
           end;
-          if (not retry and player.replica.combat:IsRecentTarget(target)) then 
-            if (dist < (attackRange + .1)) then 
-              utils.Console.log("",_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Main.hx",lineNumber=212,className="Main",methodName="main"}));
-              do return target end;
-            end;
-            retry = true;
-          end;
           if (dist < nearestDist) then 
             nearestDist = dist;
-          end;
-        else
-          if (not retry and player.replica.combat:IsRecentTarget(target)) then 
-            retry = true;
+            target = entity;
           end;
         end;
-        end;
-      utils.Console.log("",_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Main.hx",lineNumber=228,className="Main",methodName="main"}));
+        
+      until true
+      if _hx_break_1 then _hx_break_1 = false; break; end
+      end;
+      if (nil ~= target) then 
+        utils.Console.log(target:GetDebugString(),_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Main.hx",lineNumber=219,className="Main",methodName="main"}));
+      end;
+      utils.Console.lit("the nearest valid target was %s",nil,target,function(t1) 
+        do return t1.prefab .. " at " .. nearestDist end;
+      end,"null",nil,nil,_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Main.hx",lineNumber=220,className="Main",methodName="main"}));
       do return target end
      end;
   end);
   env.AddClassPostConstruct("components/combat_replica",function(combat) 
     local oldIsAlly = _hx_bind(combat,combat.IsAlly);
-    combat.IsAlly = function(self,target1) 
-      utils.Console.log("combat replica IsAlly()",_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Main.hx",lineNumber=267,className="Main",methodName="main"}));
-      local ally = oldIsAlly(target1);
+    combat.IsAlly = function(self,target2) 
+      utils.Console.log("combat replica IsAlly()",_hx_o({__fields__={fileName=true,lineNumber=true,className=true,methodName=true},fileName="Main.hx",lineNumber=259,className="Main",methodName="main"}));
+      local ally = oldIsAlly(target2);
       if (ally) then 
         do return ally end;
       end;
       local weapon = combat:GetWeapon();
       if ((nil ~= weapon) and weapon:HasTag("icestaff")) then 
-        if ((nil ~= target1.components.freezable) and target1.components.freezable:IsFrozen()) then 
+        if ((nil ~= target2.components.freezable) and target2.components.freezable:IsFrozen()) then 
           ally = true;
         else
           ally = false;
@@ -798,6 +804,13 @@ utils.Lua.ipairs = function(table)
   end,hasNext=function(self) 
     do return nil ~= table[i] end;
   end}) end;
+end
+utils.Lua.count = function(table) 
+  local i = 0;
+  while (nil ~= table[i + 1]) do 
+    i = i + 1;
+    end;
+  do return i end;
 end
 _hx_bit_clamp = function(v) 
   if v <= 2147483647 and v >= -2147483648 then

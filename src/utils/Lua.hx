@@ -30,4 +30,21 @@ class Lua
 			}
 		};
 	}
+
+	/**
+	 * Since Lua tables are stateless iterators, the ONLY way to obtain
+	 * the length of a table is to count it during iteration. :/
+	 * That's basically what the Lua (#) operator does.
+	 * Also, according to the manual, calling # on non-sequences is undefined.
+	 * Meaning, its up to you to ensure the table keys are sequential from 1
+	 * before you try to count them this way.
+	 */
+	public static function count<V>(table:Table<Int,V>): Int
+	{
+		var i:Int = 0;
+		while (null != table[i+1]) {
+			i++;
+		}
+		return i;
+	}
 }
