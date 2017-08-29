@@ -42,9 +42,7 @@ class Lua
 	public static function count<V>(table:Table<Int,V>): Int
 	{
 		var i:Int = 0;
-		while (null != table[i+1]) {
-			i++;
-		}
-		return i;
+		while (null != table[++i]) {}
+		return i-2;
 	}
 }

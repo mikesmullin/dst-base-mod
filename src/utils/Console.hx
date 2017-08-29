@@ -44,33 +44,30 @@ class Console
 	 */
 	public static function lit<T>(
 		msg:String,
-		?valueProfileFn:Void->T,
-		?value:T,
-		?truthyReplFn:T->String,
-		?truthyRepl:String,
-		?falsyRepl:String,
+		value:OneOf<Void->T,T>,
+		truthyRepl:OneOf<Dynamic->String,String>,
+		falsyRepl:String,
 		?expected:Dynamic,
 		?pos:haxe.PosInfos
 	):T
 	{
-		var _value:T = null;
+		var _value:T;
 		var deltaTime:Null<Float> = null;
-		if (null != valueProfileFn)
+		switch (value)
 		{
+			case Left(fn):
 				// profiler
 				var started = dst.MainFunctions.GetTime();
-				_value = valueProfileFn();
+				_value = fn();
 				var ended = dst.MainFunctions.GetTime();
 				deltaTime = Std.int((ended - started) * 1000) / 1000; // milliseconds
-		}
-		else
-		{
-				_value = value;
+			case Right(v):
+				_value = v;
 		}
 
 		// ECMAScript-like Truthiness
 		var isTruthy: Bool;
-		switch (Type.typeof(value))
+		switch (Type.typeof(_value))
 		{
 			case TNull:
 				isTruthy = false;
@@ -83,18 +80,15 @@ class Console
 		}
 
 		// either expected is non-null and value equals expected, or value is truthy
-		isTruthy = (null != expected && _value == expected) || (null == expected && isTruthy);		
+		isTruthy = (null != expected && _value == expected) || (null == expected && isTruthy);
 
 		var replacement:String = "";
 		if (isTruthy)
 		{
-			if (null != truthyReplFn)
+			switch (truthyRepl)
 			{
-				replacement = truthyReplFn(_value);
-			}
-			else if (null != truthyRepl)
-			{
-				replacement = truthyRepl;
+				case Left(fn): replacement = fn(_value);
+				case Right(s): replacement = s;
 			}
 		}
 		else {
@@ -127,10 +121,7 @@ class Console
 
 
 // see also: https://gist.github.com/mrcdk/d881f85d64379e4384b1
-abstract OneOf<A, B>(Either<A, B>) from Either<A, B> to Either<A, B> {
+abstract OneOf<A, B>(Either<A, B>) from Either<A, B> {
   @:from inline static function fromA<A, B>(a:A) : OneOf<A, B> return Left(a);
   @:from inline static function fromB<A, B>(b:B) : OneOf<A, B> return Right(b);
-    
-  @:to inline function toA():Null<A> return switch(this) {case Left(a): a; default: null;}
-  @:to inline function toB():Null<B> return switch(this) {case Right(b): b; default: null;}
 }

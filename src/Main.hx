@@ -107,14 +107,16 @@ class Main
 				function ValidAttackTarget(target:EntityScript):Bool
 				{
 					return (
-						lit("target is %s", null != target, (function(_) return target.prefab), "IS NULL") &&
+						lit("target is %s", null != target, (function(_) return target.prefab), "NULL") &&
 						lit("target %s combat ability", null != target.replica.combat, "has", "HAS NO") &&
 
 						(
-							!( // not
+							// TODO: share an outside var indicating whether the player recognizes the target
+							// and use that to short-circuit the iteration and choose that character? might hinder important targets tho
+							( // recognized
 								lit("retry is %s", retry, "true", "false") || // target is same as last time, or
 								lit("target %s same as two times ago", player.replica.combat.IsRecentTarget(target), "is", "IS NOT")
-							) &&
+							) || // or
 
 							// target not recognized;
 							// treat as new target;
@@ -138,20 +140,30 @@ class Main
 									)
 								)
 							)
-						) &&
+						) && // if its still considered valid up to this point,
+						// continue with more validation
 
 						// per-attack validation;
 						// happens every Update frame (keep checks low-latency)
 						// happens to all targets incl. previously validated targets
 						!( // reasons to reject:
-							lit("target %s be attacked", function() return !player.replica.combat.CanTarget(target), "CANNOT", "can") ||
-							lit("target %s outside range or invulnerable", function() return !player.replica.combat.CanHitTarget(target), "IS", "is not") || // (e.g., fire, freeze)
+							lit("target %s be targeted", function() return !player.replica.combat.CanTarget(target), "CANNOT", "can") ||
+							(false && lit("target %s be hit", function() return !player.replica.combat.CanHitTarget(target), "CANNOT", "can")) || // (e.g., fire, freeze)
 							lit("target %s died", function() return target.replica.health.IsDead(), "has", "has not") ||
 							lit("player %s see target (expensive?)", function() return !dst.SimUtil.CanEntitySeeTarget(player, target), "CANNOT", "can") ||
 							// target is outside reach
-					    lit("player distance to target %s within reach", function() return target.GetDistanceSqToPoint(playerCoords.x, 0, playerCoords.z) >
+							// TODO: deduplicate this calculation by doing it on validation only or returning the value by sharing outside dist var
+					    lit("player distance to target %s outside reach "+
+							
+							"distance between target and player "+
+							(target.GetDistanceSqToPoint(playerCoords.x, 0, playerCoords.z)) + " > " + 
+							"area radius player can reach within "+
+							lua.Math.pow(playerReach + ((null == target.Physics) ? 0 :
+									target.Physics.GetRadius()), 2)
+							
+							, function() return target.GetDistanceSqToPoint(playerCoords.x, 0, playerCoords.z) >
 								lua.Math.pow(playerReach + ((null == target.Physics) ? 0 :
-									target.Physics.GetRadius()), 2), function(f) return "("+f+" units) is", "is not")
+									target.Physics.GetRadius()), 2), "is", "is not")
 						)
 					);
 				}
@@ -190,7 +202,7 @@ class Main
 					var entity = pair.value;
 					if (entity == player) continue;
 					
-					lit("iterating nearby entity %s", entity, null == entity ? "?" : entity.prefab, "BUT GOT NULL");
+					lit("  ===> iterating nearby entity %s", entity, null == entity ? "?" : entity.prefab, "BUT GOT NULL");
 					if (ValidAttackTarget(entity))
 					{
 
@@ -219,7 +231,7 @@ class Main
 					// and its valid. then attack it again regardless of whether its closer
 				}
 
-				if (null != target) Console.log(target.GetDebugString());
+				// if (null != target) Console.log(target.GetDebugString());
 				lit("the nearest valid target was %s", target, function(t) return t.prefab +" at "+ nearestDist, "null");
 				return target;
 
