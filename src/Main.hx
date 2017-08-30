@@ -19,6 +19,7 @@ private abstract UsedTags(TagName) to TagName {
 	var ATTACK = cast "attack";
 	var BEAVER = cast "beaver";
 	var FIRESTAFF = cast "firestaff";
+	var FIRE = cast "fire";
 	var HOSTILE = cast "hostile";
 	var ICESTAFF = cast "icestaff";
 	var INLIMBO = cast "INLIMBO";
@@ -32,6 +33,8 @@ class Main
 	public static function main()
 	{
 		utils.Debug.setup();
+
+		if (!dst.compiled.Globals.TheNet.GetIsClient()) return;
 
 		dst.ModUtil.AddClassPostConstruct("components/playercontroller", function(self:dst.components.PlayerController)
 		{
@@ -53,15 +56,6 @@ class Main
 			 */
 			self.GetAttackTarget = function(force:Bool, target:EntityScript, retry:Bool):EntityScript
 			{
-				// debug traces
-				Console.println("--");
-				Console.log("PlayerController:GetAttackTarget()");
-
-				// Console.log("  "+ (force ? 'force TRUE' : 'force FALSE'));
-				// Console.trace("  "+ (null != target ? 'target '+ target.prefab : 'target NULL'));
-				// if (null != target) Console.println(target.GetDebugString());
-				// Console.trace("  "+ (retry ? 'retry TRUE' : 'retry FALSE'));
-
 				// validation;
 				// eliminate most common possibilities first.
 				// leave most expensive analysis for last.
@@ -159,16 +153,19 @@ class Main
 
 							// custom; awww yeah boi!
 
-							(null != playerItemInHand && (
+							(lit("player %s item in hand", null != playerItemInHand, "has", "has no") && (
 							// don't double-freeze folks, its a waste
-								(playerItemInHand.prefab == "icestaff" &&
-									null != target.components.freezable &&
-									target.components.freezable.IsFrozen()) ||
+								(lit("player %s ice staff", playerItemInHand.prefab == "icestaff", "has", "has no") &&
+
+									// client-side check for being frozen
+									lit("target %s AnimState", null != target.AnimState, "has", "has no") && (
+										(lit("target animation %s \"frozen\"", target.AnimState.IsCurrentAnimation("frozen"), "is", "is not") ||
+										lit("target animation %s \"frozen_loop_pst\"", target.AnimState.IsCurrentAnimation("frozen_loop_pst"), "is", "is not")))
+								) ||
 
 								// don't double-flame folks, its a waste
 								(playerItemInHand.prefab == "firestaff" &&
-									null != target.components.burnable &&
-									target.components.burnable.IsBurning())
+									lit("target %s fire tag", target.HasTag(FIRE), "has", "does not have"))
 							))
 
 						)
@@ -207,8 +204,9 @@ class Main
 						}
 					}
 					nepi(target.prefab); // by prefab name
-					// special case for attacking spiders
-					if ("spider" == target.prefab && target.HasTag(ATTACK)) nepi("spider_attack");
+					
+					// special case for things about to attack us
+					if (target.HasTag(ATTACK) && target.replica.combat.GetTarget() == player) nepi("attack");
 
 					return true;
 				}
@@ -291,7 +289,7 @@ class Main
 					(weap(["icestaff"]) && nearby(["walrus", "canary", "robin_winter", "robin", "crow"])) ||
 					(weap(["blowdart_pipe"]) && nearby(["icehound", "hound", "firehound"])) ||
 					(weap(["boomerang"]) && nearby(["deerclops", "bearger", "walrus", "canary", "robin_winter", "robin", "crow"])) ||
-					nearby(["spider_attack"])
+					nearby(["attack"])
 				))
 				{
 					target = interests["nearest"];

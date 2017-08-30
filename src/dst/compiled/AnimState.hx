@@ -1,5 +1,9 @@
 package dst.compiled;
 
+/**
+ * Controls which animations are playing for a Prefab.
+ * Primarily controlled by StateGraph?
+ */
 @:native("_G.AnimState")
 extern class AnimState
 {
@@ -21,7 +25,12 @@ extern class AnimState
 	public function GetSymbolPosition(): Dynamic;
 	public function Hide(): Dynamic;
 	public function HideSymbol(): Dynamic;
-	public function IsCurrentAnimation(): Dynamic;
+
+	/**
+	 * @returns if given animation name is currently the one playing.
+	 */
+	public function IsCurrentAnimation(name:String): Bool;
+
 	public function OverrideItemSkinSymbol(): Dynamic;
 	public function OverrideMultColor(): Dynamic;
 	public function OverrideShade(): Dynamic;

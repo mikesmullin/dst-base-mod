@@ -56,6 +56,7 @@ extern class EntityScript extends ExplicitLuaClass
 	public var Transform: dst.compiled.Transform;
 	public var sg: StateGraphInstance;
 	public var Physics: dst.compiled.Physics;
+	public var AnimState: dst.compiled.AnimState;
 
 	public var data: {}; // default: nil
 	public var listeners: Array<{}>; // default: nil

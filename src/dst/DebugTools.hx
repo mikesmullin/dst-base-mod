@@ -9,7 +9,7 @@ extern class DebugTools // Externs
 	/**
 	 * Serialize a lua.Table to string for logging.
 	 */
-	static public function dumptable<K,V>(obj:lua.Table<K,V>, ?indent:String, ?recurse_levels: Int, ?visit_table: Bool): Void;
+	static public function dumptable<K,V>(obj:Dynamic, ?indent:String, ?recurse_levels: Int, ?visit_table: Bool): Void;
 
 	/**
 	 * Return Lua runtime stack trace of callee for logging.

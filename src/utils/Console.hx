@@ -16,6 +16,12 @@ class Console
 		return (null == v) ? null : fn(v);
 	}
 
+	public static function serpent(v: Dynamic): Void
+	{
+		var serpent = lua.Lua.require('serpent');
+		untyped __lua__("print(serpent.block({0}))", v);
+	}
+
 	#if debug
 
 	public static function println(s:String):Void

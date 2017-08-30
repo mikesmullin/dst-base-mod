@@ -54,11 +54,11 @@ extern class NetworkProxy
 	public function GetDefaultServerName(): Dynamic;
 	public function GetDefaultServerPassword(): Dynamic;
 	public function GetDefaultVoteEnabled(): Dynamic;
-	public function GetIsClient(): Dynamic;
-	public function GetIsHosting(): Dynamic;
-	public function GetIsMasterSimulation(): Dynamic;
-	public function GetIsServer(): Dynamic;
-	public function GetIsServerAdmin(): Dynamic;
+	public function GetIsClient(): Bool;
+	public function GetIsHosting(): Bool;
+	public function GetIsMasterSimulation(): Bool;
+	public function GetIsServer(): Bool;
+	public function GetIsServerAdmin(): Bool;
 	public function GetLanguageCode(): Dynamic;
 	public function GetLocalUserName(): Dynamic;
 	public function GetNetworkStatistics(): Dynamic;
