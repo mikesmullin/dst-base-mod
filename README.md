@@ -4,7 +4,7 @@
 - Prefab: what an object "is"
   - Asset: art media files on disk
   - EntityScript: instance of an entity
-    - StateGraph: FSM procession of operating modes (e.g., moods, limbo, idle)
+    - StateGraph: rules of animation playback and timing for Prefabs and EntityScripts
     - BufferedAction: an instance of an action to be executed
       - Action: reference to enum of possible actions
       - Recipe: validate action capability is earned
