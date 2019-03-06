@@ -87,7 +87,9 @@ i also copy + renamed lua5.1.exe to lua.exe for convenience (typing `lua` in cmd
 
 
 
+downloading other ppl's workshop mods to look at code:
 
+- http://steamworkshopdownloader.com/
 
 
 
