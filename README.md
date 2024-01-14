@@ -7,6 +7,14 @@ Often I am playing with Steam Community Workshop mods enabled.
 Occasionally, I like to make my own mods.  
 When I do, I use this as a starting point.  
 
+**IMPORTANT NOTE:** This repo is written in Haxe language, which compiles to Lua.  
+The point of doing that is:
+- Strong typing (like Java, or C++)
+- Interface declaration; by describing the DST API using strongly typed interfaces, I am simultaneously documenting it and making my code more reliable.
+- These reduce development cycle time, as fewer cycles are wasted to a class of runtime errors (mainly typos and syntax errors)
+
+You can learn more about Haxe at https://haxe.org/  
+
 ## What else is this?
 
 It may be a long time between when I create mods,  
