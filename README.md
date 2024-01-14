@@ -155,10 +155,11 @@ The `install.bat /L` command assumes to use packaged lua 5.1 binaries and instal
 Many of the art assets are not using common file formats/extensions.
 
 - for **audio/sound**: use `FMOD` from `Don't Starve Mod Tools` which is installable from `Tools` category using Steam.
-- `FMOD Event Player` is can play `.fev` files. look for it under:  
+
+- for `.fev`files: `FMOD Event Player` is can play `.fev` files. look for it under:  
   `\SteamLibrary\steamapps\common\Don't Starve Mod Tools\mod_tools\FMOD_Designer\fmod_eventplayer.exe`
 
-- for **animations**: 
+- for **animations** `.scml`: 
   - use `ktools` from forums 
   - then use `Spriter` (from `Don't Starve Mod Tools` on any `*.scml` file.
   - see also: https://forums.kleientertainment.com/files/file/583-ktools-cross-platform-modding-tools-for-dont-starve/
@@ -166,7 +167,8 @@ Many of the art assets are not using common file formats/extensions.
     - unzip the `*_build.zip` and then the desired animation `*.zip` into a single folder 
     - `ktools-4.4.4-win32\ktools-4.4.4\krane.exe -v anim.bin build.bin ./`
     - `ktools-4.4.4-win32\ktools-4.4.4\ktech.exe atlas-0.tex`
-  - for images `.tex`: use `Handsom Matt's tools` from klei forum  
-    https://forums.kleientertainment.com/files/file/73-handsome-matts-tools/
+    
+- for **images** `.tex`: use `Handsom Matt's tools` from klei forum  
+  https://forums.kleientertainment.com/files/file/73-handsome-matts-tools/
 
-- for publishing your mod to steam: use the default radio selection for `Don't Starve Mod Tools` launcher.
+- for **publishing** your mod to steam: use the default radio selection for `Don't Starve Mod Tools` launcher.
