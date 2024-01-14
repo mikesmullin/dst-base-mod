@@ -11,7 +11,8 @@ When I do, I use this as a starting point.
 The point of doing that is:
 - Strong typing (like Java, or C++)
 - Interface declaration; by describing the DST API using strongly typed interfaces, I am simultaneously documenting it and making my code more reliable.
-- These reduce development cycle time, as fewer cycles are wasted to a class of runtime errors (mainly typos and syntax errors)
+- These reduce development cycle time, as fewer cycles are wasted to a class of runtime errors (mainly typos and syntax errors)  
+  (That's important because it takes a loong time to restart DST every time you want to test a 1-letter change in the code.)
 
 You can learn more about Haxe at https://haxe.org/  
 
