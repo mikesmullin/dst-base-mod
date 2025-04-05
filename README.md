@@ -157,7 +157,10 @@ The `install.bat /L` command assumes to use packaged lua 5.1 binaries and instal
 - What it does not explain well is that you need to concatenate them all yourself.  
 - DO NOT set the `PATHEXT` env var.
 - `%APPDATA%` needs to be manually replaced.
-- Copy + rename `lua5.1.exe` => `lua.exe` for convenience (then typing `lua` in cmd just works)  
+- Copy + rename `lua5.1.exe` => `lua.exe` for convenience (then typing `lua` in cmd just works)
+
+### Alternative Lua IDE
+- [pkulchenko/ZeroBraneStudio](https://github.com/pkulchenko/ZeroBraneStudio) is potentially a very good IDE with interactive Lua debugger as well
 
 ## Manipulating art asset files
 
